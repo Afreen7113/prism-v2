@@ -1,0 +1,197 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Star } from "lucide-react";
+
+interface TestimonialAuthor {
+  initials: string;
+  name: string;
+  role: string;
+  gradient: string;
+}
+
+interface Testimonial {
+  quote: string;
+  author: TestimonialAuthor;
+}
+
+const testimonialsData: Testimonial[] = [
+  {
+    quote: "We replaced 6 months of planned engineering work with Prism in a single afternoon. Our customers had no idea we were using a third-party SDK — it looked completely native to our product.",
+    author: {
+      initials: "SC",
+      name: "Sarah Chen",
+      role: "CTO at Lumen Health",
+      gradient: "from-indigo-500 to-purple-600",
+    },
+  },
+  {
+    quote: "The white-labeling is unreal. We customized every token to match our brand perfectly. Customers genuinely believe we built our analytics dashboard in-house. That's the ultimate compliment.",
+    author: {
+      initials: "MW",
+      name: "Marcus Webb",
+      role: "VP Engineering at Vault Finance",
+      gradient: "from-purple-500 to-pink-600",
+    },
+  },
+  {
+    quote: "Self-serve chart builder cut our customer support tickets in half. Users love being able to create their own reports without filing a ticket. Game-changer for our team.",
+    author: {
+      initials: "PP",
+      name: "Priya Patel",
+      role: "Founder at Stitch",
+      gradient: "from-cyan-500 to-blue-600",
+    },
+  },
+];
+
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
+};
+
+const wordVariants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 1, 0.5, 1] as const,
+    },
+  },
+};
+
+export default function Testimonials() {
+  return (
+    <section className="py-16 px-8 bg-bg-base relative z-10 overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* Header */}
+        <div className="text-center mb-16 px-6">
+          <span className="inline-block text-[13px] font-semibold text-primary uppercase tracking-[0.15em] mb-4">
+            Testimonials
+          </span>
+          <motion.h2 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] leading-[1.05] text-text-primary mb-6"
+          >
+            <span
+              className="gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] inline-block"
+              style={{
+                backgroundImage: "linear-gradient(120deg, #6366F1, #A855F7, #22D3EE, #6366F1)",
+              }}
+            >
+              {"Loved".split(" ").map((word, i) => (
+                <span key={i} className="inline-block overflow-hidden mr-[0.25em] last:mr-0 py-0.5">
+                  <motion.span variants={wordVariants} className="inline-block">
+                    {word}
+                  </motion.span>
+                </span>
+              ))}
+            </span>{" "}
+            {"by engineering teams.".split(" ").map((word, i) => (
+              <span key={i} className="inline-block overflow-hidden mr-[0.25em] py-0.5">
+                <motion.span variants={wordVariants} className="inline-block">
+                  {word}
+                </motion.span>
+              </span>
+            ))}
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto mt-4"
+          >
+            Hear from CTOs and engineers who shipped analytics in days, not months.
+          </motion.p>
+        </div>
+
+        {/* Testimonials Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {testimonialsData.map((t, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{
+                duration: 0.6,
+                delay: idx * 0.15,
+                ease: [0.32, 0.72, 0, 1],
+              }}
+              whileHover={{
+                y: -6,
+                borderColor: "rgba(99, 102, 241, 0.3)",
+                boxShadow: "0 0 40px rgba(99, 102, 241, 0.15)",
+                scale: 1.02,
+              }}
+              className="group bg-[#0D0F17]/60 backdrop-blur-xl border border-white/5 rounded-[24px] p-8 relative overflow-hidden flex flex-col justify-between min-h-[240px] transition-colors duration-300 text-left"
+            >
+              
+              {/* Decorative Quote Icon */}
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                className="absolute top-6 left-6 w-12 h-12 opacity-10 group-hover:opacity-25 group-hover:scale-11 transition-all duration-300 pointer-events-none"
+              >
+                <defs>
+                  <linearGradient id={`quote-grad-${idx}`} x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#6366F1" />
+                    <stop offset="100%" stopColor="#A855F7" />
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M10 11H5.7C5.3 11 5 10.7 5 10.3V8.7C5 6.7 6.7 5 8.7 5H9C9.6 5 10 4.6 10 4V3C10 2.4 9.6 2 9 2H8.7C5 2 2 5 2 8.7V17C2 19.8 4.2 22 7 22H10C10.6 22 11 21.6 11 21V12C11 11.4 10.6 11 10 11ZM22 11H17.7C17.3 11 17 10.7 17 10.3V8.7C17 6.7 18.7 5 20.7 5H21C21.6 5 22 4.6 22 4V3C22 2.4 21.6 2 21 2H20.7C17 2 14 5 14 8.7V17C14 19.8 16.2 22 19 22H22C22.6 22 23 21.6 23 21V12C23 11.4 22.6 11 22 11Z"
+                  fill={`url(#quote-grad-${idx})`}
+                />
+              </svg>
+
+              {/* Star Rating */}
+              <div className="absolute top-8 right-8 flex gap-1 z-10">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-[#FBBF24] text-[#FBBF24]" />
+                ))}
+              </div>
+
+              {/* Quote text */}
+              <p className="text-text-primary text-[13px] leading-relaxed italic mt-10 flex-1 relative z-10">
+                &quot;{t.quote}&quot;
+              </p>
+
+              {/* Author block */}
+              <div className="flex items-center gap-3 mt-6 pt-6 border-t border-white/5 relative z-10">
+                {/* Avatar with unique gradient */}
+                <div
+                  className={`w-12 h-12 rounded-full bg-gradient-to-br ${t.author.gradient} flex items-center justify-center text-white font-semibold text-sm border-2 border-white/10 shrink-0 shadow-sm`}
+                >
+                  {t.author.initials}
+                </div>
+                {/* Author info */}
+                <div className="flex flex-col">
+                  <span className="text-sm font-semibold text-text-primary">
+                    {t.author.name}
+                  </span>
+                  <span className="text-xs text-text-secondary">
+                    {t.author.role}
+                  </span>
+                </div>
+              </div>
+
+            </motion.div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
