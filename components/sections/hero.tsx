@@ -457,14 +457,14 @@ export default function Hero() {
 
         </div>
 
-        <div className="col-span-1 lg:col-span-6 flex items-center justify-center lg:justify-end lg:pr-2 xl:pr-0 min-h-[350px] lg:min-h-[400px] w-full relative lg:translate-x-24 xl:translate-x-36 2xl:translate-x-48">
+        <div className="col-span-1 lg:col-span-6 flex items-center justify-center lg:justify-end lg:pr-2 xl:pr-0 min-h-[350px] lg:min-h-[400px] w-full relative lg:translate-x-8 xl:translate-x-16 2xl:translate-x-24">
           
           {/* Decorative Indigo Glow */}
           <div className="absolute top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] bg-indigo-500/20 blur-[120px] rounded-full pointer-events-none z-0" />
           
           {/* Subtle connecting curve behind the stack */}
-          <div className="absolute inset-0 w-full h-full z-0 pointer-events-none flex items-center justify-center translate-y-20">
-            <svg className="w-[530px] h-[250px] scale-75 sm:scale-90 md:scale-95 lg:scale-100 opacity-60" viewBox="0 0 530 250" fill="none">
+          <div className="absolute inset-0 w-full h-full z-0 pointer-events-none flex items-center justify-center lg:justify-end lg:pr-2 xl:pr-0 lg:-translate-x-16 xl:-translate-x-24 2xl:-translate-x-32 translate-y-20">
+            <svg className="w-[530px] h-[250px] scale-75 sm:scale-85 md:scale-90 lg:scale-[0.88] xl:scale-[0.95] 2xl:scale-100 opacity-60" viewBox="0 0 530 250" fill="none">
               <path
                 d="M 30 180 C 130 250, 400 250, 500 180"
                 stroke="rgba(99, 102, 241, 0.25)"
@@ -481,7 +481,7 @@ export default function Hero() {
           <div 
             onMouseEnter={() => setIsStackHovered(true)}
             onMouseLeave={() => setIsStackHovered(false)}
-            className="scale-75 sm:scale-90 md:scale-95 lg:scale-100 origin-center transition-transform duration-500 z-10"
+            className="scale-75 sm:scale-85 md:scale-90 lg:scale-[0.88] xl:scale-[0.95] 2xl:scale-100 origin-center transition-transform duration-500 z-10"
           >
             <div 
               className="relative w-[530px] h-[250px]"
