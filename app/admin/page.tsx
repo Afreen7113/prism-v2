@@ -100,6 +100,7 @@ export default function AdminPortal() {
   const themeStyle = {
     "--prism-dashboard-bg": surfaceColor,
     "--prism-dashboard-text": textContrast,
+    "--prism-dashboard-text-secondary": textContrast === "#FAFAFA" ? "#cbd5e1" : "#475569",
     "--prism-dashboard-border": textContrast === "#FAFAFA" ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)",
     "--prism-sidebar-bg": textContrast === "#FAFAFA" ? "rgba(0,0,0,0.15)" : "rgba(15,23,42,0.03)",
     "--prism-sidebar-border": textContrast === "#FAFAFA" ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)",
@@ -130,13 +131,14 @@ export default function AdminPortal() {
   --prism-semantic-accent: var(--prism-color-accent);
   --prism-semantic-bg: var(--prism-color-surface);
   --prism-semantic-text-primary: ${textContrast};
-  --prism-semantic-text-secondary: ${textContrast === "#FAFAFA" ? "rgba(250,250,250,0.6)" : "rgba(15,23,42,0.6)"};
+  --prism-semantic-text-secondary: ${textContrast === "#FAFAFA" ? "#cbd5e1" : "#475569"};
   --prism-semantic-border: ${textContrast === "#FAFAFA" ? "rgba(250,250,250,0.08)" : "rgba(15,23,42,0.08)"};
   --prism-semantic-radius: var(--prism-radius-base);
 
   /* 3. Component Tokens */
   --prism-dashboard-bg: var(--prism-semantic-bg);
   --prism-dashboard-text: var(--prism-semantic-text-primary);
+  --prism-dashboard-text-secondary: var(--prism-semantic-text-secondary);
   --prism-dashboard-border: var(--prism-semantic-border);
   --prism-sidebar-bg: ${textContrast === "#FAFAFA" ? "rgba(0,0,0,0.15)" : "rgba(15,23,42,0.03)"};
   --prism-card-bg: ${cardBg};

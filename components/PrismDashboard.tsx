@@ -85,20 +85,20 @@ export default function PrismDashboard({
               <LayoutDashboard className="w-3.5 h-3.5" />
               Overview
             </span>
-            <span className="px-2.5 py-1.5 rounded hover:bg-white/5 cursor-pointer transition-colors flex items-center gap-2 text-[var(--prism-dashboard-text)]/70 hover:text-[var(--prism-dashboard-text)]">
-              <Users className="w-3.5 h-3.5 text-text-secondary" />
+            <span className="px-2.5 py-1.5 rounded hover:bg-white/5 cursor-pointer transition-colors flex items-center gap-2 text-[var(--prism-dashboard-text-secondary)] hover:text-[var(--prism-dashboard-text)]">
+              <Users className="w-3.5 h-3.5" />
               Tenants
             </span>
-            <span className="px-2.5 py-1.5 rounded hover:bg-white/5 cursor-pointer transition-colors flex items-center gap-2 text-[var(--prism-dashboard-text)]/70 hover:text-[var(--prism-dashboard-text)]">
-              <CreditCard className="w-3.5 h-3.5 text-text-secondary" />
+            <span className="px-2.5 py-1.5 rounded hover:bg-white/5 cursor-pointer transition-colors flex items-center gap-2 text-[var(--prism-dashboard-text-secondary)] hover:text-[var(--prism-dashboard-text)]">
+              <CreditCard className="w-3.5 h-3.5" />
               Billing
             </span>
-            <span className="px-2.5 py-1.5 rounded hover:bg-white/5 cursor-pointer transition-colors flex items-center gap-2 text-[var(--prism-dashboard-text)]/70 hover:text-[var(--prism-dashboard-text)]">
-              <Settings className="w-3.5 h-3.5 text-text-secondary" />
+            <span className="px-2.5 py-1.5 rounded hover:bg-white/5 cursor-pointer transition-colors flex items-center gap-2 text-[var(--prism-dashboard-text-secondary)] hover:text-[var(--prism-dashboard-text)]">
+              <Settings className="w-3.5 h-3.5" />
               Settings
             </span>
           </div>
-          <div className="mt-auto text-[var(--prism-dashboard-text)]/40 text-[9px] font-mono flex items-center gap-1">
+          <div className="mt-auto text-[var(--prism-dashboard-text-secondary)] text-[9px] font-mono flex items-center gap-1">
             <Sparkles className="w-3 h-3 text-[var(--prism-semantic-primary)]" />
             v2.5.0
           </div>
@@ -118,7 +118,7 @@ export default function PrismDashboard({
             )}
             <span className="font-bold text-sm sm:text-base tracking-tight text-[var(--prism-dashboard-text)]">{title}</span>
           </div>
-          <span className="text-[9.5px] text-[var(--prism-dashboard-text)]/85 uppercase font-bold font-mono tracking-wider">Live Telemetry</span>
+          <span className="text-[9.5px] text-[var(--prism-dashboard-text)] uppercase font-bold font-mono tracking-wider">Live Telemetry</span>
         </div>
 
         {/* 3 KPI cards row */}
@@ -129,7 +129,7 @@ export default function PrismDashboard({
               className="border border-[var(--prism-card-border)] bg-[var(--prism-card-bg)] p-3 flex flex-col justify-between h-20 shadow-sm transition-all duration-300"
               style={{ borderRadius: "var(--prism-card-radius)" }}
             >
-              <span className="text-[9.5px] text-[var(--prism-dashboard-text)]/70 uppercase font-bold tracking-wide">{kpi.label}</span>
+              <span className="text-[9.5px] text-[var(--prism-dashboard-text-secondary)] uppercase font-bold tracking-wide">{kpi.label}</span>
               <div className="flex justify-between items-end mt-1">
                 <span className="text-base sm:text-lg font-bold leading-none text-[var(--prism-dashboard-text)]">{kpi.value}</span>
                 <span
@@ -149,7 +149,7 @@ export default function PrismDashboard({
           style={{ borderRadius: "var(--prism-card-radius)" }}
         >
           <div className="flex justify-between items-center shrink-0">
-            <span className="text-[9.5px] text-[var(--prism-dashboard-text)]/70 uppercase font-bold tracking-wide">
+            <span className="text-[9.5px] text-[var(--prism-dashboard-text-secondary)] uppercase font-bold tracking-wide">
               {chartMetric} (Monthly View)
             </span>
             {chartType === "Bar" && (
@@ -166,13 +166,13 @@ export default function PrismDashboard({
                 {[40, 75, 55, 90, 65, 85, 100, 60, 80, 45, 95, 70].map((height, i) => (
                   <div key={i} className="flex-1 flex flex-col items-center h-full justify-end">
                     <div
-                      style={{
-                        height: `${height}%`,
-                        backgroundColor: height === 100 ? "var(--prism-chart-accent)" : "var(--prism-chart-primary)",
-                        opacity: 0.9,
-                        borderRadius: "2px 2px 0 0",
-                      }}
-                      className="w-full min-h-[4px] hover:opacity-100 transition-all duration-200"
+                       style={{
+                         height: `${height}%`,
+                         backgroundColor: height === 100 ? "var(--prism-chart-accent)" : "var(--prism-chart-primary)",
+                         opacity: 0.9,
+                         borderRadius: "2px 2px 0 0",
+                       }}
+                       className="w-full min-h-[4px] hover:opacity-100 transition-all duration-200"
                     />
                   </div>
                 ))}
@@ -221,7 +221,7 @@ export default function PrismDashboard({
           </div>
           
           {/* Chart labels */}
-          <div className="flex justify-between text-[8.5px] text-[var(--prism-dashboard-text)]/75 font-semibold font-mono mt-1 shrink-0">
+          <div className="flex justify-between text-[8.5px] text-[var(--prism-dashboard-text-secondary)] font-semibold font-mono mt-1 shrink-0">
             <span>Jan</span>
             <span>Mar</span>
             <span>May</span>
@@ -235,13 +235,13 @@ export default function PrismDashboard({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 shrink-0">
           {/* Table */}
           <div className="overflow-hidden flex flex-col gap-2">
-            <span className="text-[9.5px] text-[var(--prism-dashboard-text)]/75 uppercase font-bold tracking-wide">Recent Inflow</span>
+            <span className="text-[9.5px] text-[var(--prism-dashboard-text-secondary)] uppercase font-bold tracking-wide">Recent Inflow</span>
             <table className="w-full text-[10px] border-collapse">
               <thead>
                 <tr className="bg-[var(--prism-card-bg)] text-[var(--prism-dashboard-text)] border-b border-[var(--prism-card-border)]">
-                  <th className="py-1.5 px-2 font-bold text-left text-[var(--prism-dashboard-text)]/85">Customer</th>
-                  <th className="py-1.5 px-2 font-bold text-left text-[var(--prism-dashboard-text)]/85">Volume</th>
-                  <th className="py-1.5 px-2 text-right font-bold text-[var(--prism-dashboard-text)]/85">Status</th>
+                  <th className="py-1.5 px-2 font-bold text-left text-[var(--prism-dashboard-text)]">Customer</th>
+                  <th className="py-1.5 px-2 font-bold text-left text-[var(--prism-dashboard-text)]">Volume</th>
+                  <th className="py-1.5 px-2 text-right font-bold text-[var(--prism-dashboard-text)]">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -251,8 +251,8 @@ export default function PrismDashboard({
                   { name: "Stripe", vol: "$8,492", status: "Pending" },
                 ].map((row, i) => (
                   <tr key={i} className="border-b border-[var(--prism-card-border)]/50 last:border-b-0">
-                    <td className="py-1.5 px-2 font-semibold text-[var(--prism-dashboard-text)]/90">{row.name}</td>
-                    <td className="py-1.5 px-2 text-[var(--prism-dashboard-text)]/80 font-mono">{row.vol}</td>
+                    <td className="py-1.5 px-2 font-semibold text-[var(--prism-dashboard-text)]">{row.name}</td>
+                    <td className="py-1.5 px-2 text-[var(--prism-dashboard-text-secondary)] font-mono">{row.vol}</td>
                     <td className="py-1.5 px-2 text-right">
                       <span className="font-bold text-[var(--prism-semantic-primary)]">
                         {row.status}
@@ -269,7 +269,7 @@ export default function PrismDashboard({
             className="border border-[var(--prism-card-border)] bg-[var(--prism-card-bg)] p-3 flex flex-col justify-between shadow-sm transition-all duration-300"
             style={{ borderRadius: "var(--prism-card-radius)" }}
           >
-            <span className="text-[9.5px] text-[var(--prism-dashboard-text)]/75 uppercase font-bold tracking-wide mb-1 block">Traffic Breakdown</span>
+            <span className="text-[9.5px] text-[var(--prism-dashboard-text-secondary)] uppercase font-bold tracking-wide mb-1 block">Traffic Breakdown</span>
             <div className="flex items-center gap-4 flex-1 justify-center sm:justify-start">
               {/* Radial Progress Ring */}
               <div className="relative w-12 h-12 shrink-0">
@@ -308,15 +308,15 @@ export default function PrismDashboard({
               <div className="flex flex-col gap-0.5 text-[8.5px] text-[var(--prism-dashboard-text)] font-semibold">
                 <div className="flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "var(--prism-chart-primary)" }} />
-                  <span className="text-[var(--prism-dashboard-text)]/90">Direct: 60%</span>
+                  <span className="text-[var(--prism-dashboard-text)]">Direct: 60%</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "var(--prism-chart-accent)" }} />
-                  <span className="text-[var(--prism-dashboard-text)]/90">Referral: 25%</span>
+                  <span className="text-[var(--prism-dashboard-text)]">Referral: 25%</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-slate-500/25" />
-                  <span className="text-[var(--prism-dashboard-text)]/65">Organic: 15%</span>
+                  <span className="text-[var(--prism-dashboard-text-secondary)]">Organic: 15%</span>
                 </div>
               </div>
             </div>

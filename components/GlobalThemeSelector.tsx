@@ -24,6 +24,7 @@ const themes: Record<string, Record<string, string>> = {
     // Mockup component tokens
     "--prism-dashboard-bg": "#1e293b",
     "--prism-dashboard-text": "#f8fafc",
+    "--prism-dashboard-text-secondary": "#cbd5e1",
     "--prism-card-bg": "rgba(255, 255, 255, 0.03)",
     "--prism-card-border": "rgba(255, 255, 255, 0.1)",
     "--prism-card-radius": "12px",
@@ -51,6 +52,7 @@ const themes: Record<string, Record<string, string>> = {
     // Mockup component tokens
     "--prism-dashboard-bg": "#ffffff",
     "--prism-dashboard-text": "#0f172a",
+    "--prism-dashboard-text-secondary": "#475569",
     "--prism-card-bg": "#ffffff",
     "--prism-card-border": "rgba(15, 23, 42, 0.06)",
     "--prism-card-radius": "12px",
@@ -78,6 +80,7 @@ const themes: Record<string, Record<string, string>> = {
     // Mockup component tokens
     "--prism-dashboard-bg": "#FFFFFF",
     "--prism-dashboard-text": "#0F172A",
+    "--prism-dashboard-text-secondary": "#475569",
     "--prism-card-bg": "#F8FAFC",
     "--prism-card-border": "rgba(15, 23, 42, 0.06)",
     "--prism-card-radius": "6px",
@@ -104,6 +107,7 @@ const themes: Record<string, Record<string, string>> = {
     // Mockup component tokens
     "--prism-dashboard-bg": "#111827",
     "--prism-dashboard-text": "#F9FAFB",
+    "--prism-dashboard-text-secondary": "#9CA3AF",
     "--prism-card-bg": "rgba(255, 255, 255, 0.03)",
     "--prism-card-border": "rgba(255, 255, 255, 0.08)",
     "--prism-card-radius": "4px",
@@ -130,6 +134,7 @@ const themes: Record<string, Record<string, string>> = {
     // Mockup component tokens
     "--prism-dashboard-bg": "#FFF1F2",
     "--prism-dashboard-text": "#1C1917",
+    "--prism-dashboard-text-secondary": "#6B5F5F",
     "--prism-card-bg": "#FFFFFF",
     "--prism-card-border": "rgba(120, 100, 100, 0.06)",
     "--prism-card-radius": "24px",
@@ -156,6 +161,7 @@ const themes: Record<string, Record<string, string>> = {
     // Mockup component tokens
     "--prism-dashboard-bg": "#0A0A0A",
     "--prism-dashboard-text": "#EDEDED",
+    "--prism-dashboard-text-secondary": "#A0A0A0",
     "--prism-card-bg": "rgba(255, 255, 255, 0.02)",
     "--prism-card-border": "rgba(255, 255, 255, 0.1)",
     "--prism-card-radius": "0px",

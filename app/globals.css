@@ -54,6 +54,7 @@
   /* --- LAYER 3: COMPONENT TOKENS --- */
   --prism-dashboard-bg: var(--prism-semantic-bg);
   --prism-dashboard-text: var(--prism-semantic-text-primary);
+  --prism-dashboard-text-secondary: var(--prism-semantic-text-secondary);
   --prism-dashboard-border: var(--prism-semantic-border);
   --prism-sidebar-bg: var(--prism-color-slate-50);
   --prism-sidebar-border: var(--prism-semantic-border);
