@@ -8,10 +8,10 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-black py-16 px-8 relative z-10 overflow-hidden text-left border-t border-white/5">
+    <footer className="bg-bg-base py-16 px-8 relative z-10 overflow-hidden text-left border-t border-border-subtle">
       
       {/* Decorative top gradient line */}
-      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-indigo-500/50 to-purple-500/50 via-transparent mb-16 max-w-7xl mx-auto" />
+      <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-primary/50 to-tertiary/50 via-transparent mb-16 max-w-7xl mx-auto" />
 
       {/* Huge background logo & text watermark with blue gradient */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center gap-12 w-full max-w-7xl px-8 select-none pointer-events-none z-0 opacity-[0.05]">
@@ -53,7 +53,7 @@ export default function Footer() {
                 <path d="M50 10 L50 90" stroke="rgba(255, 255, 255, 0.3)" strokeWidth="1.5" />
               </svg>
             </div>
-            <span className="font-semibold text-white text-lg tracking-tight">
+            <span className="font-semibold text-text-primary text-lg tracking-tight">
               Prism
             </span>
           </Link>
@@ -124,7 +124,7 @@ export default function Footer() {
               <Link
                 key={link}
                 href="#"
-                className="text-sm text-text-secondary hover:text-white transition-colors duration-200 w-fit"
+                className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-200 w-fit"
               >
                 {link}
               </Link>
@@ -142,7 +142,7 @@ export default function Footer() {
               <Link
                 key={link}
                 href="#"
-                className="text-sm text-text-secondary hover:text-white transition-colors duration-200 w-fit"
+                className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-200 w-fit"
               >
                 {link}
               </Link>
@@ -162,12 +162,12 @@ export default function Footer() {
                 <div key={link} className="flex items-center">
                   <Link
                     href="#"
-                    className="text-sm text-text-secondary hover:text-white transition-colors duration-200 w-fit"
+                    className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-200 w-fit"
                   >
                     {link}
                   </Link>
                   {isCareers && (
-                    <span className="bg-[#6366F1]/15 text-primary text-[10px] py-0.5 px-2 rounded-full font-medium ml-2 select-none border border-[#6366F1]/10">
+                    <span className="bg-primary/15 text-primary text-[10px] py-0.5 px-2 rounded-full font-medium ml-2 select-none border border-primary/10">
                       We&apos;re hiring!
                     </span>
                   )}
@@ -196,9 +196,9 @@ export default function Footer() {
           ].map((badge, i) => (
             <div
               key={i}
-              className="bg-white/5 border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 select-none shadow-sm"
+              className="bg-bg-elevated/40 border border-border-subtle px-3 py-1.5 rounded-full flex items-center gap-2 select-none shadow-sm"
             >
-              <Shield className="w-3.5 h-3.5 text-emerald-400 fill-emerald-400/20" />
+              <Shield className="w-3.5 h-3.5 text-success fill-success/20" />
               <span className="text-[11px] font-medium text-text-secondary">{badge.text}</span>
             </div>
           ))}
@@ -206,17 +206,17 @@ export default function Footer() {
 
         {/* Right - Legal Links */}
         <div className="flex items-center gap-2 text-xs sm:text-sm text-text-muted">
-          <Link href="#" className="hover:text-white transition-colors">Privacy</Link>
+          <Link href="#" className="hover:text-text-primary transition-colors">Privacy</Link>
           <span>&middot;</span>
-          <Link href="#" className="hover:text-white transition-colors">Terms</Link>
+          <Link href="#" className="hover:text-text-primary transition-colors">Terms</Link>
           <span>&middot;</span>
-          <Link href="#" className="hover:text-white transition-colors">Security</Link>
+          <Link href="#" className="hover:text-text-primary transition-colors">Security</Link>
         </div>
 
       </div>
 
       {/* Bottom decorative radial gradient orb */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.05)_0%,transparent_70%)] pointer-events-none blur-[100px] z-0" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] rounded-full bg-[radial-gradient(circle,var(--prism-primary-glow)_0%,transparent_70%)] opacity-25 pointer-events-none blur-[100px] z-0" />
 
     </footer>
   );

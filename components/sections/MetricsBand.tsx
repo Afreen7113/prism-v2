@@ -52,7 +52,7 @@ export default function MetricsBand() {
   }, []);
 
   return (
-    <section className="py-12 px-8 bg-bg-base relative border-t border-b border-white/5 overflow-hidden text-center z-10">
+    <section className="py-12 px-8 bg-bg-base relative border-t border-b border-border-subtle overflow-hidden text-center z-10">
       
       {/* Background drifting particles */}
       {mounted && (
@@ -91,7 +91,7 @@ export default function MetricsBand() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] text-white"
+            className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] text-text-primary"
           >
             {"Trusted at".split(" ").map((word, i) => (
               <span key={i} className="inline-block overflow-hidden mr-[0.25em] py-0.5">
@@ -129,7 +129,7 @@ export default function MetricsBand() {
                 format={(n) => Math.round(n).toLocaleString() + "+"}
               />
             </span>
-            <span className="text-sm sm:text-base font-semibold text-white mb-1">
+            <span className="text-sm sm:text-base font-semibold text-text-primary mb-1">
               B2B companies
             </span>
             <span className="text-xs text-text-secondary">
@@ -145,7 +145,7 @@ export default function MetricsBand() {
                 format={(n) => Math.round(n) + "M"}
               />
             </span>
-            <span className="text-sm sm:text-base font-semibold text-white mb-1">
+            <span className="text-sm sm:text-base font-semibold text-text-primary mb-1">
               API calls per day
             </span>
             <span className="text-xs text-text-secondary">
@@ -161,7 +161,7 @@ export default function MetricsBand() {
                 format={(n) => Math.round(n) + "ms"}
               />
             </span>
-            <span className="text-sm sm:text-base font-semibold text-white mb-1">
+            <span className="text-sm sm:text-base font-semibold text-text-primary mb-1">
               Average query latency
             </span>
             <span className="text-xs text-text-secondary">
@@ -177,7 +177,7 @@ export default function MetricsBand() {
                 format={(n) => n.toFixed(2) + "%"}
               />
             </span>
-            <span className="text-sm sm:text-base font-semibold text-white mb-1">
+            <span className="text-sm sm:text-base font-semibold text-text-primary mb-1">
               Uptime SLA
             </span>
             <span className="text-xs text-text-secondary">

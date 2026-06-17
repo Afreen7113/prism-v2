@@ -6,13 +6,13 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import Link from "next/link";
 
 const navItems = [
-  { name: "Product", href: "#product" },
-  { name: "Solutions", href: "#solutions" },
-  { name: "White Label", href: "#white-label" },
-  { name: "SDK", href: "#sdk" },
-  { name: "Pricing", href: "#pricing" },
-  { name: "Docs", href: "#docs" },
-  { name: "Resources", href: "#resources", hasDropdown: true },
+  { name: "Product", href: "/#product" },
+  { name: "Solutions", href: "/#solutions" },
+  { name: "White Label", href: "/#white-label" },
+  { name: "SDK", href: "/#sdk" },
+  { name: "Pricing", href: "/#pricing" },
+  { name: "Admin Portal", href: "/admin" },
+  { name: "Resources", href: "/#resources", hasDropdown: true },
 ];
 
 export default function Navbar() {
@@ -101,7 +101,7 @@ export default function Navbar() {
           {/* Right - Actions */}
           <div className="hidden md:flex items-center gap-5">
             <Link
-              href="#login"
+              href="/admin"
               className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-300"
             >
               Log in
@@ -153,7 +153,7 @@ export default function Navbar() {
             <hr className="border-border-subtle" />
             <div className="flex flex-col gap-4">
               <Link
-                href="#login"
+                href="/admin"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-center text-sm font-medium text-text-secondary hover:text-text-primary py-2 transition-colors"
               >

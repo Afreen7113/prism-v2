@@ -82,7 +82,7 @@ export default function FAQ() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] text-white"
+            className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] text-text-primary"
           >
             {"Questions,".split(" ").map((word, i) => (
               <span key={i} className="inline-block overflow-hidden mr-[0.25em] py-0.5">
@@ -137,10 +137,10 @@ export default function FAQ() {
                     delay: idx * 0.05,
                     ease: [0.32, 0.72, 0, 1],
                   }}
-                  className={`bg-[#0D0F17]/60 backdrop-blur-xl border rounded-[16px] overflow-hidden transition-all duration-300 text-left ${
+                  className={`bg-bg-elevated/60 backdrop-blur-xl border rounded-[16px] overflow-hidden transition-all duration-300 text-left ${
                     isOpen
-                      ? "border-primary/30 bg-primary/5 shadow-[0_0_30px_rgba(99,102,241,0.05)]"
-                      : "border-white/5 hover:border-white/10"
+                      ? "border-primary/30 bg-primary/5 shadow-[0_0_30px_var(--prism-primary-glow, rgba(99,102,241,0.05))]"
+                      : "border-border-subtle hover:border-border-subtle/70"
                   }`}
                 >
                   
@@ -150,15 +150,15 @@ export default function FAQ() {
                     aria-expanded={isOpen}
                     className="w-full p-6 flex justify-between items-center bg-transparent border-none cursor-pointer focus:outline-none"
                   >
-                    <span className="text-[14px] font-medium text-white pr-4 leading-snug">
+                    <span className="text-[14px] font-medium text-text-primary pr-4 leading-snug">
                       {item.question}
                     </span>
                     
                     {/* Plus/Minus Indicator */}
-                    <div className="w-6 h-6 shrink-0 flex items-center justify-center text-white">
+                    <div className="w-6 h-6 shrink-0 flex items-center justify-center text-text-primary">
                       <Plus
                         className={`w-5 h-5 transition-transform duration-300 ${
-                          isOpen ? "rotate-45 text-primary" : "rotate-0 text-white"
+                          isOpen ? "rotate-45 text-primary" : "rotate-0 text-text-primary"
                         }`}
                       />
                     </div>
@@ -202,10 +202,10 @@ export default function FAQ() {
                     delay: idx * 0.05,
                     ease: [0.32, 0.72, 0, 1],
                   }}
-                  className={`bg-[#0D0F17]/60 backdrop-blur-xl border rounded-[16px] overflow-hidden transition-all duration-300 text-left ${
+                  className={`bg-bg-elevated/60 backdrop-blur-xl border rounded-[16px] overflow-hidden transition-all duration-300 text-left ${
                     isOpen
-                      ? "border-primary/30 bg-primary/5 shadow-[0_0_30px_rgba(99,102,241,0.05)]"
-                      : "border-white/5 hover:border-white/10"
+                      ? "border-primary/30 bg-primary/5 shadow-[0_0_30px_var(--prism-primary-glow, rgba(99,102,241,0.05))]"
+                      : "border-border-subtle hover:border-border-subtle/70"
                   }`}
                 >
                   
@@ -215,15 +215,15 @@ export default function FAQ() {
                     aria-expanded={isOpen}
                     className="w-full p-6 flex justify-between items-center bg-transparent border-none cursor-pointer focus:outline-none"
                   >
-                    <span className="text-[14px] font-medium text-white pr-4 leading-snug">
+                    <span className="text-[14px] font-medium text-text-primary pr-4 leading-snug">
                       {item.question}
                     </span>
                     
                     {/* Plus/Minus Indicator */}
-                    <div className="w-6 h-6 shrink-0 flex items-center justify-center text-white">
+                    <div className="w-6 h-6 shrink-0 flex items-center justify-center text-text-primary">
                       <Plus
                         className={`w-5 h-5 transition-transform duration-300 ${
-                          isOpen ? "rotate-45 text-primary" : "rotate-0 text-white"
+                          isOpen ? "rotate-45 text-primary" : "rotate-0 text-text-primary"
                         }`}
                       />
                     </div>

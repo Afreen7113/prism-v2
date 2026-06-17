@@ -201,7 +201,7 @@ export default function DeveloperExperience() {
   };
 
   return (
-    <section className="py-16 px-6 bg-bg-base relative z-10 border-b border-border-subtle text-left">
+    <section id="sdk" className="py-16 px-6 bg-bg-base relative z-10 border-b border-border-subtle text-left">
       <div className="max-w-7xl mx-auto flex flex-col gap-16">
         
         {/* Header */}
@@ -254,13 +254,13 @@ export default function DeveloperExperience() {
           
           {/* Left panel - Code Editor */}
           <motion.div
-            whileHover={{ y: -6, scale: 1.01, borderColor: "rgba(99, 102, 241, 0.25)", boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
+            whileHover={{ y: -6, scale: 1.01, borderColor: "var(--prism-semantic-primary, rgba(99, 102, 241, 0.25))", boxShadow: "0 20px 40px var(--prism-primary-glow, rgba(0,0,0,0.2))" }}
             transition={{ duration: 0.3 }}
-            className="bg-[#0A0A0A] border border-white/10 rounded-2xl overflow-hidden shadow-2xl flex flex-col min-h-[440px] transition-colors"
+            className="bg-bg-elevated border border-border-subtle rounded-2xl overflow-hidden shadow-2xl flex flex-col min-h-[440px] transition-colors"
           >
             
             {/* Chrome Header */}
-            <div className="bg-[#1A1A1A] px-4 py-3 flex items-center justify-between">
+            <div className="bg-bg-surface px-4 py-3 flex items-center justify-between">
               <div className="flex gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
                 <span className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
@@ -271,7 +271,7 @@ export default function DeveloperExperience() {
             </div>
 
             {/* Tab Bar */}
-            <div className="bg-[#141414] border-b border-white/5 flex">
+            <div className="bg-bg-base border-b border-border-subtle flex">
               {tabs.map((tab, idx) => {
                 const isActive = activeTab === idx;
                 return (
@@ -280,7 +280,7 @@ export default function DeveloperExperience() {
                     onClick={() => setActiveTab(idx)}
                     className={`px-5 py-3 text-xs font-mono transition-all duration-300 focus:outline-none border-b-2 ${
                       isActive
-                        ? "text-white border-primary"
+                        ? "text-text-primary border-primary"
                         : "text-text-secondary border-transparent hover:text-text-primary"
                     }`}
                   >
@@ -340,13 +340,13 @@ export default function DeveloperExperience() {
 
           {/* Right panel - Live Preview Window */}
           <motion.div
-            whileHover={{ y: -6, scale: 1.01, borderColor: "rgba(99, 102, 241, 0.25)", boxShadow: "0 20px 40px rgba(0,0,0,0.5)" }}
+            whileHover={{ y: -6, scale: 1.01, borderColor: "var(--prism-semantic-primary, rgba(99, 102, 241, 0.25))", boxShadow: "0 20px 40px var(--prism-primary-glow, rgba(0,0,0,0.2))" }}
             transition={{ duration: 0.3 }}
-            className="bg-[#0A0A0A] border border-white/10 rounded-2xl overflow-hidden shadow-2xl flex flex-col min-h-[440px] transition-colors"
+            className="bg-bg-elevated border border-border-subtle rounded-2xl overflow-hidden shadow-2xl flex flex-col min-h-[440px] transition-colors"
           >
             
             {/* Chrome Header */}
-            <div className="bg-[#1A1A1A] px-4 py-3 flex items-center justify-between border-b border-white/5">
+            <div className="bg-bg-surface px-4 py-3 flex items-center justify-between border-b border-border-subtle">
               <div className="flex gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-white/10" />
                 <span className="w-2.5 h-2.5 rounded-full bg-white/10" />
@@ -373,7 +373,7 @@ export default function DeveloperExperience() {
                     transition={{ duration: 0.3 }}
                     className="w-full h-full flex flex-col justify-between text-left font-mono text-xs"
                   >
-                    <div className="space-y-3 text-[#86EFAC] bg-black/40 p-5 rounded-xl border border-white/5 flex-1 flex flex-col justify-center">
+                    <div className="space-y-3 text-success bg-bg-base/40 p-5 rounded-xl border border-border-subtle flex-1 flex flex-col justify-center">
                       <div className="flex items-center gap-3">
                         <CheckCircle2 className="w-4 h-4 text-success shrink-0" />
                         <span>Injected @prism/react package</span>
@@ -451,29 +451,38 @@ export default function DeveloperExperience() {
 
                     {/* 2 mini stats */}
                     <div className="grid grid-cols-2 gap-3">
-                      <div className="bg-white/5 border border-white/5 rounded-xl p-3 flex flex-col justify-between">
+                      <div
+                        className="bg-[var(--prism-card-bg)] border border-[var(--prism-card-border)] p-3 flex flex-col justify-between transition-all duration-300"
+                        style={{ borderRadius: "var(--prism-card-radius)" }}
+                      >
                         <span className="text-[9px] text-text-muted uppercase tracking-wider">Revenue (Monthly)</span>
                         <span className="text-base font-bold text-text-primary mt-0.5">$48,290</span>
                       </div>
-                      <div className="bg-white/5 border border-white/5 rounded-xl p-3 flex flex-col justify-between">
+                      <div
+                        className="bg-[var(--prism-card-bg)] border border-[var(--prism-card-border)] p-3 flex flex-col justify-between transition-all duration-300"
+                        style={{ borderRadius: "var(--prism-card-radius)" }}
+                      >
                         <span className="text-[9px] text-text-muted uppercase tracking-wider">Signups</span>
                         <span className="text-base font-bold text-text-primary mt-0.5">1,482</span>
                       </div>
                     </div>
 
                     {/* Chart representation */}
-                    <div className="flex-1 bg-white/5 border border-white/5 rounded-xl p-3 flex flex-col justify-between min-h-[110px]">
+                    <div
+                      className="flex-1 bg-[var(--prism-card-bg)] border border-[var(--prism-card-border)] p-3 flex flex-col justify-between min-h-[110px] transition-all duration-300"
+                      style={{ borderRadius: "var(--prism-card-radius)" }}
+                    >
                       <span className="text-[9px] text-text-muted uppercase tracking-wider mb-1 block">Monthly Growth</span>
                       <div className="flex-1 w-full relative pt-2">
                         <svg className="w-full h-full" viewBox="0 0 300 80" preserveAspectRatio="none">
                           <defs>
                             <linearGradient id="embed-chart-grad" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="0%" stopColor="#6366F1" stopOpacity="0.3" />
-                              <stop offset="100%" stopColor="#6366F1" stopOpacity="0" />
+                              <stop offset="0%" stopColor="var(--prism-chart-primary)" stopOpacity="0.3" />
+                              <stop offset="100%" stopColor="var(--prism-chart-primary)" stopOpacity="0" />
                             </linearGradient>
                           </defs>
                           <path d="M 0 80 Q 50 40, 100 50 T 200 20 T 300 10 L 300 80 L 0 80 Z" fill="url(#embed-chart-grad)" />
-                          <path d="M 0 80 Q 50 40, 100 50 T 200 20 T 300 10" fill="none" stroke="#6366F1" strokeWidth="2" />
+                          <path d="M 0 80 Q 50 40, 100 50 T 200 20 T 300 10" fill="none" stroke="var(--prism-chart-primary)" strokeWidth="2" />
                         </svg>
                       </div>
                     </div>
@@ -499,8 +508,8 @@ export default function DeveloperExperience() {
             return (
               <motion.div
                 key={i}
-                whileHover={{ y: -2, borderColor: "#6366F1", boxShadow: "0 0 20px rgba(99,102,241,0.15)" }}
-                className="bg-bg-elevated/60 glass border border-white/10 rounded-full px-5 py-2 flex items-center gap-2 cursor-pointer transition-all duration-300 text-sm font-medium text-text-primary shadow-sm"
+                whileHover={{ y: -2, borderColor: "var(--prism-semantic-primary)", boxShadow: "0 0 20px var(--prism-primary-glow)" }}
+                className="bg-bg-elevated/60 glass border border-border-subtle rounded-full px-5 py-2 flex items-center gap-2 cursor-pointer transition-all duration-300 text-sm font-medium text-text-primary shadow-sm"
               >
                 <div className="w-4 h-4 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
                   <PillIcon className="w-2.5 h-2.5 fill-current" />

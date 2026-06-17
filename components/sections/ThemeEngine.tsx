@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Heart, DollarSign, ShoppingBag, Terminal, Clipboard, Check, Laptop, Tablet, Phone } from "lucide-react";
+import PrismDashboard from "@/components/PrismDashboard";
 
 // Determine text contrast based on background color luminance
 const getContrastColor = (hex: string) => {
@@ -100,12 +101,35 @@ export default function ThemeEngine() {
   };
 
   const handleCopy = () => {
-    const cssText = `:root {
-  --prism-primary: ${primaryColor};
-  --prism-surface: ${surfaceColor};
-  --prism-accent: ${accentColor};
-  --prism-font: '${font}', sans-serif;
-  --prism-radius: ${radius}px;
+    const cssText = `/* CSS Design Token System - 3 Abstraction Layers */
+:root {
+  /* 1. Primitive Tokens */
+  --prism-color-primary: ${primaryColor};
+  --prism-color-accent: ${accentColor};
+  --prism-color-surface: ${surfaceColor};
+  --prism-radius-base: ${radius}px;
+  --prism-font-base: '${font}', sans-serif;
+
+  /* 2. Semantic Tokens */
+  --prism-semantic-primary: var(--prism-color-primary);
+  --prism-semantic-accent: var(--prism-color-accent);
+  --prism-semantic-bg: var(--prism-color-surface);
+  --prism-semantic-text-primary: ${textContrast};
+  --prism-semantic-text-secondary: ${textContrast === "#FAFAFA" ? "rgba(250,250,250,0.6)" : "rgba(15,23,42,0.6)"};
+  --prism-semantic-border: ${textContrast === "#FAFAFA" ? "rgba(250,250,250,0.08)" : "rgba(15,23,42,0.08)"};
+  --prism-semantic-radius: var(--prism-radius-base);
+
+  /* 3. Component Tokens */
+  --prism-dashboard-bg: var(--prism-semantic-bg);
+  --prism-dashboard-text: var(--prism-semantic-text-primary);
+  --prism-dashboard-border: var(--prism-semantic-border);
+  --prism-sidebar-bg: ${textContrast === "#FAFAFA" ? "rgba(0,0,0,0.15)" : "rgba(15,23,42,0.03)"};
+  --prism-card-bg: ${cardBg};
+  --prism-card-radius: var(--prism-semantic-radius);
+  --prism-button-bg: var(--prism-semantic-primary);
+  --prism-button-text: ${primaryContrast};
+  --prism-chart-primary: var(--prism-semantic-primary);
+  --prism-chart-accent: var(--prism-semantic-accent);
 }`;
     navigator.clipboard.writeText(cssText);
     setCopied(true);
@@ -114,9 +138,10 @@ export default function ThemeEngine() {
 
   const textContrast = getContrastColor(surfaceColor);
   const cardBg = getCardBg(surfaceColor);
+  const primaryContrast = getContrastColor(primaryColor);
 
   return (
-    <section className="py-16 px-6 bg-bg-base relative z-10 border-b border-border-subtle overflow-hidden">
+    <section id="white-label" className="py-16 px-6 bg-bg-base relative z-10 border-b border-border-subtle overflow-hidden">
       
       {/* Background orbs */}
       <motion.div
@@ -365,12 +390,29 @@ export default function ThemeEngine() {
                   {copied ? <Check className="w-3 h-3 text-success" /> : <Clipboard className="w-3 h-3" />}
                 </button>
                 <pre className="text-left whitespace-pre-wrap">
-{`:root {
-  --prism-primary: ${primaryColor};
-  --prism-surface: ${surfaceColor};
-  --prism-accent: ${accentColor};
-  --prism-font: '${font}';
-  --prism-radius: ${radius}px;
+{`/* CSS Design Token System - 3 Abstraction Layers */
+:root {
+  /* 1. Primitive Tokens */
+  --prism-color-primary: ${primaryColor};
+  --prism-color-accent: ${accentColor};
+  --prism-color-surface: ${surfaceColor};
+  --prism-radius-base: ${radius}px;
+  --prism-font-base: '${font}', sans-serif;
+
+  /* 2. Semantic Tokens */
+  --prism-semantic-primary: var(--prism-color-primary);
+  --prism-semantic-accent: var(--prism-color-accent);
+  --prism-semantic-bg: var(--prism-color-surface);
+  --prism-semantic-text-primary: ${textContrast};
+  --prism-semantic-border: ${textContrast === "#FAFAFA" ? "rgba(250,250,250,0.08)" : "rgba(15,23,42,0.08)"};
+  --prism-semantic-radius: var(--prism-radius-base);
+
+  /* 3. Component Tokens */
+  --prism-dashboard-bg: var(--prism-semantic-bg);
+  --prism-card-bg: ${cardBg};
+  --prism-card-radius: var(--prism-semantic-radius);
+  --prism-button-bg: var(--prism-semantic-primary);
+  --prism-chart-primary: var(--prism-semantic-primary);
 }`}
                 </pre>
               </div>
@@ -435,270 +477,28 @@ export default function ThemeEngine() {
               </div>
 
               {/* Themeable Live Dashboard */}
-              <div
-                style={{
-                  backgroundColor: surfaceColor,
-                  fontFamily: font === "Geist" ? "var(--font-geist)" : font === "JetBrains Mono" ? "var(--font-geist-mono)" : font,
-                  borderRadius: `${radius}px`,
-                  color: textContrast,
-                  transition: "background-color 300ms, color 300ms, border-radius 300ms",
-                }}
-                className="text-left flex flex-row flex-1 h-full min-h-[520px]"
-              >
-                {/* Dashboard Sidebar */}
-                <div
+              <div className="p-4 bg-white/[0.01] flex-1 flex flex-col h-full min-h-[500px]">
+                <PrismDashboard
+                  title={activePreset === "healthcare" ? "Clinix EHR Portal" : activePreset === "fintech" ? "Apex Ledger" : activePreset === "consumer" ? "ShopSync Hub" : "Prism Dashboard"}
+                  chartMetric={activePreset === "healthcare" ? "Daily Admissions" : activePreset === "fintech" ? "Ledger Volume" : activePreset === "consumer" ? "Gross Orders" : "API requests"}
                   style={{
-                    borderColor: textContrast === "#FAFAFA" ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)",
-                  }}
-                  className="hidden md:flex flex-col gap-6 p-4 border-r w-44 shrink-0 text-[11px]"
-                >
-                  <div className="flex items-center gap-2 font-bold mb-2">
-                    <svg viewBox="0 0 100 100" className="w-4 h-4 transition-colors duration-300" style={{ fill: primaryColor }}>
-                      <path d="M50 15 L20 75 L50 85 Z" fill={primaryColor} />
-                      <path d="M50 15 L50 85 L80 75 Z" fill={accentColor} />
-                    </svg>
-                    <span className="font-semibold tracking-tight">Prism Analytics</span>
-                  </div>
-                  <div className="flex flex-col gap-1.5 opacity-80">
-                    <span style={{ backgroundColor: `${primaryColor}15`, color: primaryColor }} className="px-2.5 py-1.5 rounded font-semibold transition-colors duration-300">Overview</span>
-                    <span className="px-2.5 py-1.5 rounded hover:bg-white/5 cursor-pointer transition-colors">Analytics</span>
-                    <span className="px-2.5 py-1.5 rounded hover:bg-white/5 cursor-pointer transition-colors">Campaigns</span>
-                    <span className="px-2.5 py-1.5 rounded hover:bg-white/5 cursor-pointer transition-colors">Customers</span>
-                    <span className="px-2.5 py-1.5 rounded hover:bg-white/5 cursor-pointer transition-colors">Settings</span>
-                  </div>
-                  <div className="mt-auto opacity-40 text-[9px] font-mono">
-                    v2.4.0
-                  </div>
-                </div>
-
-                {/* Dashboard Main Content */}
-                <div className="flex-1 p-5 sm:p-6 flex flex-col justify-between overflow-hidden h-full">
-                  {/* Dashboard Header */}
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-2 md:hidden">
-                      <svg viewBox="0 0 100 100" className="w-5 h-5 transition-colors duration-300" style={{ fill: primaryColor }}>
-                        <path d="M50 15 L20 75 L50 85 Z" fill={primaryColor} />
-                        <path d="M50 15 L50 85 L80 75 Z" fill={accentColor} />
-                      </svg>
-                      <span className="font-bold text-sm tracking-tight">Analytics</span>
-                    </div>
-                    <span className="hidden md:inline font-bold text-sm tracking-tight">Dashboard Overview</span>
-                    <span className="text-[10px] opacity-60 uppercase font-mono">Q2 Overview</span>
-                  </div>
-
-                  {/* 3 KPI cards row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    {[
-                      { label: "Revenue", val: "$24,580", trend: "+12.5% ↑", isUp: true },
-                      { label: "Active Users", val: "1,847", trend: "+8.2% ↑", isUp: true },
-                      { label: "Conversion", val: "3.4%", trend: "-0.5% ↓", isUp: false },
-                    ].map((kpi, i) => (
-                      <div
-                        key={i}
-                        style={{
-                          backgroundColor: cardBg,
-                          borderColor: `${primaryColor}30`,
-                          borderRadius: `${radius}px`,
-                          transition: "background-color 300ms, border-color 300ms, border-radius 300ms",
-                        }}
-                        className="border p-3 flex flex-col justify-between h-20 shadow-sm"
-                      >
-                        <span className="text-[9px] opacity-50 uppercase font-semibold">{kpi.label}</span>
-                        <div className="flex justify-between items-end mt-1">
-                          <span className="text-lg font-bold leading-none">{kpi.val}</span>
-                          <span
-                            style={{ color: kpi.isUp ? primaryColor : accentColor }}
-                            className="text-[9px] font-semibold transition-colors duration-300"
-                          >
-                            {kpi.trend}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Large main chart */}
-                  <div
-                    style={{
-                      backgroundColor: cardBg,
-                      borderColor: `${primaryColor}20`,
-                      borderRadius: `${radius}px`,
-                      transition: "background-color 300ms, border-color 300ms, border-radius 300ms",
-                    }}
-                    className="border p-4 h-[180px] flex flex-col justify-between shadow-sm"
-                  >
-                    <span className="text-[9px] opacity-50 uppercase font-semibold">User Engagements (Monthly)</span>
-                    
-                    {/* SVG Chart */}
-                    <div className="flex-1 w-full relative pt-2">
-                      <svg className="w-full h-full" viewBox="0 0 500 130" preserveAspectRatio="none">
-                        <defs>
-                          <linearGradient id="live-chart-grad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor={primaryColor} stopOpacity="0.25" />
-                            <stop offset="100%" stopColor={primaryColor} stopOpacity="0.0" />
-                          </linearGradient>
-                        </defs>
-                        <line x1="0" y1="30" x2="500" y2="30" stroke={textContrast === "#FAFAFA" ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.04)"} strokeWidth="1" />
-                        <line x1="0" y1="70" x2="500" y2="70" stroke={textContrast === "#FAFAFA" ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.04)"} strokeWidth="1" />
-                        <line x1="0" y1="110" x2="500" y2="110" stroke={textContrast === "#FAFAFA" ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.04)"} strokeWidth="1" />
-                        
-                        {/* Area Fill */}
-                        <path
-                          d="M 0 110 Q 70 80, 140 95 T 280 40 T 420 50 T 500 10 L 500 130 L 0 130 Z"
-                          fill="url(#live-chart-grad)"
-                          className="transition-all duration-300"
-                        />
-                        
-                        {/* Path Line */}
-                        <path
-                          d="M 0 110 Q 70 80, 140 95 T 280 40 T 420 50 T 500 10"
-                          fill="none"
-                          stroke={primaryColor}
-                          strokeWidth="2.5"
-                          className="transition-all duration-300"
-                        />
-                      </svg>
-                    </div>
-                    
-                    {/* labels */}
-                    <div className="flex justify-between text-[8px] opacity-40 uppercase font-mono mt-1">
-                      <span>Jan</span>
-                      <span>Mar</span>
-                      <span>May</span>
-                      <span>Jul</span>
-                      <span>Sep</span>
-                      <span>Nov</span>
-                    </div>
-                  </div>
-
-                  {/* Lower Grid: Table + Donut */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    
-                    {/* Live interactive Table */}
-                    <div className="overflow-hidden flex flex-col gap-2">
-                      <span className="text-[9px] opacity-50 uppercase font-semibold">Recent Transactions</span>
-                      <table className="w-full text-[10px] border-collapse">
-                        <thead>
-                          <tr style={{ backgroundColor: `${primaryColor}15` }} className="transition-colors duration-300">
-                            <th className="py-1.5 px-2 font-semibold text-left opacity-75">Customer</th>
-                            <th className="py-1.5 px-2 font-semibold text-left opacity-75">Volume</th>
-                            <th className="py-1.5 px-2 font-semibold text-right opacity-75">Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {[
-                            { name: "Acme Corp", vol: "$12,480", status: "Active" },
-                            { name: "Vercel Inc", vol: "$9,204", status: "Active" },
-                            { name: "Stripe", vol: "$8,492", status: "Pending" },
-                          ].map((row, i) => (
-                            <tr key={i} className="border-b border-white/5 last:border-b-0">
-                              <td className="py-1.5 px-2 font-medium opacity-85">{row.name}</td>
-                              <td className="py-1.5 px-2 opacity-80 font-mono">{row.vol}</td>
-                              <td className="py-1.5 px-2 text-right">
-                                <span style={{ color: primaryColor }} className="font-semibold transition-colors duration-300">
-                                  {row.status}
-                                </span>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-
-                    {/* Donut Chart / Traffic Sources */}
-                    <div
-                      style={{
-                        backgroundColor: cardBg,
-                        borderColor: `${primaryColor}20`,
-                        borderRadius: `${radius}px`,
-                        transition: "background-color 300ms, border-color 300ms, border-radius 300ms",
-                      }}
-                      className="border p-3.5 flex flex-col justify-between shadow-sm"
-                    >
-                      <span className="text-[9px] opacity-50 uppercase font-semibold mb-2 block">Traffic Breakdown</span>
-                      <div className="flex items-center gap-4 flex-1 justify-center sm:justify-start">
-                        {/* Radial Progress Ring */}
-                        <div className="relative w-14 h-14 shrink-0">
-                          <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                            <path
-                              className="text-white/5"
-                              stroke="currentColor"
-                              strokeWidth="3"
-                              fill="none"
-                              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                            />
-                            {/* Direct Traffic (60%) */}
-                            <path
-                              stroke={primaryColor}
-                              strokeWidth="3.5"
-                              strokeDasharray="60, 100"
-                              strokeLinecap="round"
-                              fill="none"
-                              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                              className="transition-all duration-300"
-                            />
-                            {/* Referral Traffic (25%) */}
-                            <path
-                              stroke={accentColor}
-                              strokeWidth="3.5"
-                              strokeDasharray="25, 100"
-                              strokeDashoffset="-60"
-                              strokeLinecap="round"
-                              fill="none"
-                              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                              className="transition-all duration-300"
-                            />
-                          </svg>
-                          <div className="absolute inset-0 flex items-center justify-center text-[9px] font-bold">
-                            85%
-                          </div>
-                        </div>
-                        <div className="flex flex-col gap-1 text-[9px]">
-                          <div className="flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: primaryColor }} />
-                            <span className="opacity-80">Direct: 60%</span>
-                          </div>
-                          <div className="flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accentColor }} />
-                            <span className="opacity-80">Referral: 25%</span>
-                          </div>
-                          <div className="flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-white/25" />
-                            <span className="opacity-60">Organic: 15%</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  {/* Button Row */}
-                  <div className="flex gap-3 mt-2">
-                    <button
-                      style={{
-                        backgroundColor: primaryColor,
-                        color: getContrastColor(primaryColor),
-                        borderRadius: `${radius}px`,
-                        transition: "background-color 300ms, color 300ms, border-radius 300ms",
-                      }}
-                      className="flex-1 py-2 text-xs font-semibold shadow-md active:scale-95 transition-transform duration-100 focus:outline-none text-center justify-center flex items-center"
-                    >
-                      Export Report
-                    </button>
-                    <button
-                      style={{
-                        borderColor: primaryColor,
-                        color: primaryColor,
-                        borderRadius: `${radius}px`,
-                        transition: "border-color 300ms, color 300ms, border-radius 300ms",
-                      }}
-                      className="flex-1 py-2 text-xs font-semibold border bg-transparent active:scale-95 transition-transform duration-100 focus:outline-none text-center justify-center flex items-center"
-                    >
-                      Apply Filters
-                    </button>
-                  </div>
-
-                </div>
+                    "--prism-dashboard-bg": surfaceColor,
+                    "--prism-dashboard-text": textContrast,
+                    "--prism-dashboard-border": textContrast === "#FAFAFA" ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)",
+                    "--prism-sidebar-bg": textContrast === "#FAFAFA" ? "rgba(0,0,0,0.15)" : "rgba(15,23,42,0.03)",
+                    "--prism-sidebar-border": textContrast === "#FAFAFA" ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)",
+                    "--prism-card-bg": cardBg,
+                    "--prism-card-border": textContrast === "#FAFAFA" ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.06)",
+                    "--prism-card-radius": `${radius}px`,
+                    "--prism-button-bg": primaryColor,
+                    "--prism-button-text": primaryContrast,
+                    "--prism-button-radius": `${Math.min(radius, 8)}px`,
+                    "--prism-chart-primary": primaryColor,
+                    "--prism-chart-accent": accentColor,
+                    "--prism-semantic-primary": primaryColor,
+                    "--prism-semantic-font": font === "Geist" ? "var(--font-geist)" : font === "JetBrains Mono" ? "var(--font-geist-mono)" : font,
+                  } as React.CSSProperties}
+                />
               </div>
 
             </motion.div>

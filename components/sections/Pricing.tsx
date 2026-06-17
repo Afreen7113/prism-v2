@@ -29,7 +29,7 @@ export default function Pricing() {
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
 
   return (
-    <section className="py-16 px-8 bg-bg-base relative z-10 overflow-hidden text-center">
+    <section id="pricing" className="py-16 px-8 bg-bg-base relative z-10 overflow-hidden text-center">
       {/* Background radial gradient */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.08)_0%,transparent_70%)] pointer-events-none blur-[80px] z-0" />
 
@@ -117,26 +117,26 @@ export default function Pricing() {
           <motion.div
             whileHover={{
               y: -8,
-              borderColor: "rgba(99, 102, 241, 0.25)",
-              boxShadow: "0 15px 35px rgba(99,102,241,0.1)",
+              borderColor: "var(--prism-semantic-primary, rgba(99, 102, 241, 0.25))",
+              boxShadow: "0 15px 35px var(--prism-primary-glow, rgba(99,102,241,0.1))",
             }}
-            className="bg-[#0D0F17]/60 border border-white/5 rounded-[24px] p-8 sm:p-10 flex flex-col justify-between text-left transition-all duration-300"
+            className="bg-bg-elevated/60 border border-border-subtle rounded-[24px] p-8 sm:p-10 flex flex-col justify-between text-left transition-all duration-300"
           >
             <div>
-              <span className="text-xl font-bold text-white block">Starter</span>
+              <span className="text-xl font-bold text-text-primary block">Starter</span>
               <span className="text-xs text-text-secondary mt-1 block">For early-stage products</span>
               
               <div className="mt-8 flex items-baseline">
-                <span className="text-5xl font-bold tracking-tight text-white">$0</span>
+                <span className="text-5xl font-bold tracking-tight text-text-primary">$0</span>
                 <span className="text-sm text-text-secondary ml-1">/month</span>
               </div>
-
-              <button className="w-full mt-8 py-3 px-4 border border-white/20 hover:border-white/40 text-white rounded-xl text-sm font-semibold bg-transparent transition-colors duration-300 focus:outline-none text-center block">
+ 
+              <button className="w-full mt-8 py-3 px-4 border border-border-subtle hover:border-text-secondary text-text-primary rounded-xl text-sm font-semibold bg-transparent transition-colors duration-300 focus:outline-none text-center block">
                 Start free
               </button>
-
-              <div className="w-full h-[1px] bg-white/5 my-8" />
-
+ 
+              <div className="w-full h-[1px] bg-border-subtle my-8" />
+ 
               <div className="flex flex-col gap-3">
                 {[
                   "Up to 1,000 monthly active users",
@@ -147,56 +147,56 @@ export default function Pricing() {
                   "Standard themes",
                 ].map((feat, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <Check className="w-4 h-4 text-indigo-400 shrink-0" />
+                    <Check className="w-4 h-4 text-primary shrink-0" />
                     <span className="text-xs sm:text-sm text-text-secondary">{feat}</span>
                   </div>
                 ))}
               </div>
             </div>
           </motion.div>
-
+ 
           {/* Card 2: Growth (Highlighted) */}
           <div className="relative scale-100 md:scale-105 z-10 flex flex-col group/growth transition-transform duration-300">
             
             {/* Glowing gradient background border */}
-            <div className="absolute -inset-[1px] rounded-[24px] bg-gradient-to-r from-indigo-500 to-purple-600 opacity-90 blur-[1px] z-0" />
+            <div className="absolute -inset-[1px] rounded-[24px] bg-gradient-to-r from-primary to-tertiary opacity-90 blur-[1px] z-0" />
             
             {/* MOST POPULAR Badge */}
-            <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-[11px] font-bold py-1 px-4 rounded-full tracking-wider uppercase shadow-md z-20">
+            <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-tertiary text-white text-[11px] font-bold py-1 px-4 rounded-full tracking-wider uppercase shadow-md z-20">
               Most Popular
             </span>
-
+ 
             <motion.div
               whileHover={{
                 y: -8,
-                boxShadow: "0 20px 40px rgba(99,102,241,0.2)",
+                boxShadow: "0 20px 40px var(--prism-primary-glow, rgba(99,102,241,0.2))",
               }}
-              className="relative bg-[#0D0F17]/95 rounded-[24px] p-8 sm:p-10 flex flex-col justify-between text-left h-full shadow-[0_0_80px_rgba(99,102,241,0.3)] z-10 transition-all duration-300 flex-1"
+              className="relative bg-bg-elevated/95 rounded-[24px] p-8 sm:p-10 flex flex-col justify-between text-left h-full shadow-[0_0_80px_var(--prism-primary-glow, rgba(99,102,241,0.3))] z-10 transition-all duration-300 flex-1"
             >
               <div>
-                <span className="text-xl font-bold text-white block">Growth</span>
+                <span className="text-xl font-bold text-text-primary block">Growth</span>
                 <span className="text-xs text-text-secondary mt-1 block">For scaling B2B SaaS</span>
                 
                 <div className="mt-8 flex flex-col justify-end">
                   <div className="flex items-baseline">
-                    <span className="text-5xl font-bold tracking-tight text-white transition-all duration-300">
+                    <span className="text-5xl font-bold tracking-tight text-text-primary transition-all duration-300">
                       {billing === "monthly" ? "$499" : "$399"}
                     </span>
                     <span className="text-sm text-text-secondary ml-1">/month</span>
                   </div>
                   {billing === "annual" && (
-                    <span className="text-[10px] text-[#86EFAC] font-mono mt-1 font-semibold block">
+                    <span className="text-[10px] text-success font-mono mt-1 font-semibold block">
                       * billed annually ($4,788/yr)
                     </span>
                   )}
                 </div>
-
-                <button className="w-full mt-8 py-3.5 px-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl text-sm font-semibold shadow-[0_0_30px_rgba(99,102,241,0.4)] hover:shadow-[0_0_40px_rgba(99,102,241,0.6)] hover:scale-[1.02] active:scale-95 transition-all duration-300 focus:outline-none text-center block">
+ 
+                <button className="w-full mt-8 py-3.5 px-4 bg-gradient-to-r from-primary to-tertiary text-white rounded-xl text-sm font-semibold shadow-[0_0_30px_var(--prism-primary-glow, rgba(99,102,241,0.4))] hover:shadow-[0_0_40px_var(--prism-primary-glow, rgba(99,102,241,0.6))] hover:scale-[1.02] active:scale-95 transition-all duration-300 focus:outline-none text-center block">
                   Start 14-day trial
                 </button>
-
-                <div className="w-full h-[1px] bg-white/5 my-8" />
-
+ 
+                <div className="w-full h-[1px] bg-border-subtle my-8" />
+ 
                 <div className="flex flex-col gap-3">
                   {[
                     "Up to 50,000 monthly active users",
@@ -210,7 +210,7 @@ export default function Pricing() {
                     "Advanced analytics",
                   ].map((feat, i) => (
                     <div key={i} className="flex items-center gap-3">
-                      <Check className="w-4 h-4 text-indigo-400 shrink-0" />
+                      <Check className="w-4 h-4 text-primary shrink-0" />
                       <span className="text-xs sm:text-sm text-text-secondary">{feat}</span>
                     </div>
                   ))}
@@ -218,30 +218,30 @@ export default function Pricing() {
               </div>
             </motion.div>
           </div>
-
+ 
           {/* Card 3: Enterprise */}
           <motion.div
             whileHover={{
               y: -4,
-              borderColor: "rgba(255, 255, 255, 0.15)",
-              boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+              borderColor: "var(--prism-site-border, rgba(255, 255, 255, 0.15))",
+              boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
             }}
-            className="bg-[#0D0F17]/60 border border-white/5 rounded-[24px] p-8 sm:p-10 flex flex-col justify-between text-left transition-colors duration-300"
+            className="bg-bg-elevated/60 border border-border-subtle rounded-[24px] p-8 sm:p-10 flex flex-col justify-between text-left transition-colors duration-300"
           >
             <div>
-              <span className="text-xl font-bold text-white block">Enterprise</span>
+              <span className="text-xl font-bold text-text-primary block">Enterprise</span>
               <span className="text-xs text-text-secondary mt-1 block">For mission-critical deployments</span>
               
               <div className="mt-8 flex items-baseline">
-                <span className="text-4xl sm:text-5xl font-bold tracking-tight text-white">Custom</span>
+                <span className="text-4xl sm:text-5xl font-bold tracking-tight text-text-primary">Custom</span>
               </div>
-
-              <button className="w-full mt-8 py-3 px-4 border border-white/20 hover:border-white/40 text-white rounded-xl text-sm font-semibold bg-transparent transition-colors duration-300 focus:outline-none text-center block">
+ 
+              <button className="w-full mt-8 py-3 px-4 border border-border-subtle hover:border-text-secondary text-text-primary rounded-xl text-sm font-semibold bg-transparent transition-colors duration-300 focus:outline-none text-center block">
                 Contact sales
               </button>
-
-              <div className="w-full h-[1px] bg-white/5 my-8" />
-
+ 
+              <div className="w-full h-[1px] bg-border-subtle my-8" />
+ 
               <div className="flex flex-col gap-3">
                 {[
                   "Unlimited monthly active users",

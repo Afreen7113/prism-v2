@@ -131,11 +131,11 @@ export default function Testimonials() {
               }}
               whileHover={{
                 y: -6,
-                borderColor: "rgba(99, 102, 241, 0.3)",
-                boxShadow: "0 0 40px rgba(99, 102, 241, 0.15)",
+                borderColor: "var(--prism-semantic-primary, rgba(99, 102, 241, 0.3))",
+                boxShadow: "0 0 40px var(--prism-primary-glow, rgba(99, 102, 241, 0.15))",
                 scale: 1.02,
               }}
-              className="group bg-[#0D0F17]/60 backdrop-blur-xl border border-white/5 rounded-[24px] p-8 relative overflow-hidden flex flex-col justify-between min-h-[240px] transition-colors duration-300 text-left"
+              className="group bg-bg-elevated/60 backdrop-blur-xl border border-border-subtle rounded-[24px] p-8 relative overflow-hidden flex flex-col justify-between min-h-[240px] transition-colors duration-300 text-left"
             >
               
               {/* Decorative Quote Icon */}
@@ -169,7 +169,7 @@ export default function Testimonials() {
               </p>
 
               {/* Author block */}
-              <div className="flex items-center gap-3 mt-6 pt-6 border-t border-white/5 relative z-10">
+              <div className="flex items-center gap-3 mt-6 pt-6 border-t border-border-subtle relative z-10">
                 {/* Avatar with unique gradient */}
                 <div
                   className={`w-12 h-12 rounded-full bg-gradient-to-br ${t.author.gradient} flex items-center justify-center text-white font-semibold text-sm border-2 border-white/10 shrink-0 shadow-sm`}

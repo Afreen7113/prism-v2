@@ -38,11 +38,11 @@ function BentoCard({ children, className = "", index }: BentoCardProps) {
         delay: index * 0.1,
         ease: [0.32, 0.72, 0, 1],
       }}
-      className={`bento-card group relative overflow-hidden bg-bg-elevated/40 glass rounded-[24px] p-8 cursor-pointer border border-white/5 hover:border-transparent transition-all duration-300 hover:scale-[1.01] hover:-translate-y-1 hover:shadow-[0_0_60px_rgba(99,102,241,0.2)] ${className}`}
+      className={`bento-card group relative overflow-hidden bg-bg-elevated/40 glass rounded-[24px] p-8 cursor-pointer border border-border-subtle hover:border-transparent transition-all duration-300 hover:scale-[1.01] hover:-translate-y-1 hover:shadow-[0_0_60px_var(--prism-primary-glow, rgba(99, 102, 241, 0.2))] ${className}`}
     >
       {/* Outer border gradient overlay on hover */}
       <div className="absolute inset-0 -z-10 rounded-[24px] p-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-primary to-tertiary" />
-      <div className="absolute inset-[1px] -z-10 rounded-[23px] bg-[#08090E]/95" />
+      <div className="absolute inset-[1px] -z-10 rounded-[23px] bg-bg-surface/95" />
 
       {children}
     </motion.div>
@@ -144,9 +144,9 @@ function Card1CodeEditor() {
   };
 
   return (
-    <div ref={containerRef} className="h-[170px] bg-[#05060A] border border-white/5 rounded-xl p-4 font-mono text-[10px] sm:text-xs overflow-hidden relative">
+    <div ref={containerRef} className="h-[170px] bg-bg-base border border-border-subtle rounded-xl p-4 font-mono text-[10px] sm:text-xs overflow-hidden relative">
       {/* Tab bar */}
-      <div className="flex items-center justify-between border-b border-white/5 pb-2 mb-3">
+      <div className="flex items-center justify-between border-b border-border-subtle pb-2 mb-3">
         <div className="flex gap-1.5">
           <span className="w-2.5 h-2.5 rounded-full bg-[#EF4444]/75" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]/75" />
@@ -314,7 +314,7 @@ function Card3ChartBuilder() {
       </div>
 
       {/* Bottom half: Canvas area */}
-      <div className="h-1/2 border border-dashed border-primary/30 rounded-xl p-4 flex flex-col justify-end relative bg-[#0D0F17]/10 overflow-hidden">
+      <div className="h-1/2 border border-dashed border-primary/30 rounded-xl p-4 flex flex-col justify-end relative bg-bg-surface/10 overflow-hidden">
         
         {/* Helper guide text when empty */}
         <motion.div
@@ -463,7 +463,7 @@ function Card4ExportPipeline() {
                 times: [0, dest.delay / 3.5, (dest.delay + 0.2) / 3.5, (dest.delay + 1.6) / 3.5, (dest.delay + 1.8) / 3.5],
                 ease: "easeInOut",
               }}
-              className="border border-white/5 rounded-lg py-1.5 px-3 flex items-center justify-between bg-[#0D0F17]/60 text-left"
+              className="border border-border-subtle rounded-lg py-1.5 px-3 flex items-center justify-between bg-bg-elevated/60 text-left"
             >
               <div className="flex items-center gap-2">
                 <DestIcon className="w-3.5 h-3.5 text-text-secondary" />
@@ -523,19 +523,19 @@ function Card5NetworkNodes() {
 
         {/* Satellite nodes */}
         {/* Top Satellite */}
-        <div className="absolute top-0 w-5 h-5 rounded-full bg-bg-surface border border-white/10 flex items-center justify-center text-[7px] font-mono text-text-secondary">
+        <div className="absolute top-0 w-5 h-5 rounded-full bg-bg-surface border border-border-subtle/50 flex items-center justify-center text-[7px] font-mono text-text-secondary">
           T1
         </div>
         {/* Right Satellite */}
-        <div className="absolute right-0 w-5 h-5 rounded-full bg-bg-surface border border-white/10 flex items-center justify-center text-[7px] font-mono text-text-secondary">
+        <div className="absolute right-0 w-5 h-5 rounded-full bg-bg-surface border border-border-subtle/50 flex items-center justify-center text-[7px] font-mono text-text-secondary">
           T2
         </div>
         {/* Bottom Satellite */}
-        <div className="absolute bottom-0 w-5 h-5 rounded-full bg-bg-surface border border-white/10 flex items-center justify-center text-[7px] font-mono text-text-secondary">
+        <div className="absolute bottom-0 w-5 h-5 rounded-full bg-bg-surface border border-border-subtle/50 flex items-center justify-center text-[7px] font-mono text-text-secondary">
           T3
         </div>
         {/* Left Satellite */}
-        <div className="absolute left-0 w-5 h-5 rounded-full bg-bg-surface border border-white/10 flex items-center justify-center text-[7px] font-mono text-text-secondary">
+        <div className="absolute left-0 w-5 h-5 rounded-full bg-bg-surface border border-border-subtle/50 flex items-center justify-center text-[7px] font-mono text-text-secondary">
           T4
         </div>
       </motion.div>
@@ -647,7 +647,7 @@ const wordVariants = {
 
 export default function BentoGrid() {
   return (
-    <section className="py-16 px-6 bg-bg-base relative z-10 border-b border-border-subtle">
+    <section id="product" className="py-16 px-6 bg-bg-base relative z-10 border-b border-border-subtle">
       
       {/* Background radial highlight overlay */}
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.03)_0%,transparent_60%)] pointer-events-none" />
