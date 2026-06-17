@@ -6,30 +6,31 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const themes: Record<string, Record<string, string>> = {
   default: {
-    "--prism-site-bg": "#000000",
-    "--prism-site-surface": "#08090E",
-    "--prism-site-elevated": "#0D0F17",
-    "--prism-semantic-primary": "#6366F1",
-    "--prism-semantic-accent": "#22D3EE",
-    "--prism-semantic-accent-2": "#A855F7",
-    "--prism-site-text": "#FAFAFA",
-    "--prism-site-text-secondary": "#71717A",
-    "--prism-site-text-muted": "#52525B",
-    "--prism-site-border": "rgba(255, 255, 255, 0.06)",
-    "--prism-primary-glow": "rgba(99, 102, 241, 0.4)",
-    "--prism-border-glow": "rgba(99, 102, 241, 0.3)",
-    "--prism-glass-bg": "rgba(13, 15, 23, 0.6)",
-    "--prism-glass-border": "rgba(255, 255, 255, 0.05)",
-    "--prism-grid-color": "rgba(255, 255, 255, 0.03)",
+    "--prism-site-bg": "#0f172a",
+    "--prism-site-surface": "#1e293b",
+    "--prism-site-elevated": "#334155",
+    "--prism-semantic-primary": "#4f46e5",
+    "--prism-semantic-accent": "#0ea5e9",
+    "--prism-semantic-accent-2": "#8b5cf6",
+    "--prism-site-text": "#f8fafc",
+    "--prism-site-text-secondary": "#cbd5e1",
+    "--prism-site-text-muted": "#94a3b8",
+    "--prism-site-border": "rgba(255, 255, 255, 0.1)",
+    "--prism-primary-glow": "rgba(79, 70, 229, 0.35)",
+    "--prism-border-glow": "rgba(79, 70, 229, 0.25)",
+    "--prism-glass-bg": "rgba(30, 41, 59, 0.7)",
+    "--prism-glass-border": "rgba(255, 255, 255, 0.1)",
+    "--prism-grid-color": "rgba(255, 255, 255, 0.04)",
     // Mockup component tokens
-    "--prism-dashboard-bg": "#0D0F17",
-    "--prism-dashboard-text": "#FAFAFA",
+    "--prism-dashboard-bg": "#1e293b",
+    "--prism-dashboard-text": "#f8fafc",
     "--prism-card-bg": "rgba(255, 255, 255, 0.03)",
-    "--prism-card-border": "rgba(255, 255, 255, 0.06)",
+    "--prism-card-border": "rgba(255, 255, 255, 0.1)",
     "--prism-card-radius": "12px",
-    "--prism-button-bg": "#6366F1",
-    "--prism-chart-primary": "#6366F1",
-    "--prism-chart-accent": "#A855F7"
+    "--prism-button-bg": "#4f46e5",
+    "--prism-chart-primary": "#4f46e5",
+    "--prism-chart-accent": "#0ea5e9",
+    "--prism-semantic-font": "var(--font-inter)"
   },
   healthcare: {
     "--prism-site-bg": "#F8FAFC",
@@ -143,10 +144,17 @@ export default function GlobalThemeSelector() {
 
   const selectTheme = (key: string) => {
     setSelected(key);
-    const themeObj = themes[key];
-    Object.keys(themeObj).forEach((varName) => {
-      document.documentElement.style.setProperty(varName, themeObj[varName]);
-    });
+    if (key === "default") {
+      // Clear inline style overrides so page falls back to responsive CSS rules
+      Object.keys(themes["default"]).forEach((varName) => {
+        document.documentElement.style.removeProperty(varName);
+      });
+    } else {
+      const themeObj = themes[key];
+      Object.keys(themeObj).forEach((varName) => {
+        document.documentElement.style.setProperty(varName, themeObj[varName]);
+      });
+    }
   };
 
   return (

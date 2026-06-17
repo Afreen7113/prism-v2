@@ -14,7 +14,9 @@ import {
   Plus,
   ShieldCheck,
   Server,
-  Eye
+  Eye,
+  BookOpen,
+  X
 } from "lucide-react";
 import PrismDashboard from "@/components/PrismDashboard";
 
@@ -22,24 +24,25 @@ export default function AdminPortal() {
   const [activeTab, setActiveTab] = useState<"playground" | "builder" | "customers" | "billing">("playground");
 
   // --- 1. PLAYGROUND STATE (White-label design tokens) ---
-  const [primaryColor, setPrimaryColor] = useState("#6366F1");
-  const [surfaceColor, setSurfaceColor] = useState("#0D0F17");
-  const [accentColor, setAccentColor] = useState("#A855F7");
-  const [font, setFont] = useState("Geist");
-  const [radius, setRadius] = useState(12);
+  const [primaryColor, setPrimaryColor] = useState("#4f46e5");
+  const [surfaceColor, setSurfaceColor] = useState("#0f172a");
+  const [accentColor, setAccentColor] = useState("#0ea5e9");
+  const [font, setFont] = useState("Inter");
+  const [radius, setRadius] = useState(8);
   const [activePreset, setActivePreset] = useState<string>("default");
   const [cssCopied, setCssCopied] = useState(false);
   const [playgroundPulse, setPlaygroundPulse] = useState(false);
+  const [canvasWidgets, setCanvasWidgets] = useState<string[]>(["kpi", "chart", "table"]);
 
   // Preset Handlers
   const applyPreset = (preset: string) => {
     setActivePreset(preset);
     if (preset === "default") {
-      setPrimaryColor("#6366F1");
-      setSurfaceColor("#0D0F17");
-      setAccentColor("#A855F7");
-      setFont("Geist");
-      setRadius(12);
+      setPrimaryColor("#4f46e5");
+      setSurfaceColor("#0f172a");
+      setAccentColor("#0ea5e9");
+      setFont("Inter");
+      setRadius(8);
     } else if (preset === "healthcare") {
       setPrimaryColor("#0284C7");
       setSurfaceColor("#F8FAFC");
@@ -281,6 +284,14 @@ export default function AdminPortal() {
               </button>
             );
           })}
+
+          <Link
+            href="/storybook"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-left text-text-secondary hover:text-text-primary hover:bg-white/5 border border-transparent transition-all duration-300"
+          >
+            <BookOpen className="w-4 h-4 text-pink-500" />
+            <span>Storybook Docs</span>
+          </Link>
 
           <div className="mt-8 pt-6 border-t border-white/5 px-3 hidden lg:flex flex-col gap-2">
             <span className="text-[10px] uppercase font-bold text-text-muted tracking-widest block mb-1">Status Overview</span>
@@ -578,116 +589,166 @@ export default function AdminPortal() {
               </motion.div>
             )}
 
-            {/* TAB 2: CHART BUILDER */}
+            {/* TAB 2: CHART BUILDER WITH DRAG & DROP DASHBOARD CANVAS */}
             {activeTab === "builder" && (
               <motion.div
                 key="builder"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start"
+                className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start text-left"
               >
                 <div className="xl:col-span-12">
                   <h1 className="text-3xl font-semibold tracking-tight">Chart & Widget Builder</h1>
                   <p className="text-sm text-text-secondary mt-1">
-                    Design custom embedded charts, configure metrics, select color coordinates, and instantly generate production React snippet or raw HTML iframe code.
+                    Design custom embedded charts, configure metrics, select color coordinates, and assemble layouts using the drag-and-drop dashboard canvas.
                   </p>
                 </div>
 
-                {/* Left Controls */}
-                <div className="xl:col-span-5 flex flex-col gap-6 bg-bg-surface/50 border border-white/5 p-6 rounded-[24px] shadow-xl">
+                {/* Left Controls & Widgets Library */}
+                <div className="xl:col-span-5 flex flex-col gap-6">
                   
                   {/* Selector Configuration */}
-                  <div className="flex flex-col gap-4">
-                    <span className="block text-[10px] font-bold text-text-muted uppercase tracking-wider mb-1">
-                      1. Widget Configuration
+                  <div className="flex flex-col gap-6 bg-bg-surface/50 border border-white/5 p-6 rounded-[24px] shadow-xl">
+                    <span className="block text-[10px] font-bold text-text-muted uppercase tracking-wider">
+                      1. Widget Customization
                     </span>
 
-                    {/* Chart Type */}
-                    <div>
-                      <label className="block text-xs font-semibold text-text-secondary mb-1.5">Visual representation</label>
-                      <div className="grid grid-cols-3 gap-2">
-                        {["Area", "Line", "Bar"].map((t) => (
-                          <button
-                            key={t}
-                            onClick={() => setChartType(t as "Area" | "Line" | "Bar")}
-                            className={`py-2 px-3 rounded-lg text-xs font-semibold transition-all border ${
-                              chartType === t
-                                ? "bg-primary/25 border-primary text-text-primary"
-                                : "bg-white/5 border-white/5 hover:border-white/10 text-text-secondary"
-                            }`}
-                          >
-                            {t} Chart
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Primary Metric */}
-                    <div>
-                      <label className="block text-xs font-semibold text-text-secondary mb-1.5">Focus Metric Name</label>
-                      <select
-                        value={chartMetric}
-                        onChange={(e) => setChartMetric(e.target.value)}
-                        className="w-full bg-[#0D0F17] border border-white/10 p-2.5 rounded-lg text-xs text-text-primary focus:outline-none"
-                      >
-                        <option value="User Engagements">User Engagements</option>
-                        <option value="Monthly Net Revenue">Monthly Net Revenue</option>
-                        <option value="Weekly Active Sessions">Weekly Active Sessions</option>
-                        <option value="Server Response Time">Server Response Time</option>
-                        <option value="API Conversion Rates">API Conversion Rates</option>
-                      </select>
-                    </div>
-
-                    {/* Grid Colors */}
-                    <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-4">
+                    <div className="flex flex-col gap-4">
+                      {/* Chart Type */}
                       <div>
-                        <label className="block text-[10px] font-bold text-text-secondary uppercase mb-1.5">Chart Primary</label>
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="color"
-                            value={chartPrimary}
-                            onChange={(e) => setChartPrimary(e.target.value)}
-                            className="w-8 h-8 rounded border border-white/15 cursor-pointer bg-transparent"
-                          />
-                          <span className="text-xs font-mono uppercase">{chartPrimary}</span>
+                        <label className="block text-xs font-semibold text-text-secondary mb-1.5">Visual representation</label>
+                        <div className="grid grid-cols-3 gap-2">
+                          {["Area", "Line", "Bar"].map((t) => (
+                            <button
+                              key={t}
+                              onClick={() => setChartType(t as "Area" | "Line" | "Bar")}
+                              className={`py-2 px-3 rounded-lg text-xs font-semibold transition-all border ${
+                                chartType === t
+                                  ? "bg-primary/25 border-primary text-text-primary"
+                                  : "bg-white/5 border-white/5 hover:border-white/10 text-text-secondary"
+                              }`}
+                            >
+                              {t} Chart
+                            </button>
+                          ))}
                         </div>
                       </div>
+
+                      {/* Primary Metric */}
                       <div>
-                        <label className="block text-[10px] font-bold text-text-secondary uppercase mb-1.5">Chart Accent</label>
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="color"
-                            value={chartAccent}
-                            onChange={(e) => setChartAccent(e.target.value)}
-                            className="w-8 h-8 rounded border border-white/15 cursor-pointer bg-transparent"
-                          />
-                          <span className="text-xs font-mono uppercase">{chartAccent}</span>
+                        <label className="block text-xs font-semibold text-text-secondary mb-1.5">Focus Metric Name</label>
+                        <select
+                          value={chartMetric}
+                          onChange={(e) => setChartMetric(e.target.value)}
+                          className="w-full bg-[#0D0F17] border border-white/10 p-2.5 rounded-lg text-xs text-text-primary focus:outline-none"
+                        >
+                          <option value="User Engagements">User Engagements</option>
+                          <option value="Monthly Net Revenue">Monthly Net Revenue</option>
+                          <option value="Weekly Active Sessions">Weekly Active Sessions</option>
+                          <option value="Server Response Time">Server Response Time</option>
+                          <option value="API Conversion Rates">API Conversion Rates</option>
+                        </select>
+                      </div>
+
+                      {/* Grid Colors */}
+                      <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-4">
+                        <div>
+                          <label className="block text-[10px] font-bold text-text-secondary uppercase mb-1.5">Chart Primary</label>
+                          <div className="flex items-center gap-2">
+                            <input
+                              type="color"
+                              value={chartPrimary}
+                              onChange={(e) => setChartPrimary(e.target.value)}
+                              className="w-8 h-8 rounded border border-white/15 cursor-pointer bg-transparent"
+                            />
+                            <span className="text-xs font-mono uppercase">{chartPrimary}</span>
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-[10px] font-bold text-text-secondary uppercase mb-1.5">Chart Accent</label>
+                          <div className="flex items-center gap-2">
+                            <input
+                              type="color"
+                              value={chartAccent}
+                              onChange={(e) => setChartAccent(e.target.value)}
+                              className="w-8 h-8 rounded border border-white/15 cursor-pointer bg-transparent"
+                            />
+                            <span className="text-xs font-mono uppercase">{chartAccent}</span>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Radius selector */}
-                    <div className="border-t border-white/5 pt-4">
-                      <label className="block text-xs font-semibold text-text-secondary mb-2">Border Radius</label>
-                      <div className="flex items-center gap-4">
-                        <input
-                          type="range"
-                          min="0"
-                          max="20"
-                          value={chartRadius}
-                          onChange={(e) => setChartRadius(Number(e.target.value))}
-                          className="flex-1 accent-primary bg-white/10 h-1 rounded-lg cursor-pointer"
-                        />
-                        <span className="text-xs font-mono text-text-primary">{chartRadius}px</span>
+                      {/* Radius selector */}
+                      <div className="border-t border-white/5 pt-4">
+                        <label className="block text-xs font-semibold text-text-secondary mb-2">Border Radius</label>
+                        <div className="flex items-center gap-4">
+                          <input
+                            type="range"
+                            min="0"
+                            max="20"
+                            value={chartRadius}
+                            onChange={(e) => setChartRadius(Number(e.target.value))}
+                            className="flex-1 accent-primary bg-white/10 h-1 rounded-lg cursor-pointer"
+                          />
+                          <span className="text-xs font-mono text-text-primary">{chartRadius}px</span>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Generate codes snippet */}
-                  <div className="border-t border-white/5 pt-4 flex flex-col gap-4">
+                  {/* Drag-and-Drop Widgets Library Sidebar */}
+                  <div className="bg-bg-surface/50 border border-white/5 p-6 rounded-[24px] shadow-xl flex flex-col gap-4">
                     <span className="block text-[10px] font-bold text-text-muted uppercase tracking-wider">
-                      2. Widget Integration Codes
+                      2. Drag-and-Drop Library
+                    </span>
+                    <p className="text-[11px] text-text-secondary leading-normal">
+                      Drag any widget card below and drop it into the dashboard canvas on the right to arrange your layout.
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {[
+                        { id: "kpi", label: "KPI Stat Blocks", desc: "SaaS revenue, user volume, and conversion", icon: Sliders },
+                        { id: "chart", label: "Analytics Canvas", desc: "Interactive area, line, or bar charts", icon: BarChart3 },
+                        { id: "table", label: "Data Records", desc: "List of recently processed transactions", icon: Users },
+                        { id: "donut", label: "Traffic Breakdown", desc: "Category breakdown progress donut", icon: CreditCard }
+                      ].map(w => {
+                        const Icon = w.icon;
+                        const isAdded = canvasWidgets.includes(w.id);
+                        return (
+                          <div
+                            key={w.id}
+                            draggable={!isAdded}
+                            onDragStart={(e) => {
+                              e.dataTransfer.setData("widgetType", w.id);
+                            }}
+                            onClick={() => {
+                              if (!isAdded) {
+                                setCanvasWidgets([...canvasWidgets, w.id]);
+                              }
+                            }}
+                            className={`p-3.5 rounded-xl border flex items-center gap-3 transition-all duration-300 group select-none ${
+                              isAdded 
+                                ? "bg-white/5 border-white/5 opacity-45 cursor-not-allowed" 
+                                : "bg-bg-surface border-white/5 hover:border-primary/40 cursor-grab active:cursor-grabbing hover:bg-white/5"
+                            }`}
+                          >
+                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${isAdded ? "bg-white/5 text-text-muted" : "bg-primary/10 text-primary group-hover:bg-primary/20"}`}>
+                              <Icon className="w-4 h-4" />
+                            </div>
+                            <div className="text-left flex-1 min-w-0">
+                              <div className="text-[11px] font-bold text-text-primary leading-tight truncate">{w.label}</div>
+                              <div className="text-[9px] text-text-secondary leading-none mt-1 truncate">{w.desc}</div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Generate codes snippet */}
+                  <div className="bg-bg-surface/50 border border-white/5 p-6 rounded-[24px] shadow-xl flex flex-col gap-4">
+                    <span className="block text-[10px] font-bold text-text-muted uppercase tracking-wider">
+                      3. Widget Integration Codes
                     </span>
 
                     {/* React embed */}
@@ -739,14 +800,30 @@ export default function AdminPortal() {
 
                 </div>
 
-                {/* Right Preview */}
+                {/* Right Interactive Dashboard Canvas with Dropzone */}
                 <div className="xl:col-span-7 flex flex-col gap-4">
-                  <span className="text-[10px] uppercase font-bold text-text-muted tracking-wider block">
-                    3. Embedded widget canvas preview
-                  </span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] uppercase font-bold text-text-muted tracking-wider block">
+                      4. Custom Dashboard Canvas (Drag & Drop Target)
+                    </span>
+                    <button
+                      onClick={() => setCanvasWidgets(["kpi", "chart", "table"])}
+                      className="text-[10px] font-semibold text-primary hover:text-text-primary transition-colors"
+                    >
+                      Reset Canvas Layout
+                    </button>
+                  </div>
 
                   <div
-                    className="bg-[#08090E]/90 border border-white/5 p-6 shadow-2xl flex flex-col justify-center transition-all duration-300"
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      const type = e.dataTransfer.getData("widgetType");
+                      if (type && !canvasWidgets.includes(type)) {
+                        setCanvasWidgets([...canvasWidgets, type]);
+                      }
+                    }}
+                    className={`bg-[#08090E]/90 border-2 border-dashed border-white/10 p-6 shadow-2xl flex flex-col gap-4 transition-all duration-300 min-h-[520px] justify-start relative`}
                     style={{
                       borderRadius: `${chartRadius}px`,
                       "--prism-chart-primary": chartPrimary,
@@ -759,12 +836,180 @@ export default function AdminPortal() {
                       "--prism-dashboard-border": "rgba(255,255,255,0.06)"
                     } as React.CSSProperties}
                   >
-                    <PrismDashboard
-                      title="Custom Analytics Output"
-                      chartType={chartType}
-                      chartMetric={chartMetric}
-                      hideSidebar={true}
-                    />
+                    {canvasWidgets.length === 0 ? (
+                      <div className="flex-1 flex flex-col items-center justify-center py-20 text-center pointer-events-none">
+                        <div className="w-12 h-12 rounded-full border border-dashed border-white/20 flex items-center justify-center text-text-muted mb-4">
+                          <BarChart3 className="w-6 h-6" />
+                        </div>
+                        <div className="text-xs font-bold text-white uppercase tracking-wider">Empty Dashboard Canvas</div>
+                        <div className="text-[10px] text-text-secondary mt-1 max-w-[200px]">
+                          Drag widgets from the library on the left and drop them here.
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col gap-4">
+                        {/* Dynamic Render of Widget List */}
+                        
+                        {/* 1. KPI Stats Card */}
+                        {canvasWidgets.includes("kpi") && (
+                          <div className="relative border border-white/10 bg-white/5 p-3 rounded-xl flex flex-col gap-2 group">
+                            {/* Drag indicator bar */}
+                            <div className="flex items-center justify-between border-b border-white/5 pb-1">
+                              <span className="text-[9px] font-bold text-text-secondary flex items-center gap-1.5 cursor-grab">
+                                <span className="flex flex-col gap-[2px] w-2 pointer-events-none opacity-50">
+                                  <span className="h-[2px] bg-white rounded-full" />
+                                  <span className="h-[2px] bg-white rounded-full" />
+                                  <span className="h-[2px] bg-white rounded-full" />
+                                </span>
+                                KPI STATS BLOCK
+                              </span>
+                              <button
+                                onClick={() => setCanvasWidgets(canvasWidgets.filter(w => w !== "kpi"))}
+                                className="opacity-0 group-hover:opacity-100 transition-opacity p-0.5 rounded hover:bg-white/10 text-white"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                            
+                            {/* Render actual Stats */}
+                            <div className="grid grid-cols-3 gap-3">
+                              {[
+                                { label: "Revenue", value: "$24,580", trend: "+12.5% ↑", isUp: true },
+                                { label: "Active Users", value: "1,847", trend: "+8.2% ↑", isUp: true },
+                                { label: "Conversion", value: "3.4%", trend: "-0.5% ↓", isUp: false },
+                              ].map((kpi, idx) => (
+                                <div key={idx} className="bg-black/25 border border-white/5 p-2 rounded-lg flex flex-col justify-between h-14">
+                                  <span className="text-[8px] text-text-secondary uppercase font-bold tracking-wider">{kpi.label}</span>
+                                  <div className="flex justify-between items-end">
+                                    <span className="text-xs font-bold text-white">{kpi.value}</span>
+                                    <span style={{ color: kpi.isUp ? "var(--prism-chart-primary)" : "var(--prism-chart-accent)" }} className="text-[8px] font-bold">{kpi.trend}</span>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* 2. Visual Charts */}
+                        {canvasWidgets.includes("chart") && (
+                          <div className="relative border border-white/10 bg-white/5 p-3 rounded-xl flex flex-col gap-2 group">
+                            <div className="flex items-center justify-between border-b border-white/5 pb-1">
+                              <span className="text-[9px] font-bold text-text-secondary flex items-center gap-1.5 cursor-grab">
+                                <span className="flex flex-col gap-[2px] w-2 pointer-events-none opacity-50">
+                                  <span className="h-[2px] bg-white rounded-full" />
+                                  <span className="h-[2px] bg-white rounded-full" />
+                                  <span className="h-[2px] bg-white rounded-full" />
+                                </span>
+                                {chartMetric.toUpperCase()} ({chartType.toUpperCase()} CHART)
+                              </span>
+                              <button
+                                onClick={() => setCanvasWidgets(canvasWidgets.filter(w => w !== "chart"))}
+                                className="opacity-0 group-hover:opacity-100 transition-opacity p-0.5 rounded hover:bg-white/10 text-white"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                            
+                            <div className="bg-black/20 p-2.5 rounded-lg border border-white/5">
+                              <PrismDashboard
+                                chartType={chartType}
+                                chartMetric={chartMetric}
+                                hideSidebar={true}
+                                title={chartMetric}
+                                customData={[]}
+                              />
+                            </div>
+                          </div>
+                        )}
+
+                        {/* 3. Data Inflows Grid */}
+                        {canvasWidgets.includes("table") && (
+                          <div className="relative border border-white/10 bg-white/5 p-3 rounded-xl flex flex-col gap-2 group">
+                            <div className="flex items-center justify-between border-b border-white/5 pb-1">
+                              <span className="text-[9px] font-bold text-text-secondary flex items-center gap-1.5 cursor-grab">
+                                <span className="flex flex-col gap-[2px] w-2 pointer-events-none opacity-50">
+                                  <span className="h-[2px] bg-white rounded-full" />
+                                  <span className="h-[2px] bg-white rounded-full" />
+                                  <span className="h-[2px] bg-white rounded-full" />
+                                </span>
+                                CUSTOMER INFLOW DATA TABLE
+                              </span>
+                              <button
+                                onClick={() => setCanvasWidgets(canvasWidgets.filter(w => w !== "table"))}
+                                className="opacity-0 group-hover:opacity-100 transition-opacity p-0.5 rounded hover:bg-white/10 text-white"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                            
+                            <div className="bg-black/25 p-2 rounded-lg border border-white/5 overflow-x-auto">
+                              <table className="w-full text-[9.5px] text-left border-collapse">
+                                <thead>
+                                  <tr className="border-b border-white/5 text-text-secondary">
+                                    <th className="py-1 px-2 font-bold">Tenant Name</th>
+                                    <th className="py-1 px-2 font-bold">Monthly Volume</th>
+                                    <th className="py-1 px-2 text-right font-bold">Integration Status</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {[
+                                    { name: "Acme Corp", vol: "$12,480", status: "Active" },
+                                    { name: "Vercel Inc", vol: "$9,204", status: "Active" },
+                                    { name: "Stripe Metrics", vol: "$8,492", status: "Pending" }
+                                  ].map((row, i) => (
+                                    <tr key={i} className="border-b border-white/5 last:border-0 text-white">
+                                      <td className="py-1.5 px-2 font-semibold">{row.name}</td>
+                                      <td className="py-1.5 px-2 font-mono">{row.vol}</td>
+                                      <td className="py-1.5 px-2 text-right">
+                                        <span className="font-bold text-[var(--prism-semantic-primary)]">{row.status}</span>
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* 4. Traffic Breakdown Donut */}
+                        {canvasWidgets.includes("donut") && (
+                          <div className="relative border border-white/10 bg-white/5 p-3 rounded-xl flex flex-col gap-2 group">
+                            <div className="flex items-center justify-between border-b border-white/5 pb-1">
+                              <span className="text-[9px] font-bold text-text-secondary flex items-center gap-1.5 cursor-grab">
+                                <span className="flex flex-col gap-[2px] w-2 pointer-events-none opacity-50">
+                                  <span className="h-[2px] bg-white rounded-full" />
+                                  <span className="h-[2px] bg-white rounded-full" />
+                                  <span className="h-[2px] bg-white rounded-full" />
+                                </span>
+                                TRAFFIC CHANNELS PIE BREAKDOWN
+                              </span>
+                              <button
+                                onClick={() => setCanvasWidgets(canvasWidgets.filter(w => w !== "donut"))}
+                                className="opacity-0 group-hover:opacity-100 transition-opacity p-0.5 rounded hover:bg-white/10 text-white"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                            
+                            <div className="bg-black/25 p-3.5 rounded-lg border border-white/5 flex items-center gap-6 justify-center">
+                              <div className="relative w-12 h-12 shrink-0">
+                                <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                  <path className="text-slate-700/30" stroke="currentColor" strokeWidth="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                  <path stroke="var(--prism-chart-primary)" strokeWidth="3.5" strokeDasharray="60, 100" strokeLinecap="round" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                  <path stroke="var(--prism-chart-accent)" strokeWidth="3.5" strokeDasharray="25, 100" strokeDashoffset="-60" strokeLinecap="round" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                </svg>
+                                <div className="absolute inset-0 flex items-center justify-center text-[9px] font-bold text-white">85%</div>
+                              </div>
+                              <div className="flex flex-col gap-0.5 text-[8.5px] text-text-secondary font-bold">
+                                <div className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "var(--prism-chart-primary)" }} /><span>Direct Web: 60%</span></div>
+                                <div className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "var(--prism-chart-accent)" }} /><span>Referrals: 25%</span></div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                        
+                      </div>
+                    )}
                   </div>
                 </div>
 

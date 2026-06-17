@@ -69,7 +69,7 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-12 px-8 bg-bg-base relative z-10 overflow-hidden">
+    <section className="py-20 md:py-24 px-6 md:px-12 lg:px-20 bg-bg-base relative z-10 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         
         {/* Header */}

@@ -24,8 +24,8 @@ const config: Config = {
         "border-glow": "var(--prism-border-glow, rgba(99, 102, 241, 0.3))",
       },
       fontFamily: {
-        sans: ["var(--font-geist)", "sans-serif"],
-        mono: ["var(--font-geist-mono)", "monospace"],
+        sans: ["var(--prism-semantic-font, var(--font-inter))", "sans-serif"],
+        mono: ["var(--prism-font-mono, var(--font-geist-mono))", "monospace"],
       },
       transitionTimingFunction: {
         DEFAULT: "cubic-bezier(0.32, 0.72, 0, 1)",

@@ -201,7 +201,7 @@ export default function DeveloperExperience() {
   };
 
   return (
-    <section id="sdk" className="py-16 px-6 bg-bg-base relative z-10 border-b border-border-subtle text-left">
+    <section id="sdk" className="py-20 md:py-24 px-6 md:px-12 lg:px-20 bg-bg-base relative z-10 border-b border-border-subtle text-left">
       <div className="max-w-7xl mx-auto flex flex-col gap-16">
         
         {/* Header */}

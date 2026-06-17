@@ -52,7 +52,7 @@ export default function MetricsBand() {
   }, []);
 
   return (
-    <section className="py-12 px-8 bg-bg-base relative border-t border-b border-border-subtle overflow-hidden text-center z-10">
+    <section className="py-16 px-6 md:px-12 lg:px-20 bg-bg-base relative border-t border-b border-border-subtle overflow-hidden text-center z-10">
       
       {/* Background drifting particles */}
       {mounted && (

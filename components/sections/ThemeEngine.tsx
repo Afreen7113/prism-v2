@@ -51,11 +51,11 @@ const wordVariants = {
 
 export default function ThemeEngine() {
   // Theme States
-  const [primaryColor, setPrimaryColor] = useState("#6366F1");
-  const [surfaceColor, setSurfaceColor] = useState("#0D0F17");
-  const [accentColor, setAccentColor] = useState("#A855F7");
-  const [font, setFont] = useState("Geist");
-  const [radius, setRadius] = useState(12);
+  const [primaryColor, setPrimaryColor] = useState("#4f46e5");
+  const [surfaceColor, setSurfaceColor] = useState("#0f172a");
+  const [accentColor, setAccentColor] = useState("#0ea5e9");
+  const [font, setFont] = useState("Inter");
+  const [radius, setRadius] = useState(8);
 
   // Interaction States
   const [activePreset, setActivePreset] = useState<string | null>(null);
@@ -141,7 +141,7 @@ export default function ThemeEngine() {
   const primaryContrast = getContrastColor(primaryColor);
 
   return (
-    <section id="white-label" className="py-16 px-6 bg-bg-base relative z-10 border-b border-border-subtle overflow-hidden">
+    <section id="white-label" className="py-20 md:py-24 px-6 md:px-12 lg:px-20 bg-bg-base relative z-10 border-b border-border-subtle overflow-hidden">
       
       {/* Background orbs */}
       <motion.div

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 
 const navItems = [
@@ -12,7 +12,7 @@ const navItems = [
   { name: "SDK", href: "/#sdk" },
   { name: "Pricing", href: "/#pricing" },
   { name: "Admin Portal", href: "/admin" },
-  { name: "Resources", href: "/#resources", hasDropdown: true },
+  { name: "Storybook", href: "/storybook" },
 ];
 
 export default function Navbar() {
@@ -87,7 +87,6 @@ export default function Navbar() {
                 onMouseLeave={() => setHoveredIndex(null)}
               >
                 <span>{item.name}</span>
-                {item.hasDropdown && <ChevronDown className="w-3.5 h-3.5 opacity-65" />}
                 <motion.span
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: hoveredIndex === idx ? 1 : 0 }}
@@ -147,7 +146,6 @@ export default function Navbar() {
                 className="text-base font-medium text-text-secondary hover:text-text-primary transition-colors flex items-center gap-1"
               >
                 <span>{item.name}</span>
-                {item.hasDropdown && <ChevronDown className="w-4 h-4 opacity-60" />}
               </Link>
             ))}
             <hr className="border-border-subtle" />

@@ -5,7 +5,7 @@ import RevealText from "@/components/ui/RevealText";
 
 export default function FinalCTA() {
   return (
-    <section className="min-h-screen py-16 px-8 bg-bg-base relative flex items-center justify-center overflow-hidden z-10">
+    <section className="min-h-screen py-20 md:py-24 px-6 md:px-12 lg:px-20 bg-bg-base relative flex items-center justify-center overflow-hidden z-10">
       
       {/* BACKGROUND LAYERS */}
 

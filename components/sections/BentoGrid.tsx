@@ -647,7 +647,7 @@ const wordVariants = {
 
 export default function BentoGrid() {
   return (
-    <section id="product" className="py-16 px-6 bg-bg-base relative z-10 border-b border-border-subtle">
+    <section id="product" className="py-20 md:py-24 px-6 md:px-12 lg:px-20 bg-bg-base relative z-10 border-b border-border-subtle">
       
       {/* Background radial highlight overlay */}
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.03)_0%,transparent_60%)] pointer-events-none" />

@@ -29,7 +29,7 @@ export default function Pricing() {
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
 
   return (
-    <section id="pricing" className="py-16 px-8 bg-bg-base relative z-10 overflow-hidden text-center">
+    <section id="pricing" className="py-20 md:py-24 px-6 md:px-12 lg:px-20 bg-bg-base relative z-10 overflow-hidden text-center">
       {/* Background radial gradient */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.08)_0%,transparent_70%)] pointer-events-none blur-[80px] z-0" />
 

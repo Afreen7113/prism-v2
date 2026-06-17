@@ -76,7 +76,7 @@ const wordVariants = {
 
 export default function ProblemSection() {
   return (
-    <section className="py-16 px-6 md:px-12 lg:px-20 bg-bg-base relative z-10 border-b border-border-subtle">
+    <section className="py-20 md:py-24 px-6 md:px-12 lg:px-20 bg-bg-base relative z-10 border-b border-border-subtle">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
         
         {/* Left Column (Sticky on scroll) */}
