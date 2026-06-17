@@ -85,7 +85,7 @@ export default function FAQ() {
             className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] text-text-primary"
           >
             {"Questions,".split(" ").map((word, i) => (
-              <span key={i} className="inline-block overflow-hidden mr-[0.25em] py-0.5">
+              <span key={i} className="inline-block overflow-hidden mr-[0.25em] pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
                 <motion.span variants={wordVariants} className="inline-block">
                   {word}
                 </motion.span>
@@ -99,7 +99,7 @@ export default function FAQ() {
               }}
             >
               {"answered.".split(" ").map((word, i) => (
-                <span key={i} className="inline-block overflow-hidden mr-[0.25em] last:mr-0 py-0.5">
+                <span key={i} className="inline-block overflow-hidden mr-[0.25em] last:mr-0 pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
                   <motion.span variants={wordVariants} className="inline-block">
                     {word}
                   </motion.span>
@@ -257,3 +257,6 @@ export default function FAQ() {
     </section>
   );
 }
+
+
+

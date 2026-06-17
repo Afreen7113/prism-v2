@@ -92,7 +92,7 @@ export default function Footer() {
                   href={social.href}
                   aria-label={social.label}
                   whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)", color: "#FFFFFF" }}
-                  className="w-9 h-9 bg-white/5 border border-white/5 flex items-center justify-center rounded-lg text-text-secondary transition-colors duration-300 focus:outline-none"
+                  className="w-9 h-9 bg-white/5 border border-border-subtle flex items-center justify-center rounded-lg text-text-secondary transition-colors duration-300 focus:outline-none"
                 >
                   <svg
                     viewBox="0 0 24 24"
@@ -180,7 +180,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-border-subtle flex flex-col md:flex-row justify-between items-center gap-6">
         
         {/* Left - Copyright */}
         <span className="text-xs sm:text-sm text-text-muted">
@@ -221,3 +221,4 @@ export default function Footer() {
     </footer>
   );
 }
+

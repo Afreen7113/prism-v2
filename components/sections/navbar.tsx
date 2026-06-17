@@ -8,8 +8,7 @@ import Link from "next/link";
 const navItems = [
   { name: "Product", href: "/#product" },
   { name: "Solutions", href: "/#solutions" },
-  { name: "White Label", href: "/#white-label" },
-  { name: "SDK", href: "/#sdk" },
+  { name: "Documentation", href: "/#docs" },
   { name: "Pricing", href: "/#pricing" },
   { name: "Admin Portal", href: "/admin" },
   { name: "Storybook", href: "/storybook" },

@@ -1,512 +1,326 @@
-"use client";
+'use client'
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Heart, DollarSign, ShoppingBag, Terminal, Clipboard, Check, Laptop, Tablet, Phone } from "lucide-react";
-import PrismDashboard from "@/components/PrismDashboard";
+import { motion } from 'framer-motion'
+import {
+  Heart,
+  DollarSign,
+  ShoppingBag,
+  Zap,
+  Code2,
+  Palette,
+  Layers,
+} from 'lucide-react'
+import { type ReactNode } from 'react'
 
-// Determine text contrast based on background color luminance
-const getContrastColor = (hex: string) => {
-  const cleanHex = hex.replace("#", "");
-  let r = 0, g = 0, b = 0;
-  if (cleanHex.length === 3) {
-    r = parseInt(cleanHex.charAt(0) + cleanHex.charAt(0), 16);
-    g = parseInt(cleanHex.charAt(1) + cleanHex.charAt(1), 16);
-    b = parseInt(cleanHex.charAt(2) + cleanHex.charAt(2), 16);
-  } else if (cleanHex.length === 6) {
-    r = parseInt(cleanHex.slice(0, 2), 16);
-    g = parseInt(cleanHex.slice(2, 4), 16);
-    b = parseInt(cleanHex.slice(4, 6), 16);
-  }
-  const yiq = (r * 299 + g * 587 + b * 114) / 1000;
-  return yiq >= 128 ? "#0F172A" : "#FAFAFA";
-};
+/* ------------------------------------------------------------------ */
+/*  Data                                                               */
+/* ------------------------------------------------------------------ */
 
-// Determine card background base based on surface color brightness
-const getCardBg = (hex: string) => {
-  const contrast = getContrastColor(hex);
-  return contrast === "#0F172A" ? "rgba(0, 0, 0, 0.04)" : "rgba(255, 255, 255, 0.04)";
-};
+interface BrandCard {
+  icon: ReactNode
+  brand: string
+  badge: string
+  bg: string
+  text: string
+  primary: string
+  kpis: { label: string; value: string }[]
+  barColor: string
+  barHeights: number[]
+  button: { label: string; className: string }
+  badgeClassName: string
+  dividerClassName: string
+  mutedClassName: string
+  dotColor: string
+}
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.05,
+const brands: BrandCard[] = [
+  {
+    icon: <Heart className="w-4 h-4 text-sky-500" />,
+    brand: 'MedDash Analytics',
+    badge: 'HEALTHCARE',
+    bg: 'bg-white',
+    text: 'text-[#0F172A]',
+    primary: '#0EA5E9',
+    kpis: [
+      { label: 'Active Patients', value: '12,847' },
+      { label: 'Avg Stay', value: '4.2 days' },
+    ],
+    barColor: 'bg-sky-500',
+    barHeights: [45, 70, 55, 90, 60, 80],
+    button: {
+      label: 'View Patient Report',
+      className:
+        'bg-sky-500 text-white hover:bg-sky-600',
     },
+    badgeClassName: 'bg-sky-100 text-sky-700',
+    dividerClassName: 'border-slate-200',
+    mutedClassName: 'text-text-secondary',
+    dotColor: 'bg-sky-500',
   },
-};
+  {
+    icon: <DollarSign className="w-4 h-4 text-amber-400" />,
+    brand: 'Vault Finance',
+    badge: 'FINTECH',
+    bg: 'bg-[#064E3B]',
+    text: 'text-white',
+    primary: '#FBBF24',
+    kpis: [
+      { label: 'Portfolio', value: '$4.8M' },
+      { label: 'ROI', value: '+23.5%' },
+    ],
+    barColor: 'bg-amber-400',
+    barHeights: [60, 40, 85, 50, 95, 70],
+    button: {
+      label: 'Trade Now',
+      className:
+        'bg-amber-400 text-[#064E3B] hover:bg-amber-300 font-bold',
+    },
+    badgeClassName: 'bg-amber-900/30 text-amber-300',
+    dividerClassName: 'border-border-subtle',
+    mutedClassName: 'text-emerald-300/60',
+    dotColor: 'bg-amber-400',
+  },
+  {
+    icon: <ShoppingBag className="w-4 h-4 text-white" />,
+    brand: 'Stitch Style',
+    badge: 'CONSUMER',
+    bg: '',
+    text: 'text-white',
+    primary: '#FFFFFF',
+    kpis: [
+      { label: 'Orders', value: '1,247' },
+      { label: 'AOV', value: '$89.50' },
+    ],
+    barColor: 'bg-white/70',
+    barHeights: [50, 80, 35, 65, 90, 55],
+    button: {
+      label: 'Shop Now',
+      className: 'bg-white text-slate-900 hover:bg-white/90 font-bold',
+    },
+    badgeClassName: 'bg-white/20 text-white',
+    dividerClassName: 'border-white/20',
+    mutedClassName: 'text-white/60',
+    dotColor: 'bg-white',
+  },
+  {
+    icon: <Zap className="w-4 h-4 text-emerald-400" />,
+    brand: 'DevOps Cloud',
+    badge: 'DEVELOPER',
+    bg: 'bg-[#0A0A0A]',
+    text: 'text-emerald-400',
+    primary: '#10B981',
+    kpis: [
+      { label: 'Deploys', value: '4,521' },
+      { label: 'Uptime', value: '99.99%' },
+    ],
+    barColor: 'bg-emerald-500',
+    barHeights: [70, 55, 100, 45, 80, 60],
+    button: {
+      label: 'Deploy',
+      className:
+        'bg-emerald-500 text-black hover:bg-emerald-400 font-mono font-bold',
+    },
+    badgeClassName: 'bg-emerald-950 text-emerald-400',
+    dividerClassName: 'border-emerald-400/15',
+    mutedClassName: 'text-emerald-400/50',
+    dotColor: 'bg-emerald-400',
+  },
+]
 
-const wordVariants = {
-  hidden: { opacity: 0, y: 15 },
-  visible: {
+/* ------------------------------------------------------------------ */
+/*  Token System Data                                                  */
+/* ------------------------------------------------------------------ */
+
+interface TokenColumn {
+  icon: ReactNode
+  title: string
+  description: string
+  code: string
+}
+
+const tokenColumns: TokenColumn[] = [
+  {
+    icon: <Palette className="w-5 h-5 text-indigo-400" />,
+    title: 'Primitive Tokens',
+    description:
+      "Raw design values — colors, spacing, fonts — that form your brand's visual foundation.",
+    code: `--color-blue-500: #0EA5E9;\n--space-unit: 4px;\n--font-body: 'Inter';`,
+  },
+  {
+    icon: <Layers className="w-5 h-5 text-violet-400" />,
+    title: 'Semantic Tokens',
+    description:
+      'Purpose-driven aliases that map primitives to UI roles, ensuring consistency across every component.',
+    code: `--color-primary: var(--color-blue-500);\n--color-surface: var(--color-slate-900);\n--radius-card: calc(var(--space-unit) * 3);`,
+  },
+  {
+    icon: <Code2 className="w-5 h-5 text-emerald-400" />,
+    title: 'Component Tokens',
+    description:
+      'Scoped overrides for individual elements, giving you pixel-perfect control without breaking the system.',
+    code: `--btn-bg: var(--color-primary);\n--btn-radius: var(--radius-card);\n--card-shadow: 0 4px 24px rgba(0,0,0,0.12);`,
+  },
+]
+
+/* ------------------------------------------------------------------ */
+/*  Animations                                                         */
+/* ------------------------------------------------------------------ */
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 32 },
+  visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.25, 1, 0.5, 1] as const,
-    },
-  },
-};
+    transition: { duration: 0.6, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] },
+  }),
+}
+
+/* ------------------------------------------------------------------ */
+/*  Component                                                          */
+/* ------------------------------------------------------------------ */
 
 export default function ThemeEngine() {
-  // Theme States
-  const [primaryColor, setPrimaryColor] = useState("#4f46e5");
-  const [surfaceColor, setSurfaceColor] = useState("#0f172a");
-  const [accentColor, setAccentColor] = useState("#0ea5e9");
-  const [font, setFont] = useState("Inter");
-  const [radius, setRadius] = useState(8);
-
-  // Interaction States
-  const [activePreset, setActivePreset] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
-  const [previewWidth, setPreviewWidth] = useState<"desktop" | "tablet" | "mobile">("desktop");
-  const [pulse, setPulse] = useState(false);
-
-  // Trigger preview pulse when theme shifts
-  useEffect(() => {
-    setPulse(true);
-    const timer = setTimeout(() => setPulse(false), 300);
-    return () => clearTimeout(timer);
-  }, [primaryColor, surfaceColor, accentColor, font, radius]);
-
-  // Preset Handler
-  const applyPreset = (name: string) => {
-    setActivePreset(name);
-    if (name === "healthcare") {
-      setPrimaryColor("#0EA5E9");
-      setSurfaceColor("#F8FAFC");
-      setAccentColor("#06B6D4");
-      setFont("Inter");
-      setRadius(8);
-    } else if (name === "fintech") {
-      setPrimaryColor("#059669");
-      setSurfaceColor("#064E3B");
-      setAccentColor("#FBBF24");
-      setFont("Geist");
-      setRadius(4);
-    } else if (name === "consumer") {
-      setPrimaryColor("#EC4899");
-      setSurfaceColor("#FDF2F8");
-      setAccentColor("#F97316");
-      setFont("DM Sans");
-      setRadius(20);
-    } else if (name === "developer") {
-      setPrimaryColor("#10B981");
-      setSurfaceColor("#0A0A0A");
-      setAccentColor("#22D3EE");
-      setFont("JetBrains Mono");
-      setRadius(2);
-    }
-  };
-
-  const handleCopy = () => {
-    const cssText = `/* CSS Design Token System - 3 Abstraction Layers */
-:root {
-  /* 1. Primitive Tokens */
-  --prism-color-primary: ${primaryColor};
-  --prism-color-accent: ${accentColor};
-  --prism-color-surface: ${surfaceColor};
-  --prism-radius-base: ${radius}px;
-  --prism-font-base: '${font}', sans-serif;
-
-  /* 2. Semantic Tokens */
-  --prism-semantic-primary: var(--prism-color-primary);
-  --prism-semantic-accent: var(--prism-color-accent);
-  --prism-semantic-bg: var(--prism-color-surface);
-  --prism-semantic-text-primary: ${textContrast};
-  --prism-semantic-text-secondary: ${textContrast === "#FAFAFA" ? "rgba(250,250,250,0.6)" : "rgba(15,23,42,0.6)"};
-  --prism-semantic-border: ${textContrast === "#FAFAFA" ? "rgba(250,250,250,0.08)" : "rgba(15,23,42,0.08)"};
-  --prism-semantic-radius: var(--prism-radius-base);
-
-  /* 3. Component Tokens */
-  --prism-dashboard-bg: var(--prism-semantic-bg);
-  --prism-dashboard-text: var(--prism-semantic-text-primary);
-  --prism-dashboard-border: var(--prism-semantic-border);
-  --prism-sidebar-bg: ${textContrast === "#FAFAFA" ? "rgba(0,0,0,0.15)" : "rgba(15,23,42,0.03)"};
-  --prism-card-bg: ${cardBg};
-  --prism-card-radius: var(--prism-semantic-radius);
-  --prism-button-bg: var(--prism-semantic-primary);
-  --prism-button-text: ${primaryContrast};
-  --prism-chart-primary: var(--prism-semantic-primary);
-  --prism-chart-accent: var(--prism-semantic-accent);
-}`;
-    navigator.clipboard.writeText(cssText);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const textContrast = getContrastColor(surfaceColor);
-  const cardBg = getCardBg(surfaceColor);
-  const primaryContrast = getContrastColor(primaryColor);
-
   return (
-    <section id="white-label" className="py-20 md:py-24 px-6 md:px-12 lg:px-20 bg-bg-base relative z-10 border-b border-border-subtle overflow-hidden">
-      
-      {/* Background orbs */}
-      <motion.div
-        animate={{ x: [-20, 20, -20], y: [-20, 20, -20] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.15)_0%,transparent_70%)] pointer-events-none blur-[100px] z-0"
-      />
-      
-      <motion.div
-        animate={{ x: [20, -20, 20], y: [20, -20, 20] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(168,85,247,0.15)_0%,transparent_70%)] pointer-events-none blur-[100px] z-0"
-      />
+    <section id="white-label" className="py-24 px-6">
+      <div className="max-w-7xl mx-auto">
+        {/* ---- HEADER ---- */}
+        <div className="text-center mb-12">
+          <p className="text-primary text-[13px] uppercase tracking-[0.15em] font-bold mb-4">
+            WHITE-LABEL READY
+          </p>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        
-        {/* Header */}
-        <div className="text-center mb-16 px-6">
-          <span className="inline-block text-[13px] font-medium tracking-[0.15em] text-primary uppercase mb-4">
-            Live Interactive Demo
-          </span>
-          <motion.h2 
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] leading-[1.05] text-text-primary mb-6 max-w-lg mx-auto"
+          <h2
+            className="font-semibold tracking-[-0.04em] text-[var(--prism-site-text)] mb-6"
+            style={{ fontSize: 'clamp(40px, 6vw, 72px)' }}
           >
-            {"Watch it match".split(" ").map((word, i) => (
-              <span key={i} className="inline-block overflow-hidden mr-[0.25em] py-0.5">
-                <motion.span variants={wordVariants} className="inline-block">
-                  {word}
-                </motion.span>
-              </span>
-            ))}
-            {" "}
-            <span className="gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] inline-block"
-              style={{
-                backgroundImage: "linear-gradient(120deg, #6366F1, #A855F7, #22D3EE, #6366F1)",
-              }}
-            >
-              {"any brand.".split(" ").map((word, i) => (
-                <span key={i} className="inline-block overflow-hidden mr-[0.25em] last:mr-0 py-0.5">
-                  <motion.span variants={wordVariants} className="inline-block">
-                    {word}
-                  </motion.span>
-                </span>
-              ))}
+            One platform.{' '}
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Every brand.
             </span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto mt-4"
-          >
-            Move the controls. See your design system come alive in real-time.
-          </motion.p>
+          </h2>
+
+          <p className="max-w-[600px] mx-auto text-center text-[var(--prism-site-text-secondary)] text-base leading-relaxed">
+            The same Prism dashboard, customized to feel native inside any
+            product. See how design teams use our 3-layer token system to match
+            their brand perfectly.
+          </p>
         </div>
 
-        {/* Main Grid split */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-          
-          {/* Left panel: Control panel */}
-          <div className="lg:col-span-2 bg-bg-elevated/40 glass rounded-[24px] p-5 sm:p-6 border border-white/5 shadow-xl flex flex-col gap-4 text-left justify-between h-full">
-            
-            {/* 1. BRAND COLORS */}
-            <div>
-              <span className="block text-[10px] font-semibold text-text-muted uppercase tracking-wider mb-3">
-                Brand Colors
-              </span>
-              <div className="grid grid-cols-3 gap-2">
-                
-                {/* Primary */}
-                <div className="flex flex-col gap-1.5 bg-white/5 p-2 rounded-xl border border-white/5 items-center text-center">
-                  <label className="cursor-pointer relative flex items-center justify-center">
-                    <input
-                      type="color"
-                      value={primaryColor}
-                      onChange={(e) => {
-                        setPrimaryColor(e.target.value);
-                        setActivePreset(null);
-                      }}
-                      className="sr-only"
-                    />
-                    <div
-                      className="w-8 h-8 rounded-lg border border-white/10 shadow-inner"
-                      style={{ backgroundColor: primaryColor }}
-                    />
-                  </label>
-                  <div className="flex flex-col items-center">
-                    <span className="text-[10px] font-semibold text-text-primary">Primary</span>
-                    <span className="text-[9px] font-mono text-text-muted uppercase">{primaryColor}</span>
-                  </div>
-                </div>
+        {/* ---- BRAND SHOWCASE GRID ---- */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {brands.map((card, i) => {
+            const isConsumer = card.badge === 'CONSUMER'
 
-                {/* Surface */}
-                <div className="flex flex-col gap-1.5 bg-white/5 p-2 rounded-xl border border-white/5 items-center text-center">
-                  <label className="cursor-pointer relative flex items-center justify-center">
-                    <input
-                      type="color"
-                      value={surfaceColor}
-                      onChange={(e) => {
-                        setSurfaceColor(e.target.value);
-                        setActivePreset(null);
-                      }}
-                      className="sr-only"
-                    />
-                    <div
-                      className="w-8 h-8 rounded-lg border border-white/10 shadow-inner"
-                      style={{ backgroundColor: surfaceColor }}
-                    />
-                  </label>
-                  <div className="flex flex-col items-center">
-                    <span className="text-[10px] font-semibold text-text-primary">Surface</span>
-                    <span className="text-[9px] font-mono text-text-muted uppercase">{surfaceColor}</span>
-                  </div>
-                </div>
-
-                {/* Accent */}
-                <div className="flex flex-col gap-1.5 bg-white/5 p-2 rounded-xl border border-white/5 items-center text-center">
-                  <label className="cursor-pointer relative flex items-center justify-center">
-                    <input
-                      type="color"
-                      value={accentColor}
-                      onChange={(e) => {
-                        setAccentColor(e.target.value);
-                        setActivePreset(null);
-                      }}
-                      className="sr-only"
-                    />
-                    <div
-                      className="w-8 h-8 rounded-lg border border-white/10 shadow-inner"
-                      style={{ backgroundColor: accentColor }}
-                    />
-                  </label>
-                  <div className="flex flex-col items-center">
-                    <span className="text-[10px] font-semibold text-text-primary">Accent</span>
-                    <span className="text-[9px] font-mono text-text-muted uppercase">{accentColor}</span>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            {/* 2. TYPOGRAPHY */}
-            <div className="border-t border-white/5 pt-4">
-              <span className="block text-[10px] font-semibold text-text-muted uppercase tracking-wider mb-2">
-                Typography
-              </span>
-              <select
-                value={font}
-                onChange={(e) => {
-                  setFont(e.target.value);
-                  setActivePreset(null);
-                }}
-                className="w-full bg-white/5 border border-white/10 hover:border-white/20 p-2 rounded-lg text-xs text-text-primary focus:outline-none cursor-pointer"
+            return (
+              <motion.div
+                key={card.brand}
+                custom={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={fadeUp}
+                className={`
+                  rounded-xl overflow-hidden p-4 border border-border-subtle
+                  hover:translate-y-[-6px] hover:shadow-xl
+                  transition-all duration-300 cursor-pointer
+                  ${card.bg} ${card.text}
+                `}
+                style={
+                  isConsumer
+                    ? {
+                        background:
+                          'linear-gradient(135deg, #EC4899, #F97316)',
+                      }
+                    : undefined
+                }
               >
-                <option value="Geist" className="bg-[#0D0F17]">Geist</option>
-                <option value="Inter" className="bg-[#0D0F17]">Inter</option>
-                <option value="DM Sans" className="bg-[#0D0F17]">DM Sans</option>
-                <option value="Sora" className="bg-[#0D0F17]">Sora</option>
-                <option value="JetBrains Mono" className="bg-[#0D0F17]">JetBrains Mono</option>
-              </select>
-            </div>
-
-            {/* 3. BORDER RADIUS */}
-            <div className="border-t border-white/5 pt-4">
-              <span className="block text-[10px] font-semibold text-text-muted uppercase tracking-wider mb-2">
-                Border Radius
-              </span>
-              <div className="flex items-center gap-4">
-                <div className="flex-1 flex flex-col gap-1">
-                  <input
-                    type="range"
-                    min="0"
-                    max="24"
-                    value={radius}
-                    onChange={(e) => {
-                      setRadius(Number(e.target.value));
-                      setActivePreset(null);
-                    }}
-                    className="w-full accent-primary bg-white/10 h-1 rounded-lg cursor-pointer"
+                {/* Header row */}
+                <div className="flex items-center gap-1.5">
+                  {card.icon}
+                  <span className="font-semibold text-xs truncate">
+                    {card.brand}
+                  </span>
+                  <span
+                    className={`ml-auto w-1.5 h-1.5 rounded-full ${card.dotColor} shrink-0`}
                   />
-                  <span className="text-[10px] font-semibold font-mono text-text-primary">{radius}px</span>
                 </div>
 
-                {/* Small preview block */}
-                <motion.div
-                  style={{
-                    backgroundColor: `${primaryColor}20`,
-                    borderColor: primaryColor,
-                    borderRadius: `${radius}px`,
-                  }}
-                  className="w-10 h-10 border-2 shrink-0 transition-all duration-300"
-                />
-              </div>
-            </div>
+                {/* Divider */}
+                <div className={`border-t ${card.dividerClassName} my-3`} />
 
-            {/* 4. PRESET THEMES */}
-            <div className="border-t border-white/5 pt-4">
-              <span className="block text-[10px] font-semibold text-text-muted uppercase tracking-wider mb-2">
-                Preset Themes
-              </span>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                {[
-                  { name: "healthcare", label: "Health", icon: Heart },
-                  { name: "fintech", label: "Fintech", icon: DollarSign },
-                  { name: "consumer", label: "Retail", icon: ShoppingBag },
-                  { name: "developer", label: "Dev", icon: Terminal },
-                ].map((preset) => {
-                  const Icon = preset.icon;
-                  const isActive = activePreset === preset.name;
-                  return (
-                    <motion.button
-                      key={preset.name}
-                      onClick={() => applyPreset(preset.name)}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className={`text-center p-2 rounded-xl border flex flex-col items-center justify-center gap-1 transition-all duration-300 focus:outline-none ${
-                        isActive
-                          ? "bg-primary/10 border-primary shadow-[0_0_15px_rgba(99,102,241,0.25)]"
-                          : "bg-white/5 border-white/5 hover:border-white/20"
-                      }`}
-                    >
-                      <Icon className={`w-3.5 h-3.5 ${isActive ? "text-primary" : "text-text-secondary"}`} />
-                      <span className="text-[10px] font-semibold text-text-primary leading-none mt-0.5">{preset.label}</span>
-                    </motion.button>
-                  );
-                })}
-              </div>
-            </div>
+                {/* KPIs */}
+                <div className="grid grid-cols-2 gap-2 mb-3">
+                  {card.kpis.map((kpi) => (
+                    <div key={kpi.label}>
+                      <p
+                        className={`text-[9px] ${card.mutedClassName} mb-0.5`}
+                      >
+                        {kpi.label}
+                      </p>
+                      <p className="text-sm font-bold leading-tight">
+                        {kpi.value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
 
+                {/* Mini bar chart */}
+                <div className="flex items-end gap-1 h-10 mb-3">
+                  {card.barHeights.map((h, idx) => (
+                    <div
+                      key={idx}
+                      className={`flex-1 rounded-sm ${card.barColor}`}
+                      style={{ height: `${h}%` }}
+                    />
+                  ))}
+                </div>
 
-            {/* 5. GENERATED CSS OUTPUT */}
-            <div className="border-t border-white/5 pt-4 relative">
-              <span className="block text-[10px] font-semibold text-text-muted uppercase tracking-wider mb-2">
-                Generated CSS
-              </span>
-              <div className="bg-black/80 rounded-xl p-3 border border-white/5 font-mono text-[9px] leading-normal text-[#86EFAC] relative overflow-hidden select-all">
-                <button
-                  onClick={handleCopy}
-                  className="absolute top-2.5 right-2.5 p-1 rounded-md bg-white/5 hover:bg-white/10 text-white transition-colors duration-300 focus:outline-none"
-                >
-                  {copied ? <Check className="w-3 h-3 text-success" /> : <Clipboard className="w-3 h-3" />}
-                </button>
-                <pre className="text-left whitespace-pre-wrap">
-{`/* CSS Design Token System - 3 Abstraction Layers */
-:root {
-  /* 1. Primitive Tokens */
-  --prism-color-primary: ${primaryColor};
-  --prism-color-accent: ${accentColor};
-  --prism-color-surface: ${surfaceColor};
-  --prism-radius-base: ${radius}px;
-  --prism-font-base: '${font}', sans-serif;
+                {/* Bottom row */}
+                <div className="flex justify-between items-center">
+                  <button
+                    className={`px-3 py-1 rounded-md text-[10px] font-bold ${card.button.className} transition-colors`}
+                  >
+                    {card.button.label}
+                  </button>
+                  <span
+                    className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full ${card.badgeClassName}`}
+                  >
+                    {card.badge}
+                  </span>
+                </div>
+              </motion.div>
+            )
+          })}
+        </div>
 
-  /* 2. Semantic Tokens */
-  --prism-semantic-primary: var(--prism-color-primary);
-  --prism-semantic-accent: var(--prism-color-accent);
-  --prism-semantic-bg: var(--prism-color-surface);
-  --prism-semantic-text-primary: ${textContrast};
-  --prism-semantic-border: ${textContrast === "#FAFAFA" ? "rgba(250,250,250,0.08)" : "rgba(15,23,42,0.08)"};
-  --prism-semantic-radius: var(--prism-radius-base);
-
-  /* 3. Component Tokens */
-  --prism-dashboard-bg: var(--prism-semantic-bg);
-  --prism-card-bg: ${cardBg};
-  --prism-card-radius: var(--prism-semantic-radius);
-  --prism-button-bg: var(--prism-semantic-primary);
-  --prism-chart-primary: var(--prism-semantic-primary);
-}`}
+        {/* ---- TOKEN SYSTEM EXPLAINER ---- */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {tokenColumns.map((col, i) => (
+            <motion.div
+              key={col.title}
+              custom={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeUp}
+            >
+              <div className="mb-3">{col.icon}</div>
+              <h3 className="text-[var(--prism-site-text)] font-semibold text-base mb-1.5">
+                {col.title}
+              </h3>
+              <p className="text-[var(--prism-site-text-secondary)] text-xs mb-3 leading-relaxed">
+                {col.description}
+              </p>
+              <div className="bg-bg-elevated border border-border-subtle p-3 rounded-lg">
+                <pre className="text-[10px] font-mono text-text-primary whitespace-pre-wrap leading-relaxed">
+                  {col.code}
                 </pre>
               </div>
-            </div>
-
-          </div>
-
-          {/* Right panel: Preview container */}
-          <div className="lg:col-span-3 flex flex-col gap-4 h-full justify-between">
-            
-            {/* Device Toggles */}
-            <div className="flex justify-center md:justify-end">
-              <div className="glass p-1 rounded-full flex gap-1 border border-white/5">
-                {[
-                  { id: "desktop", label: "Desktop", icon: Laptop },
-                  { id: "tablet", label: "Tablet", icon: Tablet },
-                  { id: "mobile", label: "Mobile", icon: Phone },
-                ].map((dev) => {
-                  const DevIcon = dev.icon;
-                  const isActive = previewWidth === dev.id;
-                  return (
-                    <button
-                      key={dev.id}
-                      onClick={() => setPreviewWidth(dev.id as "desktop" | "tablet" | "mobile")}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium flex items-center gap-1.5 transition-all duration-300 focus:outline-none ${
-                        isActive
-                          ? "bg-primary text-white shadow-md shadow-primary/20"
-                          : "text-text-secondary hover:text-text-primary"
-                      }`}
-                    >
-                      <DevIcon className="w-3.5 h-3.5" />
-                      <span className="hidden sm:inline">{dev.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Browser Mockup Canvas */}
-            <motion.div
-              animate={pulse ? { scale: 1.015 } : { scale: 1 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className={`w-full mx-auto bg-[#05060A]/80 glass border border-white/10 rounded-2xl overflow-hidden shadow-2xl transition-all duration-500 flex-1 flex flex-col h-full ${
-                previewWidth === "tablet"
-                  ? "max-w-[600px]"
-                  : previewWidth === "mobile"
-                  ? "max-w-[360px]"
-                  : "max-w-full"
-              }`}
-            >
-              
-              {/* Browser Header Chrome */}
-              <div className="bg-white/5 border-b border-white/5 px-4 py-3 flex items-center justify-between">
-                <div className="flex gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#EF4444]/60" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]/60" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]/60" />
-                </div>
-                <div className="flex-1 max-w-xs mx-auto bg-white/5 py-1 px-3 rounded text-[10px] text-text-muted font-mono text-center">
-                  yourbrand.com/analytics
-                </div>
-              </div>
-
-              {/* Themeable Live Dashboard */}
-              <div className="p-4 bg-white/[0.01] flex-1 flex flex-col h-full min-h-[500px]">
-                <PrismDashboard
-                  title={activePreset === "healthcare" ? "Clinix EHR Portal" : activePreset === "fintech" ? "Apex Ledger" : activePreset === "consumer" ? "ShopSync Hub" : "Prism Dashboard"}
-                  chartMetric={activePreset === "healthcare" ? "Daily Admissions" : activePreset === "fintech" ? "Ledger Volume" : activePreset === "consumer" ? "Gross Orders" : "API requests"}
-                  style={{
-                    "--prism-dashboard-bg": surfaceColor,
-                    "--prism-dashboard-text": textContrast,
-                    "--prism-dashboard-border": textContrast === "#FAFAFA" ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)",
-                    "--prism-sidebar-bg": textContrast === "#FAFAFA" ? "rgba(0,0,0,0.15)" : "rgba(15,23,42,0.03)",
-                    "--prism-sidebar-border": textContrast === "#FAFAFA" ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.08)",
-                    "--prism-card-bg": cardBg,
-                    "--prism-card-border": textContrast === "#FAFAFA" ? "rgba(255,255,255,0.06)" : "rgba(15,23,42,0.06)",
-                    "--prism-card-radius": `${radius}px`,
-                    "--prism-button-bg": primaryColor,
-                    "--prism-button-text": primaryContrast,
-                    "--prism-button-radius": `${Math.min(radius, 8)}px`,
-                    "--prism-chart-primary": primaryColor,
-                    "--prism-chart-accent": accentColor,
-                    "--prism-semantic-primary": primaryColor,
-                    "--prism-semantic-font": font === "Geist" ? "var(--font-geist)" : font === "JetBrains Mono" ? "var(--font-geist-mono)" : font,
-                  } as React.CSSProperties}
-                />
-              </div>
-
             </motion.div>
-          </div>
-
+          ))}
         </div>
-
       </div>
     </section>
-  );
+  )
 }
+

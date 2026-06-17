@@ -335,7 +335,7 @@ export default function LegoSection() {
                             <span className="text-text-muted">{c.pct}</span>
                           </div>
                           {/* Mini Progress bar */}
-                          <div className="w-full h-1 bg-white/5 border border-white/5 rounded-full overflow-hidden">
+                          <div className="w-full h-1 bg-white/5 border border-border-subtle rounded-full overflow-hidden">
                             <div 
                               className="h-full rounded-full bg-[var(--prism-chart-primary)]"
                               style={{ width: c.pct }}
@@ -357,3 +357,4 @@ export default function LegoSection() {
     </section>
   );
 }
+

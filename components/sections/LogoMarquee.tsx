@@ -54,7 +54,7 @@ export default function LogoMarquee() {
             {[...row1Logos, ...row1Logos].map((logo, idx) => (
               <span
                 key={`r1-${idx}`}
-                className={`inline-block text-[15px] text-white/40 hover:text-white/100 px-8 cursor-pointer select-none whitespace-nowrap transition-all duration-300 hover:scale-105 ${logo.style}`}
+                className={`inline-block text-[15px] text-text-muted hover:text-text-primary px-8 cursor-pointer select-none whitespace-nowrap transition-all duration-300 hover:scale-105 ${logo.style}`}
               >
                 {logo.name}
               </span>
@@ -73,7 +73,7 @@ export default function LogoMarquee() {
             {[...row2Logos, ...row2Logos].map((logo, idx) => (
               <span
                 key={`r2-${idx}`}
-                className={`inline-block text-[15px] text-white/40 hover:text-white/100 px-8 cursor-pointer select-none whitespace-nowrap transition-all duration-300 hover:scale-105 ${logo.style}`}
+                className={`inline-block text-[15px] text-text-muted hover:text-text-primary px-8 cursor-pointer select-none whitespace-nowrap transition-all duration-300 hover:scale-105 ${logo.style}`}
               >
                 {logo.name}
               </span>

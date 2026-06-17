@@ -48,7 +48,7 @@ export default function Pricing() {
             className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] leading-[1.05] text-text-primary mb-6"
           >
             {"Simple pricing. Built for".split(" ").map((word, i) => (
-              <span key={i} className="inline-block overflow-hidden mr-[0.25em] py-0.5">
+              <span key={i} className="inline-block overflow-hidden mr-[0.25em] pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
                 <motion.span variants={wordVariants} className="inline-block">
                   {word}
                 </motion.span>
@@ -62,7 +62,7 @@ export default function Pricing() {
               }}
             >
               {"scale.".split(" ").map((word, i) => (
-                <span key={i} className="inline-block overflow-hidden mr-[0.25em] last:mr-0 py-0.5">
+                <span key={i} className="inline-block overflow-hidden mr-[0.25em] last:mr-0 pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
                   <motion.span variants={wordVariants} className="inline-block">
                     {word}
                   </motion.span>
@@ -83,7 +83,7 @@ export default function Pricing() {
 
         {/* Billing Toggle */}
         <div className="flex justify-center items-center gap-4 mb-16">
-          <div className="bg-white/5 border border-white/10 p-1 rounded-full flex w-fit select-none">
+          <div className="bg-white/5 border border-border-subtle p-1 rounded-full flex w-fit select-none">
             <button
               onClick={() => setBilling("monthly")}
               className={`px-6 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 focus:outline-none ${
@@ -120,7 +120,7 @@ export default function Pricing() {
               borderColor: "var(--prism-semantic-primary, rgba(99, 102, 241, 0.25))",
               boxShadow: "0 15px 35px var(--prism-primary-glow, rgba(99,102,241,0.1))",
             }}
-            className="bg-bg-elevated/60 border border-border-subtle rounded-[24px] p-8 sm:p-10 flex flex-col justify-between text-left transition-all duration-300"
+            className="bg-bg-elevated/60 border border-border-subtle rounded-[24px] p-6 sm:p-8 flex flex-col justify-between text-left transition-all duration-300"
           >
             <div>
               <span className="text-xl font-bold text-text-primary block">Starter</span>
@@ -135,7 +135,7 @@ export default function Pricing() {
                 Start free
               </button>
  
-              <div className="w-full h-[1px] bg-border-subtle my-8" />
+              <div className="w-full h-[1px] bg-border-subtle my-6" />
  
               <div className="flex flex-col gap-3">
                 {[
@@ -171,7 +171,7 @@ export default function Pricing() {
                 y: -8,
                 boxShadow: "0 20px 40px var(--prism-primary-glow, rgba(99,102,241,0.2))",
               }}
-              className="relative bg-bg-elevated/95 rounded-[24px] p-8 sm:p-10 flex flex-col justify-between text-left h-full shadow-[0_0_80px_var(--prism-primary-glow, rgba(99,102,241,0.3))] z-10 transition-all duration-300 flex-1"
+              className="relative bg-bg-elevated/95 rounded-[24px] p-6 sm:p-8 flex flex-col justify-between text-left h-full shadow-[0_0_80px_var(--prism-primary-glow, rgba(99,102,241,0.3))] z-10 transition-all duration-300 flex-1"
             >
               <div>
                 <span className="text-xl font-bold text-text-primary block">Growth</span>
@@ -195,7 +195,7 @@ export default function Pricing() {
                   Start 14-day trial
                 </button>
  
-                <div className="w-full h-[1px] bg-border-subtle my-8" />
+                <div className="w-full h-[1px] bg-border-subtle my-6" />
  
                 <div className="flex flex-col gap-3">
                   {[
@@ -226,7 +226,7 @@ export default function Pricing() {
               borderColor: "var(--prism-site-border, rgba(255, 255, 255, 0.15))",
               boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
             }}
-            className="bg-bg-elevated/60 border border-border-subtle rounded-[24px] p-8 sm:p-10 flex flex-col justify-between text-left transition-colors duration-300"
+            className="bg-bg-elevated/60 border border-border-subtle rounded-[24px] p-6 sm:p-8 flex flex-col justify-between text-left transition-colors duration-300"
           >
             <div>
               <span className="text-xl font-bold text-text-primary block">Enterprise</span>
@@ -240,7 +240,7 @@ export default function Pricing() {
                 Contact sales
               </button>
  
-              <div className="w-full h-[1px] bg-border-subtle my-8" />
+              <div className="w-full h-[1px] bg-border-subtle my-6" />
  
               <div className="flex flex-col gap-3">
                 {[
@@ -271,7 +271,7 @@ export default function Pricing() {
             Need a custom solution for your team?{" "}
             <motion.a
               href="#contact"
-              className="inline-flex items-center gap-1 text-white font-semibold text-sm hover:underline cursor-pointer group"
+              className="inline-flex items-center gap-1 text-primary font-semibold text-sm hover:underline cursor-pointer group"
             >
               <span>Talk to our team</span>
               <motion.span
@@ -290,3 +290,7 @@ export default function Pricing() {
     </section>
   );
 }
+
+
+
+

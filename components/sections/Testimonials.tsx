@@ -90,7 +90,7 @@ export default function Testimonials() {
               }}
             >
               {"Loved".split(" ").map((word, i) => (
-                <span key={i} className="inline-block overflow-hidden mr-[0.25em] last:mr-0 py-0.5">
+                <span key={i} className="inline-block overflow-hidden mr-[0.25em] last:mr-0 pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
                   <motion.span variants={wordVariants} className="inline-block">
                     {word}
                   </motion.span>
@@ -98,7 +98,7 @@ export default function Testimonials() {
               ))}
             </span>{" "}
             {"by engineering teams.".split(" ").map((word, i) => (
-              <span key={i} className="inline-block overflow-hidden mr-[0.25em] py-0.5">
+              <span key={i} className="inline-block overflow-hidden mr-[0.25em] pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
                 <motion.span variants={wordVariants} className="inline-block">
                   {word}
                 </motion.span>
@@ -172,7 +172,7 @@ export default function Testimonials() {
               <div className="flex items-center gap-3 mt-6 pt-6 border-t border-border-subtle relative z-10">
                 {/* Avatar with unique gradient */}
                 <div
-                  className={`w-12 h-12 rounded-full bg-gradient-to-br ${t.author.gradient} flex items-center justify-center text-white font-semibold text-sm border-2 border-white/10 shrink-0 shadow-sm`}
+                  className={`w-12 h-12 rounded-full bg-gradient-to-br ${t.author.gradient} flex items-center justify-center text-white font-semibold text-sm border-2 border-border-subtle shrink-0 shadow-sm`}
                 >
                   {t.author.initials}
                 </div>
@@ -195,3 +195,7 @@ export default function Testimonials() {
     </section>
   );
 }
+
+
+
+

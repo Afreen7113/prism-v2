@@ -5,23 +5,40 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./stories/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        "bg-base": "var(--prism-site-bg, #000000)",
-        "bg-surface": "var(--prism-site-surface, #08090E)",
-        "bg-elevated": "var(--prism-site-elevated, #0D0F17)",
-        "primary": "var(--prism-semantic-primary, #6366F1)",
+        // Legacy support mappings
         "primary-glow": "var(--prism-primary-glow, rgba(99, 102, 241, 0.4))",
         "secondary": "var(--prism-semantic-accent, #22D3EE)",
         "tertiary": "var(--prism-semantic-accent-2, #A855F7)",
-        "success": "var(--prism-semantic-success, #10B981)",
-        "text-primary": "var(--prism-site-text, #FAFAFA)",
-        "text-secondary": "var(--prism-site-text-secondary, #71717A)",
-        "text-muted": "var(--prism-site-text-muted, #52525B)",
-        "border-subtle": "var(--prism-site-border, rgba(255, 255, 255, 0.06))",
         "border-glow": "var(--prism-border-glow, rgba(99, 102, 241, 0.3))",
+        
+        // Requested specific mappings
+        'bg-base': 'var(--color-bg-base)',
+        'bg-surface': 'var(--color-bg-surface)',
+        'bg-elevated': 'var(--color-bg-elevated)',
+        'text-primary': 'var(--color-text-primary)',
+        'text-secondary': 'var(--color-text-secondary)',
+        'text-muted': 'var(--color-text-muted)',
+        'border-subtle': 'var(--color-border-subtle)',
+        'border-default': 'var(--color-border-default)',
+        'primary': 'var(--color-primary)',
+        'accent': 'var(--color-accent)',
+        'info': 'var(--color-info)',
+        'success': 'var(--color-success)',
+        'warning': 'var(--color-warning)',
+        'error': 'var(--color-error)',
+      },
+      boxShadow: {
+        'glow-primary': 'var(--shadow-glow-primary)',
+        'card': 'var(--shadow-card)',
+      },
+      backgroundImage: {
+        'gradient-primary': 'var(--gradient-primary)',
+        'gradient-text-primary': 'var(--gradient-primary)',
       },
       fontFamily: {
         sans: ["var(--prism-semantic-font, var(--font-inter))", "sans-serif"],
@@ -39,4 +56,3 @@ const config: Config = {
   plugins: [],
 };
 export default config;
-

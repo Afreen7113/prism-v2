@@ -51,7 +51,7 @@ export default function PrismDashboard({
 
   return (
     <div
-      className={`text-left flex flex-row flex-1 h-full min-h-[520px] bg-[var(--prism-dashboard-bg)] text-[var(--prism-dashboard-text)] transition-all duration-300 relative ${themeClass}`}
+      className={`text-left flex flex-col md:flex-row flex-1 h-auto min-h-[720px] md:min-h-[520px] bg-[var(--prism-dashboard-bg)] text-[var(--prism-dashboard-text)] transition-all duration-300 relative ${themeClass}`}
       style={{
         fontFamily: "var(--prism-semantic-font), var(--font-inter), sans-serif",
         borderRadius: "var(--prism-card-radius)",
@@ -61,11 +61,13 @@ export default function PrismDashboard({
       {/* Dashboard Sidebar */}
       {!hideSidebar && (
         <div
-          className="hidden md:flex flex-col gap-6 p-4 border-r border-[var(--prism-sidebar-border)] bg-[var(--prism-sidebar-bg)] w-44 shrink-0 text-[11px] transition-all duration-300"
+          className="hidden md:flex flex-col gap-6 p-4 border-r border-[var(--prism-sidebar-border)] w-44 shrink-0 text-[11px] transition-all duration-300"
           style={{
+            backgroundColor: "var(--prism-sidebar-bg, var(--prism-site-surface, #0f172a))",
             borderTopLeftRadius: "var(--prism-card-radius)",
             borderBottomLeftRadius: "var(--prism-card-radius)",
           }}
+
         >
           <div className="flex items-center gap-2 font-bold mb-2">
             <svg viewBox="0 0 100 100" className="w-4 h-4 transition-colors duration-300">
@@ -275,7 +277,7 @@ export default function PrismDashboard({
               <div className="relative w-12 h-12 shrink-0">
                 <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
                   <path
-                    className="text-slate-500/10"
+                    className="text-text-secondary/10"
                     stroke="currentColor"
                     strokeWidth="3"
                     fill="none"
@@ -355,7 +357,7 @@ export default function PrismDashboard({
           className="absolute inset-0 z-50 flex items-center justify-center bg-black/65 backdrop-blur-md transition-all duration-300"
           style={{ borderRadius: "var(--prism-card-radius)" }}
         >
-          <div className="bg-[#111827] border border-white/10 p-5 rounded-2xl w-[90%] max-w-xs shadow-2xl relative flex flex-col gap-4 text-left">
+          <div className="bg-[#111827] border border-border-subtle p-5 rounded-2xl w-[90%] max-w-xs shadow-2xl relative flex flex-col gap-4 text-left">
             <button
               onClick={() => setShowExportModal(false)}
               className="absolute top-3 right-3 p-1 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors"
@@ -377,7 +379,7 @@ export default function PrismDashboard({
                 <div className="flex flex-col gap-2">
                   <button
                     onClick={() => handleExport("csv")}
-                    className="p-3 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/10 flex items-center gap-3 transition-all text-left"
+                    className="p-3 rounded-xl border border-border-subtle bg-white/5 hover:bg-white/10 hover:border-border-subtle flex items-center gap-3 transition-all text-left"
                   >
                     <div className="w-8 h-8 rounded bg-[#10B981]/15 text-[#10B981] flex items-center justify-center">
                       <FileText className="w-4 h-4" />
@@ -390,7 +392,7 @@ export default function PrismDashboard({
 
                   <button
                     onClick={() => handleExport("pdf")}
-                    className="p-3 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/10 flex items-center gap-3 transition-all text-left"
+                    className="p-3 rounded-xl border border-border-subtle bg-white/5 hover:bg-white/10 hover:border-border-subtle flex items-center gap-3 transition-all text-left"
                   >
                     <div className="w-8 h-8 rounded bg-[#EF4444]/15 text-[#EF4444] flex items-center justify-center">
                       <FileText className="w-4 h-4" />
@@ -437,3 +439,5 @@ export default function PrismDashboard({
     </div>
   );
 }
+
+

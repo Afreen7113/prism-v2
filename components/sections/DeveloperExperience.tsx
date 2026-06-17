@@ -217,7 +217,7 @@ export default function DeveloperExperience() {
             className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] leading-[1.05] text-text-primary mb-6"
           >
             {"Built by developers,".split(" ").map((word, i) => (
-              <span key={i} className="inline-block overflow-hidden mr-[0.25em] py-0.5">
+              <span key={i} className="inline-block overflow-hidden mr-[0.25em] pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
                 <motion.span variants={wordVariants} className="inline-block">
                   {word}
                 </motion.span>
@@ -226,11 +226,11 @@ export default function DeveloperExperience() {
             {" "}
             <span className="gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] inline-block"
               style={{
-                backgroundImage: "linear-gradient(120deg, #6366F1, #A855F7, #22D3EE, #6366F1)",
+                backgroundImage: "var(--gradient-primary)",
               }}
             >
               {"for developers.".split(" ").map((word, i) => (
-                <span key={i} className="inline-block overflow-hidden mr-[0.25em] last:mr-0 py-0.5">
+                <span key={i} className="inline-block overflow-hidden mr-[0.25em] last:mr-0 pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
                   <motion.span variants={wordVariants} className="inline-block">
                     {word}
                   </motion.span>
@@ -254,9 +254,9 @@ export default function DeveloperExperience() {
           
           {/* Left panel - Code Editor */}
           <motion.div
-            whileHover={{ y: -6, scale: 1.01, borderColor: "var(--prism-semantic-primary, rgba(99, 102, 241, 0.25))", boxShadow: "0 20px 40px var(--prism-primary-glow, rgba(0,0,0,0.2))" }}
+            whileHover={{ y: -6, scale: 1.01, borderColor: "var(--color-primary)", boxShadow: "var(--shadow-glow-primary)" }}
             transition={{ duration: 0.3 }}
-            className="bg-bg-elevated border border-border-subtle rounded-2xl overflow-hidden shadow-2xl flex flex-col min-h-[440px] transition-colors"
+            className="bg-bg-elevated border border-border-subtle rounded-2xl overflow-hidden shadow-2xl flex flex-col min-h-[380px] transition-colors"
           >
             
             {/* Chrome Header */}
@@ -291,7 +291,7 @@ export default function DeveloperExperience() {
             </div>
 
             {/* Code Body Area */}
-            <div className="p-6 flex-1 relative font-mono text-xs sm:text-sm leading-relaxed overflow-auto flex flex-col">
+            <div className="p-5 flex-1 relative font-mono text-xs sm:text-sm leading-relaxed overflow-auto flex flex-col">
               
               {/* Copy button */}
               <button
@@ -340,9 +340,9 @@ export default function DeveloperExperience() {
 
           {/* Right panel - Live Preview Window */}
           <motion.div
-            whileHover={{ y: -6, scale: 1.01, borderColor: "var(--prism-semantic-primary, rgba(99, 102, 241, 0.25))", boxShadow: "0 20px 40px var(--prism-primary-glow, rgba(0,0,0,0.2))" }}
+            whileHover={{ y: -6, scale: 1.01, borderColor: "var(--color-primary)", boxShadow: "var(--shadow-glow-primary)" }}
             transition={{ duration: 0.3 }}
-            className="bg-bg-elevated border border-border-subtle rounded-2xl overflow-hidden shadow-2xl flex flex-col min-h-[440px] transition-colors"
+            className="bg-bg-elevated border border-border-subtle rounded-2xl overflow-hidden shadow-2xl flex flex-col min-h-[380px] transition-colors"
           >
             
             {/* Chrome Header */}
@@ -359,7 +359,7 @@ export default function DeveloperExperience() {
             </div>
 
             {/* Preview Body Area */}
-            <div className="p-6 flex-1 flex flex-col justify-center bg-bg-elevated/20 relative overflow-hidden">
+            <div className="p-5 flex-1 flex flex-col justify-center bg-bg-elevated/20 relative overflow-hidden">
 
               <AnimatePresence mode="wait">
                 
@@ -407,7 +407,7 @@ export default function DeveloperExperience() {
                     <motion.div
                       animate={{ scale: [0.95, 1.03, 0.95] }}
                       transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-                      className="w-16 h-16 rounded-full bg-success/10 border border-success/20 flex items-center justify-center text-success mb-4 shadow-[0_0_40px_rgba(16,185,129,0.15)]"
+                      className="w-16 h-16 rounded-full bg-success/10 border border-success/20 flex items-center justify-center text-success mb-4"
                     >
                       <ShieldCheck className="w-8 h-8" />
                     </motion.div>
@@ -423,7 +423,7 @@ export default function DeveloperExperience() {
                         "✓ Brand Theme Configurations Loaded",
                         "✓ Tenant Isolation Authenticated",
                       ].map((pill, i) => (
-                        <span key={i} className="text-[10px] py-1.5 px-3 rounded-full bg-[#10B981]/5 border border-[#10B981]/15 text-[#10B981] font-medium inline-block w-full">
+                        <span key={i} className="text-[10px] py-1.5 px-3 rounded-full bg-success/5 border border-success/15 text-success font-medium inline-block w-full">
                           {pill}
                         </span>
                       ))}
@@ -524,3 +524,6 @@ export default function DeveloperExperience() {
     </section>
   );
 }
+
+
+

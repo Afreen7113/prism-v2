@@ -75,7 +75,7 @@ export default function RevealText({
         {words.map((word, i) => (
           <span
             key={i}
-            className="inline-block overflow-hidden mr-[0.22em] py-[0.1em] -my-[0.1em] h-fit"
+            className="inline-block overflow-hidden mr-[0.22em] pb-[0.5em] -mb-[0.5em] pt-[0.2em] -mt-[0.2em]"
           >
             <motion.span variants={wordVariants} className="inline-block">
               {word}

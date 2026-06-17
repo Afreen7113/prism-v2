@@ -38,7 +38,7 @@ function BentoCard({ children, className = "", index }: BentoCardProps) {
         delay: index * 0.1,
         ease: [0.32, 0.72, 0, 1],
       }}
-      className={`bento-card group relative overflow-hidden bg-bg-elevated/40 glass rounded-[24px] p-8 cursor-pointer border border-border-subtle hover:border-transparent transition-all duration-300 hover:scale-[1.01] hover:-translate-y-1 hover:shadow-[0_0_60px_var(--prism-primary-glow, rgba(99, 102, 241, 0.2))] ${className}`}
+      className={`bento-card group relative overflow-hidden bg-bg-elevated/40 glass rounded-[24px] p-6 cursor-pointer border border-border-subtle hover:border-transparent transition-all duration-300 hover:scale-[1.01] hover:-translate-y-1 hover:shadow-glow-primary ${className}`}
     >
       {/* Outer border gradient overlay on hover */}
       <div className="absolute inset-0 -z-10 rounded-[24px] p-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-primary to-tertiary" />
@@ -597,7 +597,7 @@ function Card6LatencyDisplay() {
               opacity: [0.8, 1, 0.8],
             }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="h-full bg-gradient-to-r from-primary to-secondary rounded-full shadow-[0_0_10px_rgba(99,102,241,0.5)]"
+            className="h-full bg-gradient-to-r from-primary to-secondary rounded-full shadow-glow-primary"
           />
         </div>
         <span className="text-[10px] text-text-muted mt-2 uppercase tracking-wide font-semibold">Average query latency</span>
@@ -611,7 +611,7 @@ function Card6LatencyDisplay() {
             scale: [0.95, 1.05, 0.95],
           }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-16 h-16 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-[0_0_20px_rgba(99,102,241,0.15)]"
+          className="w-16 h-16 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-glow-primary"
         >
           <Zap className="w-8 h-8 fill-current" />
         </motion.div>
@@ -650,7 +650,7 @@ export default function BentoGrid() {
     <section id="product" className="py-20 md:py-24 px-6 md:px-12 lg:px-20 bg-bg-base relative z-10 border-b border-border-subtle">
       
       {/* Background radial highlight overlay */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.03)_0%,transparent_60%)] pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,var(--prism-primary-glow)_0%,transparent_60%)] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
@@ -667,7 +667,7 @@ export default function BentoGrid() {
             className="text-4xl sm:text-5xl lg:text-7xl font-semibold tracking-[-0.04em] leading-[1.05] text-text-primary mb-6 select-none max-w-4xl mx-auto"
           >
             {"Built for teams who".split(" ").map((word, i) => (
-              <span key={i} className="inline-block overflow-hidden mr-[0.25em] py-0.5">
+              <span key={i} className="inline-block overflow-hidden mr-[0.25em] pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
                 <motion.span variants={wordVariants} className="inline-block">
                   {word}
                 </motion.span>
@@ -676,11 +676,11 @@ export default function BentoGrid() {
             {" "}
             <span className="gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] inline-block"
               style={{
-                backgroundImage: "linear-gradient(120deg, #6366F1, #A855F7, #22D3EE, #6366F1)",
+                backgroundImage: "var(--gradient-primary)",
               }}
             >
               {"ship.".split(" ").map((word, i) => (
-                <span key={i} className="inline-block overflow-hidden mr-[0.25em] last:mr-0 py-0.5">
+                <span key={i} className="inline-block overflow-hidden mr-[0.25em] last:mr-0 pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
                   <motion.span variants={wordVariants} className="inline-block">
                     {word}
                   </motion.span>
@@ -695,7 +695,7 @@ export default function BentoGrid() {
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[300px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[240px]">
           
           {/* Card 1: Embeddable React SDK */}
           <BentoCard index={0} className="col-span-1 md:col-span-2 lg:col-span-2 flex flex-col justify-between pb-8">
@@ -757,3 +757,6 @@ export default function BentoGrid() {
     </section>
   );
 }
+
+
+

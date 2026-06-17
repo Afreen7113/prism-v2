@@ -11,7 +11,7 @@ const themesConfig = {
   white: {
     bg: "bg-white",
     text: "text-slate-900",
-    textMuted: "text-slate-400/80",
+    textMuted: "text-text-muted",
     accent: "text-blue-500",
     accentBg: "bg-blue-500/10",
     accentBorder: "border-blue-500/20",
@@ -39,7 +39,7 @@ const themesConfig = {
   darkBlue: {
     bg: "bg-[#0F172A]",
     text: "text-slate-50",
-    textMuted: "text-slate-500",
+    textMuted: "text-text-secondary",
     accent: "text-cyan-400",
     accentBg: "bg-cyan-400/10",
     accentBorder: "border-cyan-400/20",
@@ -340,7 +340,7 @@ export default function Hero() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.2)_0%,transparent_70%)] pointer-events-none blur-[100px] z-0"
+        className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,var(--prism-primary-glow)_0%,transparent_70%)] pointer-events-none blur-[100px] z-0"
       />
       <motion.div
         animate={{
@@ -352,7 +352,7 @@ export default function Hero() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(168,85,247,0.15)_0%,transparent_70%)] pointer-events-none blur-[100px] z-0"
+        className="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,var(--prism-border-glow)_0%,transparent_70%)] pointer-events-none blur-[100px] z-0"
       />
 
       <div className="w-full max-w-[1240px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
@@ -365,14 +365,14 @@ export default function Hero() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] as const }}
-            className="glass px-6 py-1.5 rounded-full text-[11px] font-semibold border border-primary/25 text-primary/95 flex items-center gap-2 shadow-[0_0_15px_rgba(99,102,241,0.1)] mb-6"
+            className="glass px-6 py-1.5 rounded-full text-[11px] font-semibold border border-primary/25 text-primary flex items-center gap-2 shadow-glow-primary mb-6"
           >
             <Sparkles className="w-3.5 h-3.5 text-secondary animate-pulse" />
             <span>WHITE-LABEL ANALYTICS INFRASTRUCTURE</span>
           </motion.div>
 
           {/* Heading */}
-          <div className="text-4xl sm:text-5xl md:text-6.5xl font-bold tracking-tight text-text-primary mb-6 leading-[1.1] max-w-xl">
+          <div className="text-[clamp(36px,8vw,72px)] font-bold tracking-tight text-text-primary mb-6 leading-[1.1] max-w-xl">
             <RevealText
               text="Analytics that adapts"
               tag="h1"
@@ -408,7 +408,7 @@ export default function Hero() {
           >
             <Link
               href="#get-started"
-              className="group relative inline-flex items-center gap-2 px-6 py-3 font-semibold text-white rounded-lg bg-gradient-to-r from-primary via-indigo-600 to-tertiary shadow-[0_0_30px_rgba(99,102,241,0.35)] hover:shadow-[0_0_40px_rgba(99,102,241,0.55)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 overflow-hidden"
+              className="group relative inline-flex items-center gap-2 px-6 py-3 font-semibold text-white rounded-lg bg-gradient-primary shadow-glow-primary hover:shadow-glow-primary hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 overflow-hidden min-h-[44px]"
             >
               <motion.span
                 initial={{ x: "-150%" }}
@@ -428,7 +428,7 @@ export default function Hero() {
 
             <Link
               href="#demo"
-              className="glass group inline-flex items-center justify-center px-6 py-3 font-medium text-text-primary rounded-lg border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all duration-300"
+              className="glass group inline-flex items-center justify-center px-6 py-3 font-medium text-text-primary rounded-lg border border-border-subtle hover:border-primary/30 hover:bg-primary/5 transition-all duration-300"
             >
               View Live Demo
             </Link>
@@ -460,20 +460,25 @@ export default function Hero() {
         <div className="col-span-1 lg:col-span-6 flex items-center justify-center lg:justify-end lg:pr-2 xl:pr-0 min-h-[350px] lg:min-h-[400px] w-full relative lg:translate-x-8 xl:translate-x-16 2xl:translate-x-24">
           
           {/* Decorative Indigo Glow */}
-          <div className="absolute top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] bg-indigo-500/20 blur-[120px] rounded-full pointer-events-none z-0" />
-          
+<div
+  className="absolute top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] blur-[120px] rounded-full pointer-events-none z-0"
+  style={{
+    background: "color-mix(in srgb, var(--color-primary) 20%, transparent)"
+  }}
+/>          
           {/* Subtle connecting curve behind the stack */}
           <div className="absolute inset-0 w-full h-full z-0 pointer-events-none flex items-center justify-center lg:justify-end lg:pr-2 xl:pr-0 lg:-translate-x-16 xl:-translate-x-24 2xl:-translate-x-32 translate-y-20">
             <svg className="w-[530px] h-[250px] scale-75 sm:scale-85 md:scale-90 lg:scale-[0.88] xl:scale-[0.95] 2xl:scale-100 opacity-60" viewBox="0 0 530 250" fill="none">
               <path
                 d="M 30 180 C 130 250, 400 250, 500 180"
-                stroke="rgba(99, 102, 241, 0.25)"
+                stroke="var(--color-primary)"
+strokeOpacity="0.25"
                 strokeWidth="2"
                 strokeDasharray="6 6"
               />
-              <circle cx="100" cy="205" r="3" fill="#6366f1" className="animate-pulse" />
-              <circle cx="260" cy="225" r="3.5" fill="#a855f7" className="animate-pulse" />
-              <circle cx="420" cy="205" r="3" fill="#10b981" className="animate-pulse" />
+              <circle cx="100" cy="205" r="3" className="fill-primary animate-pulse" />
+              <circle cx="260" cy="225" r="3.5" className="fill-accent animate-pulse" />
+              <circle cx="420" cy="205" r="3" className="fill-success animate-pulse" />
             </svg>
           </div>
 
@@ -484,7 +489,7 @@ export default function Hero() {
             className="scale-75 sm:scale-85 md:scale-90 lg:scale-[0.88] xl:scale-[0.95] 2xl:scale-100 origin-center transition-transform duration-500 z-10"
           >
             <div 
-              className="relative w-[530px] h-[250px]"
+              className="relative w-[320px] sm:w-[530px] h-[180px] sm:h-[250px]"
               style={{ perspective: "2000px", transformStyle: "preserve-3d" }}
             >
               {visibleCardIndices.map((index) => {
@@ -536,10 +541,10 @@ export default function Hero() {
                       }}
                       className={`w-full h-full flex rounded-[16px] overflow-hidden border ${t.bg} ${t.text} ${t.border} ${
                         index === 0 
-                          ? "shadow-[0_25px_50px_rgba(0,0,0,0.35)] border-primary/20" 
+                          ? "shadow-card border-primary/20" 
                           : index === 1
-                          ? "shadow-[0_20px_40px_rgba(0,0,0,0.25)]"
-                          : "shadow-[0_15px_30px_rgba(0,0,0,0.15)]"
+                          ? "shadow-card"
+                          : "shadow-card"
                       }`}
                     >
                       {/* Sidebar (45px wide) */}
@@ -693,7 +698,8 @@ export default function Hero() {
               <path
                 id="left-path"
                 d="M 230 150 C 320 150, 360 150, 450 150"
-                stroke="rgba(99, 102, 241, 0.12)"
+                stroke="var(--color-primary)"
+strokeOpacity="0.12"
                 strokeWidth="2"
                 strokeDasharray="4 4"
               />
@@ -701,24 +707,25 @@ export default function Hero() {
               <path
                 id="right-path"
                 d="M 550 150 C 640 150, 680 150, 770 150"
-                stroke="rgba(168, 85, 247, 0.12)"
+                stroke="var(--color-accent)"
+strokeOpacity="0.12"
                 strokeWidth="2"
                 strokeDasharray="4 4"
               />
 
               {/* Animated flow dots - Left Direction */}
-              <motion.circle r="3.5" fill="#6366f1">
+              <motion.circle r="3.5" className="fill-primary">
                 <animateMotion dur="4.2s" repeatCount="indefinite" path="M 500 150 C 410 150, 370 150, 230 150" />
               </motion.circle>
-              <motion.circle r="3.5" fill="#22d3ee">
+              <motion.circle r="3.5" className="fill-info">
                 <animateMotion dur="4.2s" repeatCount="indefinite" path="M 230 150 C 320 150, 360 150, 500 150" />
               </motion.circle>
 
               {/* Animated flow dots - Right Direction */}
-              <motion.circle r="3.5" fill="#a855f7">
+              <motion.circle r="3.5" className="fill-accent">
                 <animateMotion dur="4.8s" repeatCount="indefinite" path="M 500 150 C 590 150, 630 150, 770 150" />
               </motion.circle>
-              <motion.circle r="3.5" fill="#10b981">
+              <motion.circle r="3.5" className="fill-success">
                 <animateMotion dur="4.8s" repeatCount="indefinite" path="M 770 150 C 680 150, 640 150, 500 150" />
               </motion.circle>
             </svg>
@@ -735,7 +742,7 @@ export default function Hero() {
             <div className="text-center mb-3">
               <span className="text-[10px] uppercase font-bold text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded-full border border-sky-500/15">Medical SaaS</span>
             </div>
-            <div className="w-full aspect-[1.4] scale-95 border border-white/5 rounded-2xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] overflow-hidden">
+            <div className="w-full aspect-[1.4] scale-95 border border-border-subtle rounded-2xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] overflow-hidden">
               {renderCardContent(0)}
             </div>
           </motion.div>
@@ -748,15 +755,15 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.1, ease: [0.32, 0.72, 0, 1] as const }}
             className="z-10 w-full max-w-[360px]"
           >
-            <div className="glass border border-white/10 rounded-2xl p-5 shadow-[0_20px_50px_rgba(99,102,241,0.15)] bg-slate-900/40">
-              <span className="text-[10px] uppercase font-bold text-indigo-400 tracking-wider block mb-4">Prism Engine</span>
+            <div className="glass border border-border-subtle rounded-2xl p-5 shadow-glow-primary bg-bg-surface/40">
+              <span className="text-[10px] uppercase font-bold text-primary tracking-wider block mb-4">Prism Engine</span>
               <div className="flex gap-4 items-center">
                 {/* Prism visual */}
                 <div className="w-1/3 flex justify-center">
                   <svg viewBox="0 0 100 100" className="w-16 h-16">
                     <polygon points="50,15 15,80 85,80" fill="url(#prismGrad)" opacity="0.8" />
                     <polygon points="50,15 50,80 85,80" fill="url(#prismSideGrad)" opacity="0.6" />
-                    <line x1="50" y1="15" x2="15" y2="80" stroke="#a855f7" strokeWidth="1.5" />
+                    <line x1="50" y1="15" x2="15" y2="80" stroke="var(--color-accent)" strokeWidth="1.5" />
                     <line x1="50" y1="15" x2="85" y2="80" stroke="#ec4899" strokeWidth="1.5" />
                     <line x1="15" y1="80" x2="85" y2="80" stroke="#6366f1" strokeWidth="1.5" />
                     <line x1="50" y1="15" x2="50" y2="80" stroke="#ffffff" strokeWidth="1" strokeDasharray="2 2" opacity="0.4" />
@@ -773,7 +780,7 @@ export default function Hero() {
                   </svg>
                 </div>
                 {/* Capabilities list */}
-                <div className="w-2/3 flex flex-col gap-2.5 text-left border-l border-white/5 pl-4">
+                <div className="w-2/3 flex flex-col gap-2.5 text-left border-l border-border-subtle pl-4">
                   {[
                     "Data Collection",
                     "Processing",
@@ -782,7 +789,7 @@ export default function Hero() {
                     "Exports & APIs"
                   ].map((text, i) => (
                     <div key={i} className="flex items-center gap-2 text-[11px] text-text-primary/95 font-medium">
-                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
                       <span>{text}</span>
                     </div>
                   ))}
@@ -802,7 +809,7 @@ export default function Hero() {
             <div className="text-center mb-3">
               <span className="text-[10px] uppercase font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/15">Retail SaaS</span>
             </div>
-            <div className="w-full aspect-[1.4] scale-95 border border-white/5 rounded-2xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] overflow-hidden">
+            <div className="w-full aspect-[1.4] scale-95 border border-border-subtle rounded-2xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] overflow-hidden">
               {renderCardContent(3)}
             </div>
           </motion.div>
@@ -812,3 +819,5 @@ export default function Hero() {
     </section>
   );
 }
+
+
