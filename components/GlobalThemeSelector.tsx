@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Sliders, Check, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -26,6 +26,33 @@ const themes: Record<string, Record<string, string>> = {
     "--prism-dashboard-text": "#f8fafc",
     "--prism-card-bg": "rgba(255, 255, 255, 0.03)",
     "--prism-card-border": "rgba(255, 255, 255, 0.1)",
+    "--prism-card-radius": "12px",
+    "--prism-button-bg": "#4f46e5",
+    "--prism-chart-primary": "#4f46e5",
+    "--prism-chart-accent": "#0ea5e9",
+    "--prism-semantic-font": "var(--font-inter)"
+  },
+  "default-light": {
+    "--prism-site-bg": "#f8fafc",
+    "--prism-site-surface": "#ffffff",
+    "--prism-site-elevated": "#f1f5f9",
+    "--prism-semantic-primary": "#4f46e5",
+    "--prism-semantic-accent": "#0ea5e9",
+    "--prism-semantic-accent-2": "#8b5cf6",
+    "--prism-site-text": "#0f172a",
+    "--prism-site-text-secondary": "#475569",
+    "--prism-site-text-muted": "#94a3b8",
+    "--prism-site-border": "rgba(15, 23, 42, 0.08)",
+    "--prism-primary-glow": "rgba(79, 70, 229, 0.08)",
+    "--prism-border-glow": "rgba(79, 70, 229, 0.05)",
+    "--prism-glass-bg": "rgba(255, 255, 255, 0.75)",
+    "--prism-glass-border": "rgba(15, 23, 42, 0.08)",
+    "--prism-grid-color": "rgba(15, 23, 42, 0.03)",
+    // Mockup component tokens
+    "--prism-dashboard-bg": "#ffffff",
+    "--prism-dashboard-text": "#0f172a",
+    "--prism-card-bg": "#ffffff",
+    "--prism-card-border": "rgba(15, 23, 42, 0.06)",
     "--prism-card-radius": "12px",
     "--prism-button-bg": "#4f46e5",
     "--prism-chart-primary": "#4f46e5",
@@ -142,15 +169,31 @@ export default function GlobalThemeSelector() {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState("default");
 
+  useEffect(() => {
+    // Detect system preference and set the initial selected state
+    const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (isDark) {
+      setSelected("default");
+    } else {
+      setSelected("default-light");
+    }
+  }, []);
+
   const selectTheme = (key: string) => {
     setSelected(key);
-    if (key === "default") {
-      // Clear inline style overrides so page falls back to responsive CSS rules
-      Object.keys(themes["default"]).forEach((varName) => {
+    const themeObj = themes[key];
+    if (themeObj) {
+      // Build a set of all variable names across all theme presets to clear them clean
+      const allVariableNames = new Set<string>();
+      Object.values(themes).forEach((t) => {
+        Object.keys(t).forEach((varName) => allVariableNames.add(varName));
+      });
+      // Clear inline overrides so there's no spillover
+      allVariableNames.forEach((varName) => {
         document.documentElement.style.removeProperty(varName);
       });
-    } else {
-      const themeObj = themes[key];
+
+      // Apply selected theme variables directly to document root
       Object.keys(themeObj).forEach((varName) => {
         document.documentElement.style.setProperty(varName, themeObj[varName]);
       });
@@ -176,6 +219,7 @@ export default function GlobalThemeSelector() {
             <div className="flex flex-col gap-1.5">
               {[
                 { id: "default", label: "Default Dark", color: "bg-[#6366F1]" },
+                { id: "default-light", label: "Default Light", color: "bg-white border border-slate-300" },
                 { id: "healthcare", label: "Clinical Light", color: "bg-[#0284C7]" },
                 { id: "fintech", label: "Fintech Green", color: "bg-[#059669]" },
                 { id: "consumer", label: "Retail Pink", color: "bg-[#EC4899]" },
