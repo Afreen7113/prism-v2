@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { BarChart3, Table, Filter, Calendar, FileDown, Layers, Check } from "lucide-react";
 import { useState } from "react";
 import RevealText from "@/components/ui/RevealText";
+import Link from "next/link";
 
 const legoBlocks = [
   {
@@ -12,6 +13,7 @@ const legoBlocks = [
     description: "Line, bar, pie & more",
     color: "text-indigo-400",
     iconBg: "bg-indigo-500/10 border-indigo-500/20",
+    href: "/components/charts",
   },
   {
     icon: Table,
@@ -19,6 +21,7 @@ const legoBlocks = [
     description: "Sortable & filterable",
     color: "text-purple-400",
     iconBg: "bg-purple-500/10 border-purple-500/20",
+    href: "/components/tables",
   },
   {
     icon: Filter,
@@ -26,6 +29,7 @@ const legoBlocks = [
     description: "Advanced controls",
     color: "text-blue-400",
     iconBg: "bg-blue-500/10 border-blue-500/20",
+    href: "/components/filters",
   },
   {
     icon: Calendar,
@@ -33,6 +37,7 @@ const legoBlocks = [
     description: "Time range selector",
     color: "text-fuchsia-400",
     iconBg: "bg-fuchsia-500/10 border-fuchsia-500/20",
+    href: "/components/date-picker",
   },
   {
     icon: FileDown,
@@ -40,6 +45,7 @@ const legoBlocks = [
     description: "CSV, PDF, API",
     color: "text-emerald-400",
     iconBg: "bg-emerald-500/10 border-emerald-500/20",
+    href: "/components/exports",
   },
   {
     icon: Layers,
@@ -47,6 +53,7 @@ const legoBlocks = [
     description: "Metrics at a glance",
     color: "text-amber-400",
     iconBg: "bg-amber-500/10 border-amber-500/20",
+    href: "/components/kpi-cards",
   },
 ];
 
@@ -100,25 +107,27 @@ export default function LegoSection() {
             {legoBlocks.map((block, idx) => {
               const Icon = block.icon;
               return (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.5, delay: idx * 0.05 }}
-                  whileHover={{ y: -6, scale: 1.02, borderColor: "rgba(99,102,241,0.25)", boxShadow: "0 12px 30px rgba(99,102,241,0.1)" }}
-                  className="bg-bg-elevated/20 backdrop-blur-sm rounded-2xl p-5 border border-border-subtle shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:bg-bg-elevated/40 transition-all duration-300 flex flex-col items-center text-center group cursor-pointer"
-                >
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 border ${block.iconBg} ${block.color}`}>
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-sm font-bold text-text-primary mb-1 transition-colors">
-                    {block.title}
-                  </h3>
-                  <p className="text-xs text-text-secondary font-medium leading-relaxed">
-                    {block.description}
-                  </p>
-                </motion.div>
+                <Link key={idx} href={block.href}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.5, delay: idx * 0.05 }}
+                    whileHover={{ y: -6, scale: 1.02, borderColor: "rgba(99,102,241,0.25)", boxShadow: "0 12px 30px rgba(99,102,241,0.1)" }}
+                    className="bg-bg-elevated/20 backdrop-blur-sm rounded-2xl p-5 border border-border-subtle shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:bg-bg-elevated/40 transition-all duration-300 flex flex-col items-center text-center group cursor-pointer"
+                  >
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 border ${block.iconBg} ${block.color}`}>
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-sm font-bold text-text-primary mb-1 transition-colors">
+                      {block.title}
+                    </h3>
+                    <p className="text-xs text-text-secondary font-medium leading-relaxed">
+                      {block.description}
+                    </p>
+                    <span className="mt-3 text-[9px] font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity tracking-widest uppercase">Explore →</span>
+                  </motion.div>
+                </Link>
               );
             })}
           </div>

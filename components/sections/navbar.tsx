@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 
 const navItems = [
@@ -10,7 +10,6 @@ const navItems = [
   { name: "Solutions", href: "/#solutions" },
   { name: "Documentation", href: "/#docs" },
   { name: "Pricing", href: "/#pricing" },
-  { name: "Admin Portal", href: "/admin" },
   { name: "Storybook", href: "/storybook" },
 ];
 
@@ -54,12 +53,12 @@ export default function Navbar() {
               <svg viewBox="0 0 100 100" className="w-7 h-7 drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]">
                 <defs>
                   <linearGradient id="prism-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#6366F1" />
-                    <stop offset="100%" stopColor="#A855F7" />
+                    <stop offset="0%" stopColor="var(--color-primary)" />
+                    <stop offset="100%" stopColor="var(--color-accent-2)" />
                   </linearGradient>
                   <linearGradient id="prism-grad-2" x1="0%" y1="100%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#A855F7" />
-                    <stop offset="100%" stopColor="#22D3EE" />
+                    <stop offset="0%" stopColor="var(--color-accent-2)" />
+                    <stop offset="100%" stopColor="var(--color-primary)" />
                   </linearGradient>
                 </defs>
                 {/* Front Left Facet */}
@@ -95,9 +94,17 @@ export default function Navbar() {
               </Link>
             ))}
           </nav>
- 
+
           {/* Right - Actions */}
           <div className="hidden md:flex items-center gap-5">
+            {/* Admin Portal Button */}
+            <Link
+              href="/admin"
+              className="flex items-center gap-2 bg-primary text-white px-5 py-2 rounded-lg"
+            >
+              <LayoutDashboard size={16} />
+              Admin Portal
+            </Link>
             <Link
               href="/admin"
               className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-300"
@@ -149,6 +156,15 @@ export default function Navbar() {
             ))}
             <hr className="border-border-subtle" />
             <div className="flex flex-col gap-4">
+              {/* Admin Portal Mobile Button */}
+              <Link
+                href="/admin"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center gap-2 bg-primary text-white px-5 py-2 rounded-lg"
+              >
+                <LayoutDashboard size={16} />
+                Admin Portal
+              </Link>
               <Link
                 href="/admin"
                 onClick={() => setIsMobileMenuOpen(false)}
