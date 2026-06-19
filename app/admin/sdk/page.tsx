@@ -16,7 +16,7 @@ function CodeBlock({ code, language }: { code: string, language: string }) {
 
   return (
     <div className="relative group">
-      <div className="absolute flex items-center justify-between top-0 left-0 right-0 px-4 py-2 bg-black/40 border-b border-white/10 rounded-t-xl">
+      <div className="absolute flex items-center justify-between top-0 left-0 right-0 px-4 py-2 bg-transparent rounded-t-xl">
         <span className="text-[10px] font-mono text-text-muted uppercase tracking-wider">{language}</span>
         <Button 
           variant="ghost"
