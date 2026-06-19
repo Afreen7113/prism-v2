@@ -11,48 +11,48 @@ const legoBlocks = [
     icon: BarChart3,
     title: "Charts",
     description: "Line, bar, pie & more",
-    color: "text-indigo-400",
-    iconBg: "bg-indigo-500/10 border-indigo-500/20",
+    color: "text-brand",
+    iconBg: "bg-brand/10 border-brand/20",
     href: "/components/charts",
   },
   {
     icon: Table,
     title: "Tables",
     description: "Sortable & filterable",
-    color: "text-purple-400",
-    iconBg: "bg-purple-500/10 border-purple-500/20",
+    color: "text-brand",
+    iconBg: "bg-brand/10 border-brand/20",
     href: "/components/tables",
   },
   {
     icon: Filter,
     title: "Filters",
     description: "Advanced controls",
-    color: "text-blue-400",
-    iconBg: "bg-blue-500/10 border-blue-500/20",
+    color: "text-brand",
+    iconBg: "bg-brand/10 border-brand/20",
     href: "/components/filters",
   },
   {
     icon: Calendar,
     title: "Date Picker",
     description: "Time range selector",
-    color: "text-fuchsia-400",
-    iconBg: "bg-fuchsia-500/10 border-fuchsia-500/20",
+    color: "text-brand",
+    iconBg: "bg-brand/10 border-brand/20",
     href: "/components/date-picker",
   },
   {
     icon: FileDown,
     title: "Exports",
     description: "CSV, PDF, API",
-    color: "text-emerald-400",
-    iconBg: "bg-emerald-500/10 border-emerald-500/20",
+    color: "text-status-success",
+    iconBg: "bg-status-success/10 border-emerald-500/20",
     href: "/components/exports",
   },
   {
     icon: Layers,
     title: "KPI Cards",
     description: "Metrics at a glance",
-    color: "text-amber-400",
-    iconBg: "bg-amber-500/10 border-amber-500/20",
+    color: "text-status-warning",
+    iconBg: "bg-status-warning/10 border-amber-500/20",
     href: "/components/kpi-cards",
   },
 ];
@@ -65,21 +65,21 @@ const features = [
 ];
 
 const countries = [
-  { name: "United States", pct: "48%", color: "bg-blue-500" },
-  { name: "Canada", pct: "12%", color: "bg-orange-500" },
-  { name: "Germany", pct: "10%", color: "bg-indigo-600" },
-  { name: "Australia", pct: "8%", color: "bg-teal-500" },
-  { name: "Other", pct: "22%", color: "bg-slate-500" },
+  { name: "United States", pct: "48%", color: "bg-brand" },
+  { name: "Canada", pct: "12%", color: "bg-status-warning" },
+  { name: "Germany", pct: "10%", color: "bg-info" },
+  { name: "Australia", pct: "8%", color: "bg-status-success" },
+  { name: "Other", pct: "22%", color: "bg-bg-elevated border border-border-subtle" },
 ];
 
 export default function LegoSection() {
   const [activeTab, setActiveTab] = useState("Overview");
 
   return (
-    <section id="solutions" className="py-20 md:py-24 px-6 md:px-12 lg:px-20 bg-bg-base text-text-primary relative z-10 border-y border-border-subtle font-sans overflow-hidden">
+    <section id="solutions" className="py-20 md:py-24 px-6 md:px-12 lg:px-20 bg-bg-base text-text-brand relative z-10 border-y border-border-subtle font-sans overflow-hidden">
       
       {/* Subtle Indigo Glow Orb */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/5 blur-[120px] rounded-full pointer-events-none z-0" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand/5 blur-[120px] rounded-full pointer-events-none z-0" />
       
       <div className="max-w-7xl mx-auto flex flex-col gap-20 relative z-10">
         
@@ -89,7 +89,7 @@ export default function LegoSection() {
             <RevealText
               text="Build analytics like LEGO"
               tag="h2"
-              className="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary leading-tight text-center"
+              className="text-3xl sm:text-4xl font-bold tracking-tight text-text-brand leading-tight text-center"
             />
             <motion.p
               initial={{ opacity: 0, y: 15 }}
@@ -113,19 +113,19 @@ export default function LegoSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.5, delay: idx * 0.05 }}
-                    whileHover={{ y: -6, scale: 1.02, borderColor: "rgba(99,102,241,0.25)", boxShadow: "0 12px 30px rgba(99,102,241,0.1)" }}
-                    className="bg-bg-elevated/20 backdrop-blur-sm rounded-2xl p-5 border border-border-subtle shadow-[0_4px_20px_rgba(0,0,0,0.1)] hover:bg-bg-elevated/40 transition-all duration-300 flex flex-col items-center text-center group cursor-pointer"
+                    whileHover={{ y: -6, scale: 1.02 }}
+                    className="bg-bg-elevated/20 backdrop-blur-sm rounded-2xl p-5 border border-border-subtle shadow-[0_4px_20px_rgba(0,0,0,0.1)] flex flex-col items-center text-center group cursor-pointer hover-semantic-card"
                   >
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 border ${block.iconBg} ${block.color}`}>
                       <Icon className="w-6 h-6" />
                     </div>
-                    <h3 className="text-sm font-bold text-text-primary mb-1 transition-colors">
+                    <h3 className="text-sm font-bold text-text-brand mb-1 transition-colors">
                       {block.title}
                     </h3>
                     <p className="text-xs text-text-secondary font-medium leading-relaxed">
                       {block.description}
                     </p>
-                    <span className="mt-3 text-[9px] font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity tracking-widest uppercase">Explore →</span>
+                    <span className="mt-3 text-[9px] font-bold text-brand opacity-0 group-hover:opacity-100 transition-opacity tracking-widest uppercase">Explore →</span>
                   </motion.div>
                 </Link>
               );
@@ -142,7 +142,7 @@ export default function LegoSection() {
               <RevealText
                 text="Powerful dashboards out of the box"
                 tag="h3"
-                className="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary leading-tight mb-4"
+                className="text-3xl sm:text-4xl font-bold tracking-tight text-text-brand leading-tight mb-4"
               />
               <motion.p
                 initial={{ opacity: 0, y: 15 }}
@@ -162,10 +162,10 @@ export default function LegoSection() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.4 + i * 0.08 }}
-                    className="flex items-center gap-3 text-[14px] sm:text-base font-semibold text-text-primary/90"
+                    className="flex items-center gap-3 text-[14px] sm:text-base font-semibold text-text-brand/90"
                   >
-                    <div className="w-5 h-5 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
-                      <Check className="w-3.5 h-3.5 text-primary" strokeWidth={3} />
+                    <div className="w-5 h-5 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center shrink-0">
+                      <Check className="w-3.5 h-3.5 text-brand" strokeWidth={3} />
                     </div>
                     <span>{feature}</span>
                   </motion.div>
@@ -188,10 +188,10 @@ export default function LegoSection() {
                 <div className="flex flex-col w-full">
                   {/* Brand Logo */}
                   <div className="flex items-center gap-2 mb-2 sm:mb-6">
-                    <div className="w-6 h-6 rounded bg-gradient-to-tr from-[var(--prism-semantic-primary)] to-[var(--prism-semantic-accent)] flex items-center justify-center text-white shadow-md">
-                      <span className="text-[10px] font-bold text-white">P</span>
+                    <div className="w-6 h-6 rounded bg-gradient-to-tr from-[var(--prism-semantic-primary)] to-[var(--prism-semantic-accent)] flex items-center justify-center text-text-brand shadow-md">
+                      <span className="text-[10px] font-bold text-text-brand">P</span>
                     </div>
-                    <span className="font-bold text-sm tracking-tight text-text-primary">Prism</span>
+                    <span className="font-bold text-sm tracking-tight text-text-brand">Prism</span>
                   </div>
 
                   {/* Sidebar Menu items */}
@@ -205,7 +205,7 @@ export default function LegoSection() {
                           className={`text-left text-xs px-2.5 py-1.5 rounded-lg transition-all ${
                             isActive
                               ? "bg-[var(--prism-semantic-primary)]/10 text-[var(--prism-semantic-primary)] font-semibold"
-                              : "text-text-muted hover:text-text-primary hover:bg-white/5 font-medium"
+                              : "text-slate-400 hover:text-text-brand hover:bg-bg-base/5 font-medium"
                           }`}
                         >
                           {item}
@@ -240,10 +240,10 @@ export default function LegoSection() {
 
                     {/* Avatars */}
                     <div className="flex -space-x-1.5 items-center">
-                      <div className="w-5 h-5 rounded-full border border-[var(--prism-dashboard-bg)] bg-slate-700 overflow-hidden flex items-center justify-center text-[6px] font-bold text-white">
+                      <div className="w-5 h-5 rounded-full border border-[var(--prism-dashboard-bg)] bg-bg-elevated overflow-hidden flex items-center justify-center text-[6px] font-bold text-text-brand">
                         <span>A</span>
                       </div>
-                      <div className="w-5 h-5 rounded-full border border-[var(--prism-dashboard-bg)] bg-[var(--prism-semantic-primary)] overflow-hidden flex items-center justify-center text-[6px] font-bold text-white">
+                      <div className="w-5 h-5 rounded-full border border-[var(--prism-dashboard-bg)] bg-[var(--prism-semantic-primary)] overflow-hidden flex items-center justify-center text-[6px] font-bold text-text-brand">
                         <span>B</span>
                       </div>
                     </div>
@@ -283,7 +283,7 @@ export default function LegoSection() {
                     className="md:col-span-8 p-3 border border-[var(--prism-card-border)] bg-[var(--prism-card-bg)] flex flex-col justify-between min-h-[160px] transition-all duration-300"
                     style={{ borderRadius: "var(--prism-card-radius)" }}
                   >
-                    <span className="text-[9px] uppercase tracking-wider text-text-muted font-bold block mb-1">
+                    <span className="text-[9px] uppercase tracking-wider text-slate-400 font-bold block mb-1">
                       Revenue Over Time
                     </span>
                     <div className="flex-1 flex items-end relative min-h-[100px]">
@@ -316,7 +316,7 @@ export default function LegoSection() {
                       </svg>
                     </div>
                     {/* Chart X-axis */}
-                    <div className="flex justify-between items-center text-[7px] text-text-muted font-semibold mt-1">
+                    <div className="flex justify-between items-center text-xs text-slate-400 font-semibold mt-1">
                       <span>May 1</span>
                       <span>May 8</span>
                       <span>May 15</span>
@@ -330,7 +330,7 @@ export default function LegoSection() {
                     className="md:col-span-4 p-3 border border-[var(--prism-card-border)] bg-[var(--prism-card-bg)] flex flex-col transition-all duration-300"
                     style={{ borderRadius: "var(--prism-card-radius)" }}
                   >
-                    <span className="text-[9px] uppercase tracking-wider text-text-muted font-bold block mb-2">
+                    <span className="text-[9px] uppercase tracking-wider text-slate-400 font-bold block mb-2">
                       Top Countries
                     </span>
                     <div className="flex flex-col gap-2.5 flex-1 justify-center">
@@ -341,10 +341,10 @@ export default function LegoSection() {
                               <span className={`w-1.5 h-1.5 rounded-full ${c.color}`} />
                               <span>{c.name}</span>
                             </div>
-                            <span className="text-text-muted">{c.pct}</span>
+                            <span className="text-slate-400">{c.pct}</span>
                           </div>
                           {/* Mini Progress bar */}
-                          <div className="w-full h-1 bg-white/5 border border-border-subtle rounded-full overflow-hidden">
+                          <div className="w-full h-1 bg-bg-base/5 border border-border-subtle rounded-full overflow-hidden">
                             <div 
                               className="h-full rounded-full bg-[var(--prism-chart-primary)]"
                               style={{ width: c.pct }}

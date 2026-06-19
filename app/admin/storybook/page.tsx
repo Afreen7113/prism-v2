@@ -17,7 +17,7 @@ export default function StorybookPage() {
   href="http://localhost:6006"
   target="_blank"
   rel="noopener noreferrer"
-  className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-primary text-white rounded-lg font-semibold shadow-glow-primary hover:scale-[1.02] transition-all duration-300"
+  className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-brand text-text-on-primary rounded-lg font-semibold shadow-md hover:scale-[1.02] transition-all duration-300"
 >
   Open Full Storybook
   <span>↗</span>
@@ -26,21 +26,21 @@ export default function StorybookPage() {
 
 <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
   <div className="p-4 rounded-xl border border-border-subtle bg-bg-surface">
-    <h3 className="font-semibold text-text-primary">Components</h3>
+    <h3 className="font-semibold text-text-brand">Components</h3>
     <p className="text-sm text-text-secondary mt-1">
       Reusable UI building blocks
     </p>
   </div>
 
   <div className="p-4 rounded-xl border border-border-subtle bg-bg-surface">
-    <h3 className="font-semibold text-text-primary">Interactive Controls</h3>
+    <h3 className="font-semibold text-text-brand">Interactive Controls</h3>
     <p className="text-sm text-text-secondary mt-1">
       Test component props and states live
     </p>
   </div>
 
   <div className="p-4 rounded-xl border border-border-subtle bg-bg-surface">
-    <h3 className="font-semibold text-text-primary">Documentation</h3>
+    <h3 className="font-semibold text-text-brand">Documentation</h3>
     <p className="text-sm text-text-secondary mt-1">
       Complete design system reference
     </p>
@@ -61,8 +61,8 @@ export default function StorybookPage() {
 
 function ComponentPreview({ name, path }: { name: string; path: string }) {
   return (
-    <a href={`http://localhost:6006/?path=/story${path}`} target="_blank" rel="noreferrer" className="block p-4 border border-border-subtle rounded-lg bg-bg-surface shadow-sm hover:border-primary transition-colors cursor-pointer">
-      <h3 className="font-semibold text-text-primary">{name}</h3>
+    <a href={`http://localhost:6006/?path=/story${path}`} target="_blank" rel="noreferrer" className="block p-4 border border-border-subtle rounded-lg bg-bg-surface shadow-sm cursor-pointer hover-semantic-surface">
+      <h3 className="font-semibold text-text-brand">{name}</h3>
       <p className="text-xs text-text-secondary mt-1">Available in Storybook</p>
     </a>
   );

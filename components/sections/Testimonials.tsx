@@ -22,7 +22,7 @@ const testimonialsData: Testimonial[] = [
       initials: "SC",
       name: "Sarah Chen",
       role: "CTO at Lumen Health",
-      gradient: "from-indigo-500 to-purple-600",
+      gradient: "from-brand to-tertiary",
     },
   },
   {
@@ -31,7 +31,7 @@ const testimonialsData: Testimonial[] = [
       initials: "MW",
       name: "Marcus Webb",
       role: "VP Engineering at Vault Finance",
-      gradient: "from-purple-500 to-pink-600",
+      gradient: "from-brand to-tertiary",
     },
   },
   {
@@ -40,7 +40,7 @@ const testimonialsData: Testimonial[] = [
       initials: "PP",
       name: "Priya Patel",
       role: "Founder at Stitch",
-      gradient: "from-cyan-500 to-blue-600",
+      gradient: "from-brand to-tertiary",
     },
   },
 ];
@@ -73,7 +73,7 @@ export default function Testimonials() {
         
         {/* Header */}
         <div className="text-center mb-16 px-6">
-          <span className="inline-block text-[13px] font-semibold text-primary uppercase tracking-[0.15em] mb-4">
+          <span className="inline-block text-[13px] font-semibold text-brand uppercase tracking-[0.15em] mb-4">
             Testimonials
           </span>
           <motion.h2 
@@ -81,12 +81,12 @@ export default function Testimonials() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] leading-[1.05] text-text-primary mb-6"
+            className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] leading-[1.05] text-text-brand mb-6"
           >
             <span
               className="gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] inline-block"
               style={{
-                backgroundImage: "linear-gradient(120deg, #6366F1, #A855F7, #22D3EE, #6366F1)",
+                backgroundImage: "linear-gradient(120deg, var(--color-primary), var(--color-accent), var(--color-accent), var(--color-primary))",
               }}
             >
               {"Loved".split(" ").map((word, i) => (
@@ -146,8 +146,8 @@ export default function Testimonials() {
               >
                 <defs>
                   <linearGradient id={`quote-grad-${idx}`} x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#6366F1" />
-                    <stop offset="100%" stopColor="#A855F7" />
+                    <stop offset="0%" stopColor="var(--color-primary)" />
+                    <stop offset="100%" stopColor="var(--color-accent)" />
                   </linearGradient>
                 </defs>
                 <path
@@ -159,12 +159,12 @@ export default function Testimonials() {
               {/* Star Rating */}
               <div className="absolute top-8 right-8 flex gap-1 z-10">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-[#FBBF24] text-[#FBBF24]" />
+                  <Star key={i} className="w-3.5 h-3.5 fill-status-warning text-status-warning" />
                 ))}
               </div>
 
               {/* Quote text */}
-              <p className="text-text-primary text-[13px] leading-relaxed italic mt-10 flex-1 relative z-10">
+              <p className="text-text-brand text-[13px] leading-relaxed italic mt-10 flex-1 relative z-10">
                 &quot;{t.quote}&quot;
               </p>
 
@@ -172,13 +172,13 @@ export default function Testimonials() {
               <div className="flex items-center gap-3 mt-6 pt-6 border-t border-border-subtle relative z-10">
                 {/* Avatar with unique gradient */}
                 <div
-                  className={`w-12 h-12 rounded-full bg-gradient-to-br ${t.author.gradient} flex items-center justify-center text-white font-semibold text-sm border-2 border-border-subtle shrink-0 shadow-sm`}
+                  className={`w-12 h-12 rounded-full bg-gradient-to-br ${t.author.gradient} flex items-center justify-center text-text-brand font-semibold text-sm border-2 border-border-subtle shrink-0 shadow-sm`}
                 >
                   {t.author.initials}
                 </div>
                 {/* Author info */}
                 <div className="flex flex-col">
-                  <span className="text-sm font-semibold text-text-primary">
+                  <span className="text-sm font-semibold text-text-brand">
                     {t.author.name}
                   </span>
                   <span className="text-xs text-text-secondary">

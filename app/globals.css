@@ -25,9 +25,18 @@
   --color-sky-500: #0ea5e9;
   --color-purple-500: #8b5cf6;
   --color-emerald-500: #10b981;
-  
+  --color-amber-500: #F59E0B;
+--color-red-500: #EF4444;
   --color-white: #ffffff;
   --color-black: #000000;
+  
+  /* Code Syntax Primitives */
+  --color-code-keyword: #c084fc; /* Violet */
+  --color-code-string: #86efac;  /* Green */
+  --color-code-component: #60a5fa; /* Blue */
+  --color-code-prop: #fbbf24; /* Amber */
+  --color-code-comment: #71717a; /* Gray */
+  --color-code-default: #e4e4e7; /* Light Gray */
 
   /* Spacing & Radius primitives */
   --space-0: 0px;
@@ -59,7 +68,7 @@
   /* Text */
   --semantic-text-primary: var(--color-slate-900);
   --semantic-text-secondary: var(--color-slate-600);
-  --semantic-text-muted: var(--color-slate-400);
+  --semantic-text-muted: var(--color-slate-700);
   
   /* Borders */
   --semantic-border: var(--color-slate-200);
@@ -67,8 +76,8 @@
   /* Brand roles */
   --semantic-primary: var(--color-indigo-600);
   --semantic-accent: var(--color-sky-500);
-  --semantic-accent-2: var(--color-purple-500);
   --semantic-success: var(--color-emerald-500);
+  --semantic-text-on-primary: var(--color-white);
   
   /* Visual effects */
   --semantic-glass-bg: rgba(255, 255, 255, 0.75);
@@ -93,7 +102,6 @@
   
   --prism-semantic-primary: var(--semantic-primary);
   --prism-semantic-accent: var(--semantic-accent);
-  --prism-semantic-accent-2: var(--semantic-accent-2);
   --prism-semantic-success: var(--semantic-success);
 
   --prism-primary-glow: var(--semantic-primary-glow);
@@ -125,21 +133,26 @@
   --color-bg-base: var(--semantic-bg);
   --color-bg-surface: var(--semantic-surface);
   --color-bg-elevated: var(--semantic-elevated);
-  --color-text-primary: var(--semantic-text-primary);
-  --color-text-secondary: var(--semantic-text-secondary);
   --color-text-muted: var(--semantic-text-muted);
   --color-border-subtle: var(--semantic-border);
-  --color-border-default: #CBD5E1;
-  --color-primary: var(--semantic-primary);
+  --color-text-primary: var(--semantic-text-primary);
+--color-text-secondary: var(--semantic-text-secondary);
+--color-text-muted: #64748B;
+
+--color-chart-axis: #CBD5E1;
+
+--color-border-subtle: var(--semantic-border);
+  --color-border-default: var(--color-slate-300);  --color-primary: var(--semantic-primary);
   --color-primary-hover: var(--color-indigo-600);
   --color-accent: var(--semantic-accent);
-  --color-info: var(--color-sky-500);
+  --color-info: var(--color-sky-700);
   --color-success: var(--semantic-success);
   --color-warning: var(--color-amber-500);
-  --color-error: #EF4444;
   --shadow-glow-primary: 0 0 40px rgba(99, 102, 241, 0.3);
   --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  --color-red-500: #EF4444;
+--color-error: var(--color-red-500);
 }
 
 /* DARK MODE OVERRIDES AT SEMANTIC LAYER */
@@ -151,7 +164,7 @@
     
     --semantic-text-primary: var(--color-slate-50);
     --semantic-text-secondary: var(--color-slate-300);
-    --semantic-text-muted: var(--color-slate-500);
+    --semantic-text-muted: var(--color-slate-700);
     
     --semantic-border: rgba(255, 255, 255, 0.08);
     
@@ -173,7 +186,7 @@
   
   --semantic-text-primary: var(--color-slate-50);
   --semantic-text-secondary: var(--color-slate-300);
-  --semantic-text-muted: var(--color-slate-500);
+  --semantic-text-muted: var(--color-slate-700);
   
   --semantic-border: rgba(255, 255, 255, 0.08);
   
@@ -225,7 +238,7 @@
   }
 
   .gradient-text {
-    background: linear-gradient(120deg, var(--prism-semantic-primary), var(--prism-semantic-accent), var(--prism-semantic-accent-2));
+    background: linear-gradient(120deg, var(--prism-semantic-primary), var(--prism-semantic-accent));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -283,21 +296,21 @@
   opacity: 0;
   transition: opacity 300ms;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
-.bento-card:hover::before { opacity: 1; }
+.bento-card:hover::before { opacity: 0.15; }
 
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: var(--prism-site-bg); }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--prism-semantic-primary), var(--prism-semantic-accent-2));
+  background: linear-gradient(180deg, var(--prism-semantic-primary), var(--prism-semantic-accent));
   border-radius: 4px;
 }
 
 ::selection {
-  background: var(--prism-primary-glow);
-  color: var(--prism-site-text);
+  background: var(--semantic-primary);
+  color: var(--semantic-text-on-primary);
 }
 
 *:focus-visible {
@@ -316,5 +329,33 @@
   color: transparent;
 }
 
+@layer utilities {
+  .hover-semantic-card {
+    transition: all 300ms ease;
+  }
+  .hover-semantic-card:hover {
+    background-color: color-mix(in srgb, var(--semantic-primary) 5%, transparent);
+    border-color: color-mix(in srgb, var(--semantic-primary) 30%, transparent);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+  }
 
+  .hover-semantic-surface {
+    transition: all 300ms ease;
+  }
+  .hover-semantic-surface:hover {
+    background-color: color-mix(in srgb, var(--semantic-elevated) 20%, transparent);
+    border-color: color-mix(in srgb, var(--semantic-primary) 30%, transparent);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+  }
 
+  .hover-semantic-button {
+    transition: all 300ms ease;
+  }
+  .hover-semantic-button:hover {
+    background-color: color-mix(in srgb, var(--semantic-primary) 5%, transparent);
+    border-color: color-mix(in srgb, var(--semantic-primary) 30%, transparent);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+}

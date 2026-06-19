@@ -25,10 +25,10 @@ interface Row {
 }
 
 const STATUS_COLOR: Record<Status, string> = {
-  Active: "text-success bg-success/10 border-success/20",
-  Pending: "text-warning bg-warning/10 border-warning/20",
+  Active: "text-status-success bg-status-success/10 border-success/20",
+  Pending: "text-status-warning bg-status-warning/10 border-warning/20",
   Inactive: "text-text-muted bg-bg-elevated border-border-subtle",
-  Suspended: "text-error bg-error/10 border-error/20",
+  Suspended: "text-status-error bg-status-error/10 border-error/20",
 };
 
 const PLANS = ["Starter", "Pro", "Business", "Enterprise"];
@@ -123,32 +123,32 @@ export default function TablesPage() {
 
   const SortIcon = ({ col }: { col: string }) => {
     if (sortKey !== col) return <ChevronsUpDown className="w-3 h-3 text-text-muted" />;
-    return sortDir === "asc" ? <ChevronUp className="w-3 h-3 text-primary" /> : <ChevronDown className="w-3 h-3 text-primary" />;
+    return sortDir === "asc" ? <ChevronUp className="w-3 h-3 text-brand" /> : <ChevronDown className="w-3 h-3 text-brand" />;
   };
 
   const totalMRR = filtered.reduce((sum, r) => sum + r.mrr, 0);
 
   return (
-    <div className="min-h-screen bg-bg-base text-text-primary font-sans">
+    <div className="min-h-screen bg-bg-base text-text-brand font-sans">
       {/* Header */}
       <header className="border-b border-border-subtle bg-bg-surface/80 backdrop-blur-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-3">
-            <Link href="/" className="text-text-muted hover:text-text-primary text-sm transition-colors">← Back</Link>
+            <Link href="/" className="text-text-muted hover:text-text-brand text-sm transition-colors">← Back</Link>
             <div className="w-px h-4 bg-border-subtle" />
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-                <Table className="w-4 h-4 text-purple-400" />
+              <div className="w-8 h-8 rounded-lg bg-brand/10 border border-brand/20 flex items-center justify-center">
+                <Table className="w-4 h-4 text-brand" />
               </div>
               <div>
-                <h1 className="text-sm font-bold text-text-primary">Tables</h1>
+                <h1 className="text-sm font-bold text-text-brand">Tables</h1>
                 <p className="text-[10px] text-text-muted">Sortable & filterable data grid</p>
               </div>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-semibold text-purple-400 bg-purple-500/10 border border-purple-500/20 px-2 py-1 rounded-full">{filtered.length} rows</span>
-            <span className="text-[10px] font-semibold text-success bg-success/10 border border-success/20 px-2 py-1 rounded-full">MRR ${totalMRR.toLocaleString()}</span>
+            <span className="text-[10px] font-semibold text-brand bg-brand/10 border border-brand/20 px-2 py-1 rounded-full">{filtered.length} rows</span>
+            <span className="text-[10px] font-semibold text-status-success bg-status-success/10 border border-success/20 px-2 py-1 rounded-full">MRR ${totalMRR.toLocaleString()}</span>
           </div>
         </div>
       </header>
@@ -163,29 +163,29 @@ export default function TablesPage() {
                 value={search}
                 onChange={e => { setSearch(e.target.value); setPage(1); }}
                 placeholder="Search customers..."
-                className="w-full pl-9 pr-3 py-2 text-xs bg-bg-surface border border-border-subtle rounded-xl text-text-primary placeholder-text-muted focus:outline-none focus:border-primary/50 transition-colors"
+                className="w-full pl-9 pr-3 py-2 text-xs bg-bg-surface border border-border-subtle rounded-xl text-text-brand placeholder-text-muted focus:outline-none focus:border-brand/50 transition-colors"
               />
             </div>
           </div>
           <div className="flex items-center gap-2">
             {selected.size > 0 && (
               <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="flex items-center gap-2">
-                <span className="text-xs font-semibold text-primary">{selected.size} selected</span>
-                <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-error bg-error/10 border border-error/20 rounded-lg hover:bg-error/20 transition-colors">
+                <span className="text-xs font-semibold text-brand">{selected.size} selected</span>
+                <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-status-error bg-status-error/10 border border-error/20 rounded-lg hover:bg-status-error/20 transition-colors">
                   <Trash2 className="w-3 h-3" /> Delete
                 </button>
               </motion.div>
             )}
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition-all ${showFilters ? "bg-primary/10 border-primary/30 text-primary" : "bg-bg-surface border-border-subtle text-text-secondary hover:text-text-primary"}`}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border transition-all ${showFilters ? "bg-brand/10 border-brand/30 text-brand" : "bg-bg-surface border-border-subtle text-text-secondary hover:text-text-brand"}`}
             >
               <FilterIcon className="w-3.5 h-3.5" /> Filters
             </button>
-            <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border bg-bg-surface border-border-subtle text-text-secondary hover:text-text-primary transition-all">
+            <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border bg-bg-surface border-border-subtle text-text-secondary hover:text-text-brand transition-all">
               <Download className="w-3.5 h-3.5" /> Export CSV
             </button>
-            <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border bg-bg-surface border-border-subtle text-text-secondary hover:text-text-primary transition-all">
+            <button className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold border bg-bg-surface border-border-subtle text-text-secondary hover:text-text-brand transition-all">
               <RefreshCw className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -207,7 +207,7 @@ export default function TablesPage() {
                     <button
                       key={s}
                       onClick={() => { setFilterStatus(s as Status | "All"); setPage(1); }}
-                      className={`px-3 py-1 rounded-lg text-xs font-semibold border transition-all ${filterStatus === s ? "bg-primary/10 border-primary/30 text-primary" : "bg-bg-elevated border-border-subtle text-text-muted hover:text-text-primary"}`}
+                      className={`px-3 py-1 rounded-lg text-xs font-semibold border transition-all ${filterStatus === s ? "bg-brand/10 border-brand/30 text-brand" : "bg-bg-elevated border-border-subtle text-text-muted hover:text-text-brand"}`}
                     >
                       {s}
                     </button>
@@ -221,7 +221,7 @@ export default function TablesPage() {
                     <button
                       key={p}
                       onClick={() => { setFilterPlan(p); setPage(1); }}
-                      className={`px-3 py-1 rounded-lg text-xs font-semibold border transition-all ${filterPlan === p ? "bg-primary/10 border-primary/30 text-primary" : "bg-bg-elevated border-border-subtle text-text-muted hover:text-text-primary"}`}
+                      className={`px-3 py-1 rounded-lg text-xs font-semibold border transition-all ${filterPlan === p ? "bg-brand/10 border-brand/30 text-brand" : "bg-bg-elevated border-border-subtle text-text-muted hover:text-text-brand"}`}
                     >
                       {p}
                     </button>
@@ -250,7 +250,7 @@ export default function TablesPage() {
                     <th
                       key={col.key}
                       onClick={() => col.sortable && toggleSort(col.key)}
-                      className={`px-4 py-3 text-left font-semibold text-text-muted uppercase tracking-widest text-[10px] whitespace-nowrap ${col.sortable ? "cursor-pointer hover:text-text-primary select-none" : ""}`}
+                      className={`px-4 py-3 text-left font-semibold text-text-muted uppercase tracking-widest text-[10px] whitespace-nowrap ${col.sortable ? "cursor-pointer hover:text-text-brand select-none" : ""}`}
                     >
                       <div className="flex items-center gap-1">
                         {col.label}
@@ -269,7 +269,7 @@ export default function TablesPage() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: i * 0.02 }}
-                      className={`border-b border-border-subtle last:border-0 hover:bg-bg-elevated/30 transition-colors ${selected.has(row.id) ? "bg-primary/5" : ""}`}
+                      className={`border-b border-border-subtle last:border-0 hover:bg-bg-elevated/30 transition-colors ${selected.has(row.id) ? "bg-brand/5" : ""}`}
                     >
                       <td className="px-4 py-3">
                         <input
@@ -280,17 +280,17 @@ export default function TablesPage() {
                         />
                       </td>
                       <td className="px-4 py-3 text-text-muted font-mono">#{row.id}</td>
-                      <td className="px-4 py-3 font-semibold text-text-primary whitespace-nowrap">{row.name}</td>
+                      <td className="px-4 py-3 font-semibold text-text-brand whitespace-nowrap">{row.name}</td>
                       <td className="px-4 py-3 text-text-secondary truncate max-w-[160px]">{row.email}</td>
                       <td className="px-4 py-3">
                         <span className={`px-2 py-0.5 rounded-full font-semibold text-[10px] border ${
-                          row.plan === "Enterprise" ? "text-amber-400 bg-amber-500/10 border-amber-500/20" :
-                          row.plan === "Business" ? "text-primary bg-primary/10 border-primary/20" :
-                          row.plan === "Pro" ? "text-purple-400 bg-purple-500/10 border-purple-500/20" :
+                          row.plan === "Enterprise" ? "text-status-warning bg-status-warning/10 border-warning/20" :
+                          row.plan === "Business" ? "text-brand bg-brand/10 border-brand/20" :
+                          row.plan === "Pro" ? "text-brand bg-brand/10 border-brand/20" :
                           "text-text-muted bg-bg-elevated border-border-subtle"
                         }`}>{row.plan}</span>
                       </td>
-                      <td className="px-4 py-3 font-bold text-text-primary">${row.mrr.toLocaleString()}</td>
+                      <td className="px-4 py-3 font-bold text-text-brand">${row.mrr.toLocaleString()}</td>
                       <td className="px-4 py-3">
                         <span className={`px-2 py-0.5 rounded-full font-semibold text-[10px] border ${STATUS_COLOR[row.status]}`}>{row.status}</span>
                       </td>
@@ -298,9 +298,9 @@ export default function TablesPage() {
                       <td className="px-4 py-3 text-text-secondary whitespace-nowrap">{row.joined}</td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
-                          <button className="p-1 rounded-lg text-text-muted hover:text-primary hover:bg-primary/10 transition-all"><Eye className="w-3.5 h-3.5" /></button>
-                          <button className="p-1 rounded-lg text-text-muted hover:text-primary hover:bg-primary/10 transition-all"><Edit3 className="w-3.5 h-3.5" /></button>
-                          <button className="p-1 rounded-lg text-text-muted hover:text-error hover:bg-error/10 transition-all"><Trash2 className="w-3.5 h-3.5" /></button>
+                          <button className="p-1 rounded-lg text-text-muted hover:text-brand hover:bg-brand/10 transition-all"><Eye className="w-3.5 h-3.5" /></button>
+                          <button className="p-1 rounded-lg text-text-muted hover:text-brand hover:bg-brand/10 transition-all"><Edit3 className="w-3.5 h-3.5" /></button>
+                          <button className="p-1 rounded-lg text-text-muted hover:text-status-error hover:bg-status-error/10 transition-all"><Trash2 className="w-3.5 h-3.5" /></button>
                         </div>
                       </td>
                     </motion.tr>
@@ -319,7 +319,7 @@ export default function TablesPage() {
               <button
                 onClick={() => setPage(p => Math.max(1, p - 1))}
                 disabled={page === 1}
-                className="p-1.5 rounded-lg border border-border-subtle text-text-muted hover:text-text-primary hover:bg-bg-elevated disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                className="p-1.5 rounded-lg border border-border-subtle text-text-muted hover:text-text-brand hover:bg-bg-elevated disabled:opacity-40 disabled:cursor-not-allowed transition-all"
               >
                 <ChevronLeft className="w-3.5 h-3.5" />
               </button>
@@ -330,7 +330,7 @@ export default function TablesPage() {
                   <button
                     key={pg}
                     onClick={() => setPage(pg)}
-                    className={`w-7 h-7 rounded-lg text-xs font-semibold border transition-all ${pg === page ? "bg-primary text-white border-primary" : "border-border-subtle text-text-muted hover:text-text-primary hover:bg-bg-elevated"}`}
+                    className={`w-7 h-7 rounded-lg text-xs font-semibold border transition-all ${pg === page ? "bg-brand text-text-on-primary border-brand" : "border-border-subtle text-text-muted hover:text-text-brand hover:bg-bg-elevated"}`}
                   >
                     {pg}
                   </button>
@@ -339,7 +339,7 @@ export default function TablesPage() {
               <button
                 onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
-                className="p-1.5 rounded-lg border border-border-subtle text-text-muted hover:text-text-primary hover:bg-bg-elevated disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                className="p-1.5 rounded-lg border border-border-subtle text-text-muted hover:text-text-brand hover:bg-bg-elevated disabled:opacity-40 disabled:cursor-not-allowed transition-all"
               >
                 <ChevronRight className="w-3.5 h-3.5" />
               </button>

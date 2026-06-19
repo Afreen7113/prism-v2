@@ -2,230 +2,279 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus } from "lucide-react";
+import { Plus, Search, ArrowUpDown, Building, X, Edit2 } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+
+type Tenant = {
+  id: string;
+  name: string;
+  clientId: string;
+  apiKey: string;
+  preset: string;
+  status: "Active" | "Suspended";
+  tier: "Growth" | "Enterprise" | "Developer";
+  requests: string;
+  revenue: string;
+};
 
 export default function TenantManager() {
-  const [tenants, setTenants] = useState([
-    { id: "1", name: "Clinix Medical", clientId: "cli_health_84a7", apiKey: "pk_live_0a28bc94ef03", preset: "healthcare", status: "Active", tier: "Growth", requests: "142,840" },
-    { id: "2", name: "Apex Wealth", clientId: "cli_fintech_71b9", apiKey: "pk_live_948fbd20adbc", preset: "fintech", status: "Active", tier: "Enterprise", requests: "942,030" },
-    { id: "3", name: "ShopSync Retail", clientId: "cli_retail_38c2", apiKey: "pk_live_e92a40b90c01", preset: "consumer", status: "Active", tier: "Growth", requests: "582,310" },
-    { id: "4", name: "DevEngine Metrics", clientId: "cli_devtools_90d5", apiKey: "pk_live_38bf8c02def9", preset: "developer", status: "Suspended", tier: "Developer", requests: "12,940" },
+  const [tenants, setTenants] = useState<Tenant[]>([
+    { id: "1", name: "Clinix Medical", clientId: "cli_health_84a7", apiKey: "pk_live_0a28bc94ef03", preset: "healthcare", status: "Active", tier: "Growth", requests: "142,840", revenue: "$1,200" },
+    { id: "2", name: "Apex Wealth", clientId: "cli_fintech_71b9", apiKey: "pk_live_948fbd20adbc", preset: "fintech", status: "Active", tier: "Enterprise", requests: "942,030", revenue: "$5,400" },
+    { id: "3", name: "ShopSync Retail", clientId: "cli_retail_38c2", apiKey: "pk_live_e92a40b90c01", preset: "consumer", status: "Active", tier: "Growth", requests: "582,310", revenue: "$2,800" },
+    { id: "4", name: "DevEngine Metrics", clientId: "cli_devtools_90d5", apiKey: "pk_live_38bf8c02def9", preset: "developer", status: "Suspended", tier: "Developer", requests: "12,940", revenue: "$0" },
   ]);
-  const [newTenantName, setNewTenantName] = useState("");
-  const [newTenantPreset, setNewTenantPreset] = useState("default");
-  const [newTenantTier, setNewTenantTier] = useState("Growth");
-  const [showAddModal, setShowAddModal] = useState(false);
+  
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterTier, setFilterTier] = useState("All");
+  const [filterStatus, setFilterStatus] = useState("All");
+  
+
+  const [selectedTenant, setSelectedTenant] = useState<Tenant | null>(null);
   const [apiKeyVisible, setApiKeyVisible] = useState<Record<string, boolean>>({});
 
   const toggleTenantStatus = (id: string) => {
     setTenants(tenants.map(t => t.id === id ? { ...t, status: t.status === "Active" ? "Suspended" : "Active" } : t));
   };
 
-  const handleAddTenant = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newTenantName) return;
-    const randomHex = Math.floor(Math.random() * 65535).toString(16);
-    const randomKey = Math.floor(Math.random() * 10000000000000).toString(16);
-    const newT = {
-      id: (tenants.length + 1).toString(),
-      name: newTenantName,
-      clientId: `cli_${newTenantPreset}_${randomHex}`,
-      apiKey: `pk_live_${randomKey}`,
-      preset: newTenantPreset,
-      status: "Active",
-      tier: newTenantTier,
-      requests: "0"
-    };
-    setTenants([...tenants, newT]);
-    setNewTenantName("");
-    setShowAddModal(false);
-  };
+  const filteredTenants = tenants.filter(t => 
+    t.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+    (filterTier === "All" || t.tier === filterTier) &&
+    (filterStatus === "All" || t.status === filterStatus)
+  );
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key="customers"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -10 }}
-        className="flex flex-col gap-6 text-left"
-      >
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight text-text-primary">Customer Tenant Registry</h1>
-            <p className="text-sm text-text-secondary mt-1">
-              Manage active B2B platform integrations, view client credentials, configure API scopes, and provision new workspaces.
-            </p>
-          </div>
-          <button
-            onClick={() => setShowAddModal(true)}
-            className="px-4 py-2 text-xs font-semibold bg-primary text-white rounded-xl flex items-center gap-2 hover:brightness-110 active:scale-[0.98] transition-all"
-          >
-            <Plus className="w-4 h-4" /> Add New Tenant
-          </button>
+    <div className="flex flex-col gap-6 text-left pb-12 animate-in fade-in duration-500">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-text-primary">Tenant Manager</h1>
+          <p className="text-sm text-text-secondary mt-1">
+            Manage active B2B platform integrations, configure API scopes, and provision new workspaces.
+          </p>
         </div>
+        <Button>
+          <Plus className="w-4 h-4 mr-2" /> Add New Tenant
+        </Button>
+      </div>
 
-        {/* Tenant List Table container */}
-        <div className="bg-bg-surface/40 border border-border-subtle rounded-2xl p-6 shadow-xl relative overflow-x-auto">
-          <table className="w-full text-left border-collapse min-w-[800px]">
+      {/* Filters */}
+      <div className="bg-bg-surface border border-border-subtle rounded-2xl p-4 flex flex-col sm:flex-row gap-4 items-center shadow-sm">
+        <div className="relative w-full sm:flex-1">
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
+          <input 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search by tenant name..." 
+            className="w-full pl-9 pr-4 py-2 rounded-xl border border-border-subtle bg-bg-base text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-brand"
+          />
+        </div>
+        <div className="flex items-center gap-3 w-full sm:w-auto">
+          <select 
+            value={filterTier}
+            onChange={(e) => setFilterTier(e.target.value)}
+            className="bg-bg-base border border-border-subtle rounded-xl px-4 py-2 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-brand appearance-none"
+          >
+            <option value="All">All Plans</option>
+            <option value="Developer">Developer</option>
+            <option value="Growth">Growth</option>
+            <option value="Enterprise">Enterprise</option>
+          </select>
+          <select 
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+            className="bg-bg-base border border-border-subtle rounded-xl px-4 py-2 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-brand appearance-none"
+          >
+            <option value="All">All Statuses</option>
+            <option value="Active">Active</option>
+            <option value="Suspended">Suspended</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Tenant List */}
+      <div className="bg-bg-surface border border-border-subtle rounded-2xl shadow-sm overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-sm whitespace-nowrap">
             <thead>
-              <tr className="border-b border-border-subtle text-xs font-bold text-text-secondary">
-                <th className="pb-3.5 px-3">Tenant Name</th>
-                <th className="pb-3.5 px-3">Client ID</th>
-                <th className="pb-3.5 px-3">API Key (PK)</th>
-                <th className="pb-3.5 px-3">Active Preset</th>
-                <th className="pb-3.5 px-3">Pricing Tier</th>
-                <th className="pb-3.5 px-3">Requests (mo)</th>
-                <th className="pb-3.5 px-3">Status</th>
-                <th className="pb-3.5 px-3 text-right">Actions</th>
+              <tr className="border-b border-border-subtle bg-bg-elevated text-xs font-semibold text-text-secondary uppercase tracking-wider">
+                <th className="px-6 py-4">Tenant Name</th>
+                <th className="px-6 py-4">Client ID</th>
+                <th className="px-6 py-4">API Key</th>
+                <th className="px-6 py-4">Pricing Tier</th>
+                <th className="px-6 py-4">
+                  <div className="flex items-center gap-1 cursor-pointer hover:text-text-primary">
+                    Requests/mo <ArrowUpDown className="w-3 h-3" />
+                  </div>
+                </th>
+                <th className="px-6 py-4">
+                  <div className="flex items-center gap-1 cursor-pointer hover:text-text-primary">
+                    Revenue <ArrowUpDown className="w-3 h-3" />
+                  </div>
+                </th>
+                <th className="px-6 py-4">Status</th>
+                <th className="px-6 py-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="text-xs">
-              {tenants.map((t) => (
-                <tr key={t.id} className="border-b border-border-subtle last:border-b-0 hover:bg-bg-elevated/40 transition-all">
-                  <td className="py-4 px-3 font-semibold text-text-primary flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded bg-primary/20 flex items-center justify-center text-[8px] font-bold text-primary">
-                      {t.name.substring(0, 2)}
-                    </span>
-                    {t.name}
-                  </td>
-                  <td className="py-4 px-3 font-mono text-text-secondary opacity-80">{t.clientId}</td>
-                  <td className="py-4 px-3 font-mono text-text-secondary">
-                    <div className="flex items-center gap-1.5">
-                      <span>
-                        {apiKeyVisible[t.id] ? t.apiKey : "pk_live_••••••••••••"}
-                      </span>
-                      <button
-                        onClick={() => setApiKeyVisible({ ...apiKeyVisible, [t.id]: !apiKeyVisible[t.id] })}
-                        className="text-[10px] text-primary hover:text-text-primary font-semibold"
-                      >
-                        {apiKeyVisible[t.id] ? "Hide" : "Reveal"}
-                      </button>
+            <tbody className="divide-y divide-border-subtle">
+              {filteredTenants.length === 0 && (
+                <tr>
+                  <td colSpan={8} className="px-6 py-16 text-center">
+                    <div className="flex flex-col items-center justify-center max-w-sm mx-auto">
+                      <div className="w-16 h-16 bg-bg-elevated rounded-2xl flex items-center justify-center border border-border-subtle mb-4">
+                        <Building className="w-8 h-8 text-text-muted" />
+                      </div>
+                      <h3 className="text-base font-bold text-text-primary mb-1">No tenants found</h3>
+                      <p className="text-sm text-text-secondary mb-6">Create a new tenant to start managing B2B integrations and providing API access.</p>
+                      <Button>
+                        <Plus className="w-4 h-4 mr-2" />
+                        Add New Tenant
+                      </Button>
                     </div>
                   </td>
-                  <td className="py-4 px-3">
-                    <span className="px-2.5 py-1 rounded-full bg-bg-elevated border border-border-subtle font-semibold capitalize text-[10px]">
-                      {t.preset}
-                    </span>
+                </tr>
+              )}
+              {filteredTenants.map((t) => (
+                <tr key={t.id} className="hover:bg-bg-elevated/50 transition-colors">
+                  <td className="px-6 py-4 text-text-primary font-bold flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-brand/10 text-brand flex items-center justify-center font-bold text-xs">
+                      {t.name.substring(0, 2).toUpperCase()}
+                    </div>
+                    {t.name}
                   </td>
-                  <td className="py-4 px-3 font-semibold text-text-primary">
-                    <span
-                      className="px-2 py-0.5 rounded border text-[10px] font-bold"
-                      style={{
-                        background: t.tier === "Enterprise" ? "rgba(139,92,246,0.1)" : t.tier === "Growth" ? "rgba(59,130,246,0.1)" : "rgba(113,113,122,0.1)",
-                        borderColor: t.tier === "Enterprise" ? "rgba(139,92,246,0.2)" : t.tier === "Growth" ? "rgba(59,130,246,0.2)" : "rgba(113,113,122,0.2)",
-                        color: t.tier === "Enterprise" ? "#a855f7" : t.tier === "Growth" ? "#3b82f6" : "var(--prism-site-text-secondary)"
-                      }}
-                    >
+                  <td className="px-6 py-4 font-mono text-text-secondary text-xs">{t.clientId}</td>
+                  <td className="px-6 py-4 font-mono text-text-secondary text-xs">
+                    <div className="flex items-center gap-2">
+                      <span>{apiKeyVisible[t.id] ? t.apiKey : "pk_live_••••••••••••"}</span>
+                      <Button 
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setApiKeyVisible({ ...apiKeyVisible, [t.id]: !apiKeyVisible[t.id] })}
+                        className="text-[10px] h-6 px-2 font-bold uppercase tracking-wider text-brand hover:bg-brand/10 hover:text-brand"
+                      >
+                        {apiKeyVisible[t.id] ? "HIDE" : "SHOW"}
+                      </Button>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className={`px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${
+                      t.tier === "Enterprise" ? "bg-accent/10 text-accent border border-accent/20" : 
+                      t.tier === "Growth" ? "bg-brand/10 text-brand border border-brand/20" : 
+                      "bg-bg-elevated text-text-secondary border border-border-subtle"
+                    }`}>
                       {t.tier}
                     </span>
                   </td>
-                  <td className="py-4 px-3 font-mono text-text-secondary">{t.requests}</td>
-                  <td className="py-4 px-3">
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                      t.status === "Active"
-                        ? "bg-success/10 text-success border border-success/15"
-                        : "bg-red-500/10 text-red-400 border border-red-500/15"
+                  <td className="px-6 py-4 font-mono text-text-primary">{t.requests}</td>
+                  <td className="px-6 py-4 font-mono text-text-primary text-status-success">{t.revenue}</td>
+                  <td className="px-6 py-4">
+                    <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 w-fit ${
+                      t.status === "Active" ? "bg-status-success/10 text-status-success" : "bg-status-error/10 text-status-error"
                     }`}>
+                      <div className={`w-1.5 h-1.5 rounded-full ${t.status === "Active" ? "bg-status-success" : "bg-status-error"}`} />
                       {t.status}
                     </span>
                   </td>
-                  <td className="py-4 px-3 text-right">
-                    <div className="flex justify-end gap-3.5">
-                      <button
-                        onClick={() => toggleTenantStatus(t.id)}
-                        className={`text-[10px] font-bold ${
-                          t.status === "Active" ? "text-amber-500 hover:text-amber-400" : "text-success hover:text-success/80"
-                        }`}
-                      >
-                        {t.status === "Active" ? "Suspend" : "Activate"}
-                      </button>
-                      <button
-                        onClick={() => setTenants(tenants.filter(item => item.id !== t.id))}
-                        className="text-red-500 hover:text-red-400 font-semibold"
-                      >
-                        Delete
-                      </button>
-                    </div>
+                  <td className="px-6 py-4 text-right">
+                    <Button variant="ghost" size="sm" onClick={() => setSelectedTenant(t)}>
+                      Manage <Edit2 className="w-3.5 h-3.5 ml-1.5" />
+                    </Button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+      </div>
 
-        {/* ADD TENANT MODAL MOCK */}
-        {showAddModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-            <div className="bg-bg-surface border border-border-subtle p-6 rounded-2xl w-full max-w-md shadow-2xl relative">
-              <h3 className="text-lg font-bold text-text-primary mb-1">Provision New Tenant Space</h3>
-              <p className="text-xs text-text-secondary mb-4">Set customer credentials, pick theme environments, and assign billing limits.</p>
-              
-              <form onSubmit={handleAddTenant} className="flex flex-col gap-4">
+      {/* Tenant Details Drawer (Modal) */}
+      <AnimatePresence>
+        {selectedTenant && (
+          <div className="fixed inset-0 z-50 flex justify-end bg-bg-elevated/70 backdrop-blur-sm">
+            <motion.div 
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="bg-bg-surface w-full max-w-md h-full border-l border-border-subtle shadow-2xl flex flex-col"
+            >
+              <div className="bg-bg-surface border-b border-border-subtle p-6 flex justify-between items-center">
                 <div>
-                  <label className="block text-xs font-semibold text-text-secondary mb-1">Company / Tenant Name</label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Stripe Inc"
-                    value={newTenantName}
-                    onChange={(e) => setNewTenantName(e.target.value)}
-                    className="w-full bg-bg-elevated border border-border-subtle p-2.5 rounded-xl text-xs text-text-primary focus:outline-none focus:border-primary"
-                    required
-                  />
+                  <h3 className="text-xl font-bold text-text-primary flex items-center gap-2">
+                    {selectedTenant.name}
+                    {selectedTenant.status === "Active" ? <span className="w-2 h-2 rounded-full bg-status-success"></span> : <span className="w-2 h-2 rounded-full bg-status-error"></span>}
+                  </h3>
+                  <p className="text-sm text-text-secondary mt-1">Tenant ID: {selectedTenant.id}</p>
                 </div>
+                <Button variant="ghost" size="icon" onClick={() => setSelectedTenant(null)} aria-label="Close details">
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-semibold text-text-secondary mb-1">Visual Preset</label>
-                    <select
-                      value={newTenantPreset}
-                      onChange={(e) => setNewTenantPreset(e.target.value)}
-                      className="w-full bg-bg-elevated border border-border-subtle p-2.5 rounded-xl text-xs text-text-primary focus:outline-none"
-                    >
-                      <option value="default">Default Dark</option>
-                      <option value="healthcare">Clinical Light</option>
-                      <option value="fintech">Fintech Amber</option>
-                      <option value="consumer">Retail Pink</option>
-                      <option value="developer">Developer Mono</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-text-secondary mb-1">Pricing Plan</label>
-                    <select
-                      value={newTenantTier}
-                      onChange={(e) => setNewTenantTier(e.target.value)}
-                      className="w-full bg-bg-elevated border border-border-subtle p-2.5 rounded-xl text-xs text-text-primary focus:outline-none"
-                    >
-                      <option value="Developer">Developer</option>
-                      <option value="Growth">Growth</option>
-                      <option value="Enterprise">Enterprise</option>
-                    </select>
+              <div className="p-6 flex-1 overflow-y-auto space-y-8">
+                <div>
+                  <h4 className="text-xs font-bold text-text-secondary uppercase tracking-wider mb-4">Credentials</h4>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="text-xs text-text-muted block mb-1">Client ID</label>
+                      <div className="bg-bg-base border border-border-subtle rounded-xl p-3 font-mono text-xs text-text-primary">
+                        {selectedTenant.clientId}
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-xs text-text-muted block mb-1">Secret Key (sk_live)</label>
+                      <div className="bg-bg-base border border-border-subtle rounded-xl p-3 font-mono text-xs text-text-primary flex justify-between items-center">
+                        sk_live_••••••••••••••••••••••••
+                        <Button variant="ghost" size="sm" className="h-6 px-2 text-xs">Roll Key</Button>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex gap-3 justify-end mt-4">
-                  <button
-                    type="button"
-                    onClick={() => setShowAddModal(false)}
-                    className="px-4 py-2 rounded-xl text-xs font-bold bg-bg-elevated hover:bg-bg-elevated/80 border border-border-subtle transition-all text-text-secondary"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="px-4 py-2 rounded-xl text-xs font-bold bg-primary text-white hover:brightness-110 transition-all"
-                  >
-                    Create Space
-                  </button>
+                <div>
+                  <h4 className="text-xs font-bold text-text-secondary uppercase tracking-wider mb-4">Configuration</h4>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="text-xs text-text-muted block mb-1">Plan Tier</label>
+                      <select className="w-full bg-bg-base border border-border-subtle rounded-xl p-3 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-brand appearance-none">
+                        <option selected={selectedTenant.tier === "Growth"}>Growth</option>
+                        <option selected={selectedTenant.tier === "Enterprise"}>Enterprise</option>
+                        <option selected={selectedTenant.tier === "Developer"}>Developer</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-xs text-text-muted block mb-1">White-label Preset</label>
+                      <select className="w-full bg-bg-base border border-border-subtle rounded-xl p-3 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-brand appearance-none">
+                        <option selected={selectedTenant.preset === "healthcare"}>Healthcare</option>
+                        <option selected={selectedTenant.preset === "fintech"}>Fintech</option>
+                        <option selected={selectedTenant.preset === "consumer"}>Consumer</option>
+                        <option selected={selectedTenant.preset === "developer"}>Developer</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
-              </form>
-            </div>
+
+                <div>
+                  <h4 className="text-xs font-bold text-text-secondary uppercase tracking-wider mb-4">Danger Zone</h4>
+                  <div className="bg-status-error/5 border border-status-error/20 rounded-xl p-4 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-bold text-text-primary">Tenant Status</p>
+                        <p className="text-xs text-text-secondary">{selectedTenant.status === "Active" ? "Suspend access to all APIs." : "Restore API access."}</p>
+                      </div>
+                      <Button 
+                        variant="secondary" 
+                        onClick={() => { toggleTenantStatus(selectedTenant.id); setSelectedTenant({...selectedTenant, status: selectedTenant.status === "Active" ? "Suspended" : "Active"}); }}
+                      >
+                        {selectedTenant.status === "Active" ? "Suspend Tenant" : "Activate Tenant"}
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         )}
-      </motion.div>
-    </AnimatePresence>
+      </AnimatePresence>
+    </div>
   );
 }
-
-
-

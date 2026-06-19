@@ -74,7 +74,7 @@ export default function FAQ() {
         
         {/* Header */}
         <div className="text-center mb-12">
-          <span className="block text-[13px] font-semibold text-primary uppercase tracking-[0.15em] mb-4">
+          <span className="block text-[13px] font-semibold text-brand uppercase tracking-[0.15em] mb-4">
             Frequently Asked Questions
           </span>
           <motion.h2 
@@ -82,7 +82,7 @@ export default function FAQ() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] text-text-primary"
+            className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] text-text-brand"
           >
             {"Questions,".split(" ").map((word, i) => (
               <span key={i} className="inline-block overflow-hidden mr-[0.25em] pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
@@ -95,7 +95,7 @@ export default function FAQ() {
             <span
               className="gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] inline-block"
               style={{
-                backgroundImage: "linear-gradient(120deg, #6366F1, #A855F7, #22D3EE, #6366F1)",
+                backgroundImage: "linear-gradient(120deg, var(--color-primary), var(--color-accent), var(--color-accent), var(--color-primary))",
               }}
             >
               {"answered.".split(" ").map((word, i) => (
@@ -139,7 +139,7 @@ export default function FAQ() {
                   }}
                   className={`bg-bg-elevated/60 backdrop-blur-xl border rounded-[16px] overflow-hidden transition-all duration-300 text-left ${
                     isOpen
-                      ? "border-primary/30 bg-primary/5 shadow-[0_0_30px_var(--prism-primary-glow, rgba(99,102,241,0.05))]"
+                      ? "border-brand/30 bg-brand/5 shadow-md"
                       : "border-border-subtle hover:border-border-subtle/70"
                   }`}
                 >
@@ -150,15 +150,15 @@ export default function FAQ() {
                     aria-expanded={isOpen}
                     className="w-full p-6 flex justify-between items-center bg-transparent border-none cursor-pointer focus:outline-none"
                   >
-                    <span className="text-[14px] font-medium text-text-primary pr-4 leading-snug">
+                    <span className="text-[14px] font-medium text-text-brand pr-4 leading-snug">
                       {item.question}
                     </span>
                     
                     {/* Plus/Minus Indicator */}
-                    <div className="w-6 h-6 shrink-0 flex items-center justify-center text-text-primary">
+                    <div className="w-6 h-6 shrink-0 flex items-center justify-center text-text-brand">
                       <Plus
                         className={`w-5 h-5 transition-transform duration-300 ${
-                          isOpen ? "rotate-45 text-primary" : "rotate-0 text-text-primary"
+                          isOpen ? "rotate-45 text-brand" : "rotate-0 text-text-brand"
                         }`}
                       />
                     </div>
@@ -204,7 +204,7 @@ export default function FAQ() {
                   }}
                   className={`bg-bg-elevated/60 backdrop-blur-xl border rounded-[16px] overflow-hidden transition-all duration-300 text-left ${
                     isOpen
-                      ? "border-primary/30 bg-primary/5 shadow-[0_0_30px_var(--prism-primary-glow, rgba(99,102,241,0.05))]"
+                      ? "border-brand/30 bg-brand/5 shadow-md"
                       : "border-border-subtle hover:border-border-subtle/70"
                   }`}
                 >
@@ -215,15 +215,15 @@ export default function FAQ() {
                     aria-expanded={isOpen}
                     className="w-full p-6 flex justify-between items-center bg-transparent border-none cursor-pointer focus:outline-none"
                   >
-                    <span className="text-[14px] font-medium text-text-primary pr-4 leading-snug">
+                    <span className="text-[14px] font-medium text-text-brand pr-4 leading-snug">
                       {item.question}
                     </span>
                     
                     {/* Plus/Minus Indicator */}
-                    <div className="w-6 h-6 shrink-0 flex items-center justify-center text-text-primary">
+                    <div className="w-6 h-6 shrink-0 flex items-center justify-center text-text-brand">
                       <Plus
                         className={`w-5 h-5 transition-transform duration-300 ${
-                          isOpen ? "rotate-45 text-primary" : "rotate-0 text-text-primary"
+                          isOpen ? "rotate-45 text-brand" : "rotate-0 text-text-brand"
                         }`}
                       />
                     </div>

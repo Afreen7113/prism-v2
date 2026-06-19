@@ -11,7 +11,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
         ref={ref}
         className={twMerge(
           clsx(
-            'rounded-lg border border-border-subtle bg-bg-surface text-text-primary shadow-sm',
+            'rounded-lg border border-border-subtle bg-bg-surface text-text-brand shadow-sm',
             className
           )
         )}

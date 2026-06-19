@@ -133,19 +133,19 @@ export default function DatePickerPage() {
   const rangeEnd = selecting === "end" && hoverDate ? hoverDate : endDate;
 
   return (
-    <div className="min-h-screen bg-bg-base text-text-primary font-sans">
+    <div className="min-h-screen bg-bg-base text-text-brand font-sans">
       {/* Header */}
       <header className="border-b border-border-subtle bg-bg-surface/80 backdrop-blur-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-3">
-            <Link href="/" className="text-text-muted hover:text-text-primary text-sm transition-colors">← Back</Link>
+            <Link href="/" className="text-text-muted hover:text-text-brand text-sm transition-colors">← Back</Link>
             <div className="w-px h-4 bg-border-subtle" />
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center">
-                <Calendar className="w-4 h-4 text-fuchsia-400" />
+              <div className="w-8 h-8 rounded-lg bg-brand/10 border border-brand/20 flex items-center justify-center">
+                <Calendar className="w-4 h-4 text-brand" />
               </div>
               <div>
-                <h1 className="text-sm font-bold text-text-primary">Date Picker</h1>
+                <h1 className="text-sm font-bold text-text-brand">Date Picker</h1>
                 <p className="text-[10px] text-text-muted">Time range selector</p>
               </div>
             </div>
@@ -174,8 +174,8 @@ export default function DatePickerPage() {
                 className="bg-bg-surface border border-border-subtle rounded-2xl p-4"
               >
                 <p className="text-[10px] text-text-muted mb-1">{m.label}</p>
-                <p className="text-xl font-bold text-text-primary">{m.value}</p>
-                <p className="text-[10px] text-success font-semibold mt-0.5">{m.change} vs previous period</p>
+                <p className="text-xl font-bold text-text-brand">{m.value}</p>
+                <p className="text-[10px] text-status-success font-semibold mt-0.5">{m.change} vs previous period</p>
               </motion.div>
             ))}
           </div>
@@ -192,7 +192,7 @@ export default function DatePickerPage() {
                   <button
                     key={preset.label}
                     onClick={() => applyPreset(preset)}
-                    className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all ${activePreset === preset.label ? "bg-primary/10 text-primary" : "text-text-secondary hover:text-text-primary hover:bg-bg-elevated"}`}
+                    className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all ${activePreset === preset.label ? "bg-brand/10 text-brand" : "text-text-secondary hover:text-text-brand hover:bg-bg-elevated"}`}
                   >
                     {preset.label}
                     {activePreset === preset.label && <Check className="w-3 h-3" />}
@@ -212,7 +212,7 @@ export default function DatePickerPage() {
                     <button
                       key={g}
                       onClick={() => setGranularity(g)}
-                      className={`px-2 py-1.5 rounded-lg text-[10px] font-semibold border transition-all capitalize ${granularity === g ? "bg-primary/10 border-primary/30 text-primary" : "bg-bg-elevated border-border-subtle text-text-muted hover:text-text-primary"}`}
+                      className={`px-2 py-1.5 rounded-lg text-[10px] font-semibold border transition-all capitalize ${granularity === g ? "bg-brand/10 border-brand/30 text-brand" : "bg-bg-elevated border-border-subtle text-text-muted hover:text-text-brand"}`}
                     >
                       {g}
                     </button>
@@ -221,16 +221,28 @@ export default function DatePickerPage() {
               </div>
 
               <label className="flex items-center gap-2 cursor-pointer">
-                <div onClick={() => setShowTime(!showTime)} className={`w-8 h-4 rounded-full relative transition-colors ${showTime ? "bg-primary" : "bg-border-default"}`}>
-                  <div className={`absolute top-0.5 w-3 h-3 bg-white rounded-full shadow transition-all ${showTime ? "left-4" : "left-0.5"}`} />
-                </div>
+                <button
+  type="button"
+  onClick={() => setShowTime(!showTime)}
+  className={`w-8 h-4 rounded-full relative transition-colors ${
+    showTime ? "bg-brand" : "bg-border-default"
+  }`}
+>
+  <div
+    className={`absolute top-0.5 w-3 h-3 bg-bg-base rounded-full shadow transition-all ${
+      showTime ? "left-4" : "left-0.5"
+    }`}
+  />
+</button>
                 <span className="text-xs text-text-secondary">Time range</span>
               </label>
 
               <label className="flex items-center gap-2 cursor-pointer">
-                <div onClick={() => setCompareMode(!compareMode)} className={`w-8 h-4 rounded-full relative transition-colors ${compareMode ? "bg-fuchsia-500" : "bg-border-default"}`}>
-                  <div className={`absolute top-0.5 w-3 h-3 bg-white rounded-full shadow transition-all ${compareMode ? "left-4" : "left-0.5"}`} />
-                </div>
+                <button
+  type="button"
+  onClick={() => setCompareMode(!compareMode)} className={`w-8 h-4 rounded-full relative transition-colors ${compareMode ? "bg-brand" : "bg-border-default"}`}>
+                  <div className={`absolute top-0.5 w-3 h-3 bg-bg-base rounded-full shadow transition-all ${compareMode ? "left-4" : "left-0.5"}`} />
+                </button>
                 <span className="text-xs text-text-secondary">Compare periods</span>
               </label>
             </div>
@@ -240,27 +252,35 @@ export default function DatePickerPage() {
           <div className="flex-1 bg-bg-surface border border-border-subtle rounded-2xl p-6">
             {/* Nav */}
             <div className="flex items-center justify-between mb-4">
-              <button onClick={prevMonth} className="p-2 rounded-xl hover:bg-bg-elevated transition-colors">
-                <ChevronLeft className="w-4 h-4 text-text-muted" />
+<button
+  aria-label="Previous month"
+  onClick={prevMonth}
+  className="p-2 rounded-xl hover:bg-bg-elevated transition-colors"
+>
+                  <ChevronLeft className="w-4 h-4 text-text-muted" />
               </button>
               <div className="flex items-center gap-2">
                 <select
                   value={viewMonth}
                   onChange={e => setViewMonth(Number(e.target.value))}
-                  className="text-sm font-bold text-text-primary bg-transparent focus:outline-none cursor-pointer"
+                  className="text-sm font-bold text-text-brand bg-transparent focus:outline-none cursor-pointer"
                 >
                   {MONTHS.map((m, i) => <option key={m} value={i}>{m}</option>)}
                 </select>
                 <select
                   value={viewYear}
                   onChange={e => setViewYear(Number(e.target.value))}
-                  className="text-sm font-bold text-text-primary bg-transparent focus:outline-none cursor-pointer"
+                  className="text-sm font-bold text-text-brand bg-transparent focus:outline-none cursor-pointer"
                 >
                   {Array.from({ length: 10 }, (_, i) => 2020 + i).map(y => <option key={y}>{y}</option>)}
                 </select>
               </div>
-              <button onClick={nextMonth} className="p-2 rounded-xl hover:bg-bg-elevated transition-colors">
-                <ChevronRight className="w-4 h-4 text-text-muted" />
+<button
+  aria-label="Next month"
+  onClick={nextMonth}
+  className="p-2 rounded-xl hover:bg-bg-elevated transition-colors"
+>
+                  <ChevronRight className="w-4 h-4 text-text-muted" />
               </button>
             </div>
 
@@ -291,9 +311,9 @@ export default function DatePickerPage() {
                     onMouseLeave={() => setHoverDate(null)}
                     className={`
                       relative h-9 text-xs font-semibold transition-all rounded-lg
-                      ${isFuture ? "text-text-muted/30 cursor-not-allowed" : "cursor-pointer hover:bg-primary/10"}
-                      ${(isStart || isEnd) ? "bg-primary text-white hover:bg-primary z-10 shadow-[0_0_12px_rgba(99,102,241,0.4)]" : ""}
-                      ${inRange ? "bg-primary/10 text-primary rounded-none" : "text-text-primary"}
+                      ${isFuture ? "text-text-muted/30 cursor-not-allowed" : "cursor-pointer hover:bg-brand/10"}
+                      ${(isStart || isEnd) ? "bg-brand text-text-on-primary hover:bg-brand z-10 shadow-md" : ""}
+                      ${inRange ? "bg-brand/10 text-brand rounded-none" : "text-text-brand"}
                       ${isToday && !isStart && !isEnd ? "ring-1 ring-primary/50" : ""}
                     `}
                   >
@@ -321,7 +341,7 @@ export default function DatePickerPage() {
                         onChange={e => setStartHour(Number(e.target.value))}
                         className="w-full accent-primary"
                       />
-                      <p className="text-xs font-bold text-text-primary mt-1">{String(startHour).padStart(2, "0")}:00</p>
+                      <p className="text-xs font-bold text-text-brand mt-1">{String(startHour).padStart(2, "0")}:00</p>
                     </div>
                     <div className="flex-1">
                       <p className="text-[10px] text-text-muted mb-1.5 flex items-center gap-1"><Clock className="w-2.5 h-2.5" /> End time</p>
@@ -329,9 +349,9 @@ export default function DatePickerPage() {
                         type="range" min={0} max={23}
                         value={endHour}
                         onChange={e => setEndHour(Number(e.target.value))}
-                        className="w-full accent-fuchsia-500"
+                        className="w-full accent-primary"
                       />
-                      <p className="text-xs font-bold text-text-primary mt-1">{String(endHour).padStart(2, "0")}:59</p>
+                      <p className="text-xs font-bold text-text-brand mt-1">{String(endHour).padStart(2, "0")}:59</p>
                     </div>
                   </div>
                 </motion.div>
@@ -342,14 +362,14 @@ export default function DatePickerPage() {
             <div className="mt-4 pt-4 border-t border-border-subtle flex items-center justify-between flex-wrap gap-3">
               <div className="text-xs text-text-muted">
                 {startDate && endDate ? (
-                  <span className="font-semibold text-text-primary">
+                  <span className="font-semibold text-text-brand">
                     {formatDate(startDate)} → {formatDate(endDate)}
                     <span className="ml-2 text-text-muted font-normal">
                       ({Math.round((endDate.getTime() - startDate.getTime()) / 86400000) + 1} days)
                     </span>
                   </span>
                 ) : startDate ? (
-                  <span className="text-fuchsia-400 font-semibold">Select end date…</span>
+                  <span className="text-brand font-semibold">Select end date…</span>
                 ) : (
                   "Click to select a date range"
                 )}
@@ -357,13 +377,13 @@ export default function DatePickerPage() {
               <div className="flex gap-2">
                 <button
                   onClick={() => { setStartDate(null); setEndDate(null); setSelecting(null); setActivePreset(""); }}
-                  className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-text-muted hover:text-error border border-border-subtle rounded-lg transition-colors"
+                  className="flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-text-muted hover:text-status-error border border-border-subtle rounded-lg transition-colors"
                 >
                   <X className="w-3 h-3" /> Clear
                 </button>
                 <button
                   onClick={() => setSelecting("start")}
-                  className="flex items-center gap-1 px-4 py-1.5 text-xs font-semibold text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors"
+                  className="flex items-center gap-1 px-4 py-1.5 text-xs font-semibold text-text-on-primary bg-brand rounded-lg hover:bg-brand/90 transition-colors"
                 >
                   <Zap className="w-3 h-3" /> Apply
                 </button>

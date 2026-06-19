@@ -13,7 +13,7 @@ const config: Config = {
         // Legacy support mappings
         "primary-glow": "var(--prism-primary-glow, rgba(99, 102, 241, 0.4))",
         "secondary": "var(--prism-semantic-accent, #22D3EE)",
-        "tertiary": "var(--prism-semantic-accent-2, #A855F7)",
+        "tertiary": "var(--color-accent)",
         "border-glow": "var(--prism-border-glow, rgba(99, 102, 241, 0.3))",
         
         // Requested specific mappings
@@ -31,6 +31,22 @@ const config: Config = {
         'success': 'var(--color-success)',
         'warning': 'var(--color-warning)',
         'error': 'var(--color-error)',
+        
+        // CEO Review requested tokens
+        'brand': 'var(--color-primary)',
+        'text-brand': 'var(--color-primary)',
+        'text-on-primary': 'var(--semantic-text-on-primary)',
+        'status-success': 'var(--color-success)',
+        'status-warning': 'var(--color-warning)',
+        'status-error': 'var(--color-error)',
+        
+        // Code Syntax Tokens
+        'code-keyword': 'var(--color-code-keyword)',
+        'code-string': 'var(--color-code-string)',
+        'code-component': 'var(--color-code-component)',
+        'code-prop': 'var(--color-code-prop)',
+        'code-comment': 'var(--color-code-comment)',
+        'code-default': 'var(--color-code-default)',
       },
       boxShadow: {
         'glow-primary': 'var(--shadow-glow-primary)',

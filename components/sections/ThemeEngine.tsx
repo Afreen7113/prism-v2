@@ -11,7 +11,7 @@ import {
   Layers,
 } from 'lucide-react'
 import { type ReactNode } from 'react'
-
+import { Button } from "@/components/ui/Button";
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
 /* ------------------------------------------------------------------ */
@@ -38,9 +38,9 @@ const brands: BrandCard[] = [
     icon: <Heart className="w-4 h-4 text-sky-500" />,
     brand: 'MedDash Analytics',
     badge: 'HEALTHCARE',
-    bg: 'bg-white',
-    text: 'text-[#0F172A]',
-    primary: '#0EA5E9',
+    bg: 'bg-bg-base',
+    text: 'text-text-primary',
+    primary: 'var(--color-accent)',
     kpis: [
       { label: 'Active Patients', value: '12,847' },
       { label: 'Avg Stay', value: '4.2 days' },
@@ -61,24 +61,24 @@ const brands: BrandCard[] = [
     icon: <DollarSign className="w-4 h-4 text-amber-400" />,
     brand: 'Vault Finance',
     badge: 'FINTECH',
-    bg: 'bg-[#064E3B]',
+    bg: 'bg-bg-elevated',
     text: 'text-white',
     primary: '#FBBF24',
     kpis: [
       { label: 'Portfolio', value: '$4.8M' },
       { label: 'ROI', value: '+23.5%' },
     ],
-    barColor: 'bg-amber-400',
+    barColor: 'bg-status-warning',
     barHeights: [60, 40, 85, 50, 95, 70],
     button: {
       label: 'Trade Now',
       className:
-        'bg-amber-400 text-[#064E3B] hover:bg-amber-300 font-bold',
+        'bg-status-warning text-text-primary hover:bg-amber-300 font-bold',
     },
     badgeClassName: 'bg-amber-900/30 text-amber-300',
     dividerClassName: 'border-border-subtle',
     mutedClassName: 'text-emerald-300/60',
-    dotColor: 'bg-amber-400',
+    dotColor: 'bg-status-warning',
   },
   {
     icon: <ShoppingBag className="w-4 h-4 text-white" />,
@@ -86,44 +86,44 @@ const brands: BrandCard[] = [
     badge: 'CONSUMER',
     bg: '',
     text: 'text-white',
-    primary: '#FFFFFF',
+    primary: 'var(--color-white)',
     kpis: [
       { label: 'Orders', value: '1,247' },
       { label: 'AOV', value: '$89.50' },
     ],
-    barColor: 'bg-white/70',
+    barColor: 'bg-bg-base/70',
     barHeights: [50, 80, 35, 65, 90, 55],
     button: {
       label: 'Shop Now',
-      className: 'bg-white text-slate-900 hover:bg-white/90 font-bold',
+      className: 'bg-bg-base text-slate-900 hover:bg-bg-base/90 font-bold',
     },
-    badgeClassName: 'bg-white/20 text-white',
+    badgeClassName: 'bg-bg-base/20 text-white',
     dividerClassName: 'border-white/20',
     mutedClassName: 'text-white/60',
-    dotColor: 'bg-white',
+    dotColor: 'bg-bg-base',
   },
   {
     icon: <Zap className="w-4 h-4 text-emerald-400" />,
     brand: 'DevOps Cloud',
     badge: 'DEVELOPER',
-    bg: 'bg-[#0A0A0A]',
+    bg: 'bg-bg-base',
     text: 'text-emerald-400',
-    primary: '#10B981',
+    primary: 'var(--color-success)',
     kpis: [
       { label: 'Deploys', value: '4,521' },
       { label: 'Uptime', value: '99.99%' },
     ],
-    barColor: 'bg-emerald-500',
+    barColor: 'bg-status-success',
     barHeights: [70, 55, 100, 45, 80, 60],
     button: {
       label: 'Deploy',
       className:
-        'bg-emerald-500 text-black hover:bg-emerald-400 font-mono font-bold',
+        'bg-status-success text-black hover:bg-status-success font-mono font-bold',
     },
     badgeClassName: 'bg-emerald-950 text-emerald-400',
     dividerClassName: 'border-emerald-400/15',
     mutedClassName: 'text-emerald-400/50',
-    dotColor: 'bg-emerald-400',
+    dotColor: 'bg-status-success',
   },
 ]
 
@@ -140,14 +140,14 @@ interface TokenColumn {
 
 const tokenColumns: TokenColumn[] = [
   {
-    icon: <Palette className="w-5 h-5 text-indigo-400" />,
+    icon: <Palette className="w-5 h-5 text-brand" />,
     title: 'Primitive Tokens',
     description:
       "Raw design values — colors, spacing, fonts — that form your brand's visual foundation.",
-    code: `--color-blue-500: #0EA5E9;\n--space-unit: 4px;\n--font-body: 'Inter';`,
+    code: `--color-blue-500: var(--color-accent);\n--space-unit: 4px;\n--font-body: 'Inter';`,
   },
   {
-    icon: <Layers className="w-5 h-5 text-violet-400" />,
+    icon: <Layers className="w-5 h-5 text-brand" />,
     title: 'Semantic Tokens',
     description:
       'Purpose-driven aliases that map primitives to UI roles, ensuring consistency across every component.',
@@ -185,7 +185,7 @@ export default function ThemeEngine() {
       <div className="max-w-7xl mx-auto">
         {/* ---- HEADER ---- */}
         <div className="text-center mb-12">
-          <p className="text-primary text-[13px] uppercase tracking-[0.15em] font-bold mb-4">
+          <p className="text-brand text-[13px] uppercase tracking-[0.15em] font-bold mb-4">
             WHITE-LABEL READY
           </p>
 
@@ -194,7 +194,7 @@ export default function ThemeEngine() {
             style={{ fontSize: 'clamp(40px, 6vw, 72px)' }}
           >
             One platform.{' '}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-brand to-accent bg-clip-text text-transparent">
               Every brand.
             </span>
           </h2>
@@ -229,7 +229,7 @@ export default function ThemeEngine() {
                   isConsumer
                     ? {
                         background:
-                          'linear-gradient(135deg, #EC4899, #F97316)',
+                          'linear-gradient(135deg, var(--color-accent), #F97316)',
                       }
                     : undefined
                 }
@@ -277,11 +277,12 @@ export default function ThemeEngine() {
 
                 {/* Bottom row */}
                 <div className="flex justify-between items-center">
-                  <button
+                  <Button 
+                  size="sm"
                     className={`px-3 py-1 rounded-md text-[10px] font-bold ${card.button.className} transition-colors`}
                   >
                     {card.button.label}
-                  </button>
+                  </Button>
                   <span
                     className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full ${card.badgeClassName}`}
                   >
@@ -312,7 +313,7 @@ export default function ThemeEngine() {
                 {col.description}
               </p>
               <div className="bg-bg-elevated border border-border-subtle p-3 rounded-lg">
-                <pre className="text-[10px] font-mono text-text-primary whitespace-pre-wrap leading-relaxed">
+                <pre className="text-[10px] font-mono text-text-brand whitespace-pre-wrap leading-relaxed">
                   {col.code}
                 </pre>
               </div>

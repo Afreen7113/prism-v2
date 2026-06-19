@@ -38,11 +38,8 @@ function BentoCard({ children, className = "", index }: BentoCardProps) {
         delay: index * 0.1,
         ease: [0.32, 0.72, 0, 1],
       }}
-      className={`bento-card group relative overflow-hidden bg-bg-elevated/40 glass rounded-[24px] p-6 cursor-pointer border border-border-subtle hover:border-transparent transition-all duration-300 hover:scale-[1.01] hover:-translate-y-1 hover:shadow-glow-primary ${className}`}
+      className={`bento-card group relative overflow-hidden bg-bg-elevated/40 glass rounded-[24px] p-6 cursor-pointer border border-border-subtle hover-semantic-surface hover:scale-[1.01] ${className}`}
     >
-      {/* Outer border gradient overlay on hover */}
-      <div className="absolute inset-0 -z-10 rounded-[24px] p-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-primary to-tertiary" />
-      <div className="absolute inset-[1px] -z-10 rounded-[23px] bg-bg-surface/95" />
 
       {children}
     </motion.div>
@@ -131,15 +128,15 @@ function Card1CodeEditor() {
   const getTokenColor = (type: string) => {
     switch (type) {
       case "keyword":
-        return "text-[#C084FC]"; // violet
+        return "text-code-keyword";
       case "string":
-        return "text-[#86EFAC]"; // green
+        return "text-code-string";
       case "component":
-        return "text-[#60A5FA]"; // blue
+        return "text-code-component";
       case "prop":
-        return "text-[#FBBF24]"; // amber
+        return "text-code-prop";
       default:
-        return "text-[#71717A]"; // muted punctuation
+        return "text-code-default";
     }
   };
 
@@ -148,9 +145,9 @@ function Card1CodeEditor() {
       {/* Tab bar */}
       <div className="flex items-center justify-between border-b border-border-subtle pb-2 mb-3">
         <div className="flex gap-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#EF4444]/75" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]/75" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]/75" />
+          <span className="w-2.5 h-2.5 rounded-full bg-status-error/75" />
+          <span className="w-2.5 h-2.5 rounded-full bg-status-warning/75" />
+          <span className="w-2.5 h-2.5 rounded-full bg-status-success/75" />
         </div>
         <span className="text-[10px] text-text-muted flex items-center gap-1.5">
           <Terminal className="w-3 h-3" /> Dashboard.tsx
@@ -168,7 +165,7 @@ function Card1CodeEditor() {
           <motion.span
             animate={{ opacity: [1, 0, 1] }}
             transition={{ repeat: Infinity, duration: 0.8 }}
-            className="inline-block w-1.5 h-3.5 bg-primary/75 ml-0.5 align-middle"
+            className="inline-block w-1.5 h-3.5 bg-brand/75 ml-0.5 align-middle"
           />
         )}
       </pre>
@@ -180,9 +177,9 @@ function Card1CodeEditor() {
 // CARD 2: Brand theme options
 // =========================================================================
 const brandThemes = [
-  { id: "healthcare", bg: "#FFFFFF", primary: "#0EA5E9", text: "#1F2937", border: "rgba(0, 0, 0, 0.08)" },
+  { id: "healthcare", bg: "var(--color-white)", primary: "#0EA5E9", text: "#1F2937", border: "rgba(0, 0, 0, 0.08)" },
   { id: "fintech", bg: "#064E3B", primary: "#FBBF24", text: "#FAFAFA", border: "rgba(251, 191, 36, 0.2)" },
-  { id: "consumer", bg: "#9F1239", primary: "#FFFFFF", text: "#FFFFFF", border: "rgba(255, 255, 255, 0.2)" }, // consumer deep rose
+  { id: "consumer", bg: "#9F1239", primary: "var(--color-white)", text: "var(--color-white)", border: "rgba(255, 255, 255, 0.2)" }, // consumer deep rose
 ];
 
 function Card2WhiteLabel() {
@@ -216,7 +213,7 @@ function Card2WhiteLabel() {
           >
             {/* Top Stat */}
             <div className="text-left flex flex-col">
-              <span className="text-[7px] opacity-65 uppercase tracking-wide">MRR Growth</span>
+              <span className="text-xs opacity-65 uppercase tracking-wide">MRR Growth</span>
               <span className="text-sm font-bold mt-0.5">$38.2K</span>
             </div>
 
@@ -237,7 +234,7 @@ function Card2WhiteLabel() {
             <motion.div
               animate={{ backgroundColor: theme.primary, color: theme.bg }}
               transition={{ duration: 0.8 }}
-              className="text-[7px] font-bold py-1 px-2 rounded text-center leading-none"
+              className="text-xs font-bold py-1 px-2 rounded text-center leading-none"
             >
               Export Report
             </motion.div>
@@ -252,11 +249,11 @@ function Card2WhiteLabel() {
 // CARD 3: SELF-SERVE CHART BUILDER (DRAG & DRAG CHIPS)
 // =========================================================================
 const metricChips = [
-  { name: "Revenue", rot: -4, x: -25, y: -5, grad: "from-[#6366F1]/10 to-[#6366F1]/20 border-[#6366F1]/30", delay: 0 },
-  { name: "Users", rot: 6, x: 50, y: -20, grad: "from-[#22D3EE]/10 to-[#22D3EE]/20 border-[#22D3EE]/30", delay: 1.5 },
-  { name: "Sessions", rot: -8, x: -45, y: 35, grad: "from-[#A855F7]/10 to-[#A855F7]/20 border-[#A855F7]/30", delay: 0.8 },
-  { name: "Churn", rot: 4, x: 40, y: 30, grad: "from-[#EF4444]/10 to-[#EF4444]/20 border-[#EF4444]/30", delay: 2.2 },
-  { name: "MRR", rot: 3, x: 5, y: 15, grad: "from-primary/10 to-primary/20 border-primary/30", delay: 1.2 },
+  { name: "Revenue", rot: -4, x: -25, y: -5, grad: "from-brand/10 to-brand/20 border-brand/30", delay: 0 },
+  { name: "Users", rot: 6, x: 50, y: -20, grad: "from-accent/10 to-accent/20 border-accent/30", delay: 1.5 },
+  { name: "Sessions", rot: -8, x: -45, y: 35, grad: "from-[var(--color-accent)]/10 to-[var(--color-accent)]/20 border-[var(--color-accent)]/30", delay: 0.8 },
+  { name: "Churn", rot: 4, x: 40, y: 30, grad: "from-[var(--color-error)]/10 to-[var(--color-error)]/20 border-[var(--color-error)]/30", delay: 2.2 },
+  { name: "MRR", rot: 3, x: 5, y: 15, grad: "from-brand/10 to-primary/20 border-brand/30", delay: 1.2 },
   { name: "Signups", rot: -2, x: -10, y: -45, grad: "from-secondary/10 to-secondary/20 border-secondary/30", delay: 1.9 },
 ];
 
@@ -305,7 +302,7 @@ function Card3ChartBuilder() {
                       ease: "easeInOut",
                     }
               }
-              className={`px-3 py-1 rounded-full text-[10px] font-medium border bg-gradient-to-r ${chip.grad} text-text-primary shadow-lg cursor-grab`}
+              className={`px-3 py-1 rounded-full text-[10px] font-medium border bg-gradient-to-r ${chip.grad} text-text-brand shadow-lg cursor-grab`}
             >
               {chip.name}
             </motion.div>
@@ -314,7 +311,7 @@ function Card3ChartBuilder() {
       </div>
 
       {/* Bottom half: Canvas area */}
-      <div className="h-1/2 border border-dashed border-primary/30 rounded-xl p-4 flex flex-col justify-end relative bg-bg-surface/10 overflow-hidden">
+      <div className="h-1/2 border border-dashed border-brand/30 rounded-xl p-4 flex flex-col justify-end relative bg-bg-surface/10 overflow-hidden">
         
         {/* Helper guide text when empty */}
         <motion.div
@@ -333,7 +330,7 @@ function Card3ChartBuilder() {
         {/* Building Chart Bar Graph */}
         <div className="flex items-end justify-between h-[90px] gap-2.5 z-10 px-2">
           {[45, 75, 60, 95, 50].map((h, i) => (
-            <div key={i} className="flex-1 bg-white/5 h-full rounded-md flex items-end">
+            <div key={i} className="flex-1 bg-bg-surface/5 h-full rounded-md flex items-end">
               <motion.div
                 animate={{
                   scaleY: [0, 0, 1, 1, 0, 0],
@@ -344,7 +341,7 @@ function Card3ChartBuilder() {
                   times: [0, 0.32, 0.45, 0.85, 0.95, 1],
                   ease: "easeInOut",
                 }}
-                className="w-full bg-gradient-to-t from-primary to-tertiary rounded-md"
+                className="w-full bg-gradient-to-t from-brand to-tertiary rounded-md"
                 style={{ height: `${h}%`, originY: 1 }}
               />
             </div>
@@ -374,7 +371,7 @@ function Card4ExportPipeline() {
             ],
           }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/40 flex items-center justify-center text-primary"
+          className="w-12 h-12 rounded-xl bg-brand/10 border border-brand/40 flex items-center justify-center text-brand"
         >
           <Database className="w-6 h-6" />
         </motion.div>
@@ -386,9 +383,9 @@ function Card4ExportPipeline() {
         <svg className="w-full h-full" viewBox="0 0 300 64" preserveAspectRatio="none">
           <defs>
             <linearGradient id="flow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#6366F1" />
-              <stop offset="50%" stopColor="#A855F7" />
-              <stop offset="100%" stopColor="#22D3EE" />
+              <stop offset="0%" stopColor="var(--color-primary)" />
+              <stop offset="50%" stopColor="var(--color-accent)" />
+              <stop offset="100%" stopColor="var(--color-accent)" />
             </linearGradient>
           </defs>
           
@@ -467,7 +464,7 @@ function Card4ExportPipeline() {
             >
               <div className="flex items-center gap-2">
                 <DestIcon className="w-3.5 h-3.5 text-text-secondary" />
-                <span className="text-[10px] font-medium text-text-primary leading-none">{dest.label}</span>
+                <span className="text-[10px] font-medium text-text-brand leading-none">{dest.label}</span>
               </div>
               
               {/* Checkmark animation */}
@@ -481,7 +478,7 @@ function Card4ExportPipeline() {
                   repeat: Infinity,
                   times: [0, (dest.delay + 0.1) / 3.5, (dest.delay + 0.3) / 3.5, (dest.delay + 1.5) / 3.5, (dest.delay + 1.7) / 3.5],
                 }}
-                className="w-3.5 h-3.5 rounded-full bg-success/20 flex items-center justify-center text-success"
+                className="w-3.5 h-3.5 rounded-full bg-status-success/20 flex items-center justify-center text-status-success"
               >
                 <Check className="w-2.5 h-2.5" />
               </motion.div>
@@ -510,8 +507,8 @@ function Card5NetworkNodes() {
         <svg className="absolute w-full h-full overflow-visible" viewBox="0 0 100 100">
           <defs>
             <linearGradient id="net-line-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#6366F1" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#A855F7" stopOpacity="0.1" />
+              <stop offset="0%" stopColor="var(--color-primary)" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="var(--color-accent)" stopOpacity="0.1" />
             </linearGradient>
           </defs>
           {/* Radial connector lines */}
@@ -523,19 +520,19 @@ function Card5NetworkNodes() {
 
         {/* Satellite nodes */}
         {/* Top Satellite */}
-        <div className="absolute top-0 w-5 h-5 rounded-full bg-bg-surface border border-border-subtle/50 flex items-center justify-center text-[7px] font-mono text-text-secondary">
+        <div className="absolute top-0 w-5 h-5 rounded-full bg-bg-surface border border-border-subtle/50 flex items-center justify-center text-xs font-mono text-text-secondary">
           T1
         </div>
         {/* Right Satellite */}
-        <div className="absolute right-0 w-5 h-5 rounded-full bg-bg-surface border border-border-subtle/50 flex items-center justify-center text-[7px] font-mono text-text-secondary">
+        <div className="absolute right-0 w-5 h-5 rounded-full bg-bg-surface border border-border-subtle/50 flex items-center justify-center text-xs font-mono text-text-secondary">
           T2
         </div>
         {/* Bottom Satellite */}
-        <div className="absolute bottom-0 w-5 h-5 rounded-full bg-bg-surface border border-border-subtle/50 flex items-center justify-center text-[7px] font-mono text-text-secondary">
+        <div className="absolute bottom-0 w-5 h-5 rounded-full bg-bg-surface border border-border-subtle/50 flex items-center justify-center text-xs font-mono text-text-secondary">
           T3
         </div>
         {/* Left Satellite */}
-        <div className="absolute left-0 w-5 h-5 rounded-full bg-bg-surface border border-border-subtle/50 flex items-center justify-center text-[7px] font-mono text-text-secondary">
+        <div className="absolute left-0 w-5 h-5 rounded-full bg-bg-surface border border-border-subtle/50 flex items-center justify-center text-xs font-mono text-text-secondary">
           T4
         </div>
       </motion.div>
@@ -550,10 +547,10 @@ function Card5NetworkNodes() {
           ],
         }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute w-9 h-9 rounded-full bg-gradient-to-br from-primary to-tertiary flex items-center justify-center shadow-lg"
+        className="absolute w-9 h-9 rounded-full bg-gradient-to-br from-brand to-tertiary flex items-center justify-center shadow-lg"
       >
         <svg viewBox="0 0 100 100" className="w-5 h-5">
-          <path d="M50 20 L25 75 L50 85 Z" fill="#ffffff" opacity="0.8" />
+          <path d="M50 20 L25 75 L50 85 Z" fill="var(--color-white)" opacity="0.8" />
           <path d="M50 20 L50 85 L75 75 Z" fill="#000000" opacity="0.2" />
         </svg>
       </motion.div>
@@ -583,21 +580,21 @@ function Card6LatencyDisplay() {
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           className="text-7xl sm:text-8xl font-bold tracking-[-0.04em] leading-none gradient-text"
           style={{
-            backgroundImage: "linear-gradient(120deg, #6366F1, #22D3EE)",
+            backgroundImage: "linear-gradient(120deg, var(--color-primary), var(--color-accent))",
           }}
         >
           47ms
         </motion.div>
 
         {/* Speed Bar */}
-        <div className="w-full max-w-[200px] h-2 bg-white/5 rounded-full mt-4 overflow-hidden relative">
+        <div className="w-full max-w-[200px] h-2 bg-bg-surface/5 rounded-full mt-4 overflow-hidden relative">
           <motion.div
             animate={{
               width: ["4%", "6%", "4%"],
               opacity: [0.8, 1, 0.8],
             }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="h-full bg-gradient-to-r from-primary to-secondary rounded-full shadow-glow-primary"
+            className="h-full bg-gradient-to-r from-brand to-secondary rounded-full shadow-md"
           />
         </div>
         <span className="text-[10px] text-text-muted mt-2 uppercase tracking-wide font-semibold">Average query latency</span>
@@ -611,7 +608,7 @@ function Card6LatencyDisplay() {
             scale: [0.95, 1.05, 0.95],
           }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          className="w-16 h-16 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-glow-primary"
+          className="w-16 h-16 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center text-brand shadow-md"
         >
           <Zap className="w-8 h-8 fill-current" />
         </motion.div>
@@ -656,7 +653,7 @@ export default function BentoGrid() {
         
         {/* Section Header */}
         <div className="text-center mb-20">
-          <span className="inline-block text-[13px] font-medium tracking-[0.15em] text-primary uppercase mb-4">
+          <span className="inline-block text-[13px] font-medium tracking-[0.15em] text-brand uppercase mb-4">
             Why Prism
           </span>
           <motion.h2 
@@ -664,7 +661,7 @@ export default function BentoGrid() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="text-4xl sm:text-5xl lg:text-7xl font-semibold tracking-[-0.04em] leading-[1.05] text-text-primary mb-6 select-none max-w-4xl mx-auto"
+            className="text-4xl sm:text-5xl lg:text-7xl font-semibold tracking-[-0.04em] leading-[1.05] text-text-brand mb-6 select-none max-w-4xl mx-auto"
           >
             {"Built for teams who".split(" ").map((word, i) => (
               <span key={i} className="inline-block overflow-hidden mr-[0.25em] pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
@@ -695,13 +692,13 @@ export default function BentoGrid() {
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[240px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[minmax(240px,auto)]">
           
           {/* Card 1: Embeddable React SDK */}
           <BentoCard index={0} className="col-span-1 md:col-span-2 lg:col-span-2 flex flex-col justify-between pb-8">
             <Card1CodeEditor />
             <div className="mt-4 text-left">
-              <h3 className="text-xl font-semibold text-text-primary">Drop-in React components</h3>
+              <h3 className="text-xl font-semibold text-text-brand">Drop-in React components</h3>
               <p className="text-sm text-text-secondary mt-1">TypeScript-first SDK with zero config</p>
             </div>
           </BentoCard>
@@ -710,7 +707,7 @@ export default function BentoGrid() {
           <BentoCard index={1} className="col-span-1 md:col-span-2 lg:col-span-2 flex flex-col justify-between pb-8">
             <Card2WhiteLabel />
             <div className="mt-4 text-left">
-              <h3 className="text-xl font-semibold text-text-primary">One component. Infinite brands.</h3>
+              <h3 className="text-xl font-semibold text-text-brand">One component. Infinite brands.</h3>
               <p className="text-sm text-text-secondary mt-1">CSS variable theming adapts to any design</p>
             </div>
           </BentoCard>
@@ -719,7 +716,7 @@ export default function BentoGrid() {
           <BentoCard index={2} className="col-span-1 md:col-span-1 lg:col-span-1 row-span-2 flex flex-col justify-between pb-8">
             <Card3ChartBuilder />
             <div className="mt-4 text-left">
-              <h3 className="text-xl font-semibold text-text-primary">Drag. Drop. Done.</h3>
+              <h3 className="text-xl font-semibold text-text-brand">Drag. Drop. Done.</h3>
               <p className="text-sm text-text-secondary mt-1">Your customers build their own reports</p>
             </div>
           </BentoCard>
@@ -728,7 +725,7 @@ export default function BentoGrid() {
           <BentoCard index={3} className="col-span-1 md:col-span-2 lg:col-span-3 flex flex-col justify-between pb-8">
             <Card4ExportPipeline />
             <div className="mt-4 text-left">
-              <h3 className="text-xl font-semibold text-text-primary">Export-ready from day one</h3>
+              <h3 className="text-xl font-semibold text-text-brand">Export-ready from day one</h3>
               <p className="text-sm text-text-secondary mt-1">CSV, PDF, and REST API exports built-in</p>
             </div>
           </BentoCard>
@@ -737,7 +734,7 @@ export default function BentoGrid() {
           <BentoCard index={4} className="col-span-1 md:col-span-1 lg:col-span-1 flex flex-col justify-between pb-8">
             <Card5NetworkNodes />
             <div className="mt-4 text-left">
-              <h3 className="text-xl font-semibold text-text-primary">Multi-tenant by default</h3>
+              <h3 className="text-xl font-semibold text-text-brand">Multi-tenant by default</h3>
               <p className="text-sm text-text-secondary mt-1">Isolated. Scalable. Secure.</p>
             </div>
           </BentoCard>
@@ -746,7 +743,7 @@ export default function BentoGrid() {
           <BentoCard index={5} className="col-span-1 md:col-span-2 lg:col-span-2 flex flex-col justify-between pb-8">
             <Card6LatencyDisplay />
             <div className="mt-4 text-left">
-              <h3 className="text-xl font-semibold text-text-primary">Built for speed</h3>
+              <h3 className="text-xl font-semibold text-text-brand">Built for speed</h3>
               <p className="text-sm text-text-secondary mt-1">Column-store DB with intelligent caching</p>
             </div>
           </BentoCard>

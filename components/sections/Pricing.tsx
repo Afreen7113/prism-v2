@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 
 const containerVariants = {
   hidden: {},
@@ -31,7 +32,7 @@ export default function Pricing() {
   return (
     <section id="pricing" className="py-20 md:py-24 px-6 md:px-12 lg:px-20 bg-bg-base relative z-10 overflow-hidden text-center">
       {/* Background radial gradient */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.08)_0%,transparent_70%)] pointer-events-none blur-[80px] z-0" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-brand/10 pointer-events-none blur-[80px] z-0" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         
@@ -58,7 +59,7 @@ export default function Pricing() {
             <span
               className="gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] inline-block"
               style={{
-                backgroundImage: "linear-gradient(120deg, #6366F1, #A855F7, #22D3EE, #6366F1)",
+                backgroundImage: "linear-gradient(120deg, var(--color-primary), var(--color-accent), var(--color-accent), var(--color-primary))",
               }}
             >
               {"scale.".split(" ").map((word, i) => (
@@ -83,30 +84,24 @@ export default function Pricing() {
 
         {/* Billing Toggle */}
         <div className="flex justify-center items-center gap-4 mb-16">
-          <div className="bg-white/5 border border-border-subtle p-1 rounded-full flex w-fit select-none">
-            <button
-              onClick={() => setBilling("monthly")}
-              className={`px-6 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 focus:outline-none ${
-                billing === "monthly"
-                  ? "bg-white text-black shadow-md"
-                  : "text-text-secondary hover:text-text-primary bg-transparent"
-              }`}
-            >
-              Monthly
-            </button>
-            <button
-              onClick={() => setBilling("annual")}
-              className={`px-6 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 focus:outline-none flex items-center gap-2 ${
-                billing === "annual"
-                  ? "bg-white text-black shadow-md"
-                  : "text-text-secondary hover:text-text-primary bg-transparent"
-              }`}
-            >
-              <span>Annual</span>
-              <span className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-[10px] py-0.5 px-2 rounded-full font-bold">
-                Save 20%
-              </span>
-            </button>
+          <div className="bg-bg-base/5 border border-border-subtle p-1 rounded-full flex w-fit select-none">
+            <Button
+  variant={billing === "monthly" ? "primary" : "ghost"}
+  size="sm"
+  onClick={() => setBilling("monthly")}
+>
+  Monthly
+</Button>
+            <Button
+  variant={billing === "annual" ? "primary" : "ghost"}
+  size="sm"
+  onClick={() => setBilling("annual")}
+>
+  <span>Annual</span>
+  <span className="bg-gradient-to-r from-primary to-tertiary text-text-on-primary text-[10px] py-0.5 px-2 rounded-full font-bold">
+    Save 20%
+  </span>
+</Button>
           </div>
         </div>
 
@@ -115,11 +110,10 @@ export default function Pricing() {
           
           {/* Card 1: Starter */}
           <motion.div
-            whileHover={{
-              y: -8,
-              borderColor: "var(--prism-semantic-primary, rgba(99, 102, 241, 0.25))",
-              boxShadow: "0 15px 35px var(--prism-primary-glow, rgba(99,102,241,0.1))",
-            }}
+           whileHover={{
+  y: -8,
+  borderColor: "var(--color-border-subtle)",
+}}
             className="bg-bg-elevated/60 border border-border-subtle rounded-[24px] p-6 sm:p-8 flex flex-col justify-between text-left transition-all duration-300"
           >
             <div>
@@ -131,9 +125,9 @@ export default function Pricing() {
                 <span className="text-sm text-text-secondary ml-1">/month</span>
               </div>
  
-              <button className="w-full mt-8 py-3 px-4 border border-border-subtle hover:border-text-secondary text-text-primary rounded-xl text-sm font-semibold bg-transparent transition-colors duration-300 focus:outline-none text-center block">
+              <Button variant="outline" className="w-full mt-8 h-12">
                 Start free
-              </button>
+              </Button>
  
               <div className="w-full h-[1px] bg-border-subtle my-6" />
  
@@ -158,20 +152,19 @@ export default function Pricing() {
           {/* Card 2: Growth (Highlighted) */}
           <div className="relative scale-100 md:scale-105 z-10 flex flex-col group/growth transition-transform duration-300">
             
-            {/* Glowing gradient background border */}
-            <div className="absolute -inset-[1px] rounded-[24px] bg-gradient-to-r from-primary to-tertiary opacity-90 blur-[1px] z-0" />
+            {/* Semantic ambient glow behind the card */}
+            <div className="absolute -inset-[1px] rounded-[24px] bg-brand/20 blur-md z-0" />
             
             {/* MOST POPULAR Badge */}
-            <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-tertiary text-white text-[11px] font-bold py-1 px-4 rounded-full tracking-wider uppercase shadow-md z-20">
+            <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand text-white text-[11px] font-bold py-1 px-4 rounded-full tracking-wider uppercase shadow-md z-20">
               Most Popular
             </span>
  
             <motion.div
               whileHover={{
                 y: -8,
-                boxShadow: "0 20px 40px var(--prism-primary-glow, rgba(99,102,241,0.2))",
               }}
-              className="relative bg-bg-elevated/95 rounded-[24px] p-6 sm:p-8 flex flex-col justify-between text-left h-full shadow-[0_0_80px_var(--prism-primary-glow, rgba(99,102,241,0.3))] z-10 transition-all duration-300 flex-1"
+              className="relative bg-bg-surface border-2 border-brand/30 rounded-[24px] p-6 sm:p-8 flex flex-col justify-between text-left h-full shadow-lg z-10 transition-all duration-300 flex-1 hover:border-brand/50"
             >
               <div>
                 <span className="text-xl font-bold text-text-primary block">Growth</span>
@@ -185,15 +178,15 @@ export default function Pricing() {
                     <span className="text-sm text-text-secondary ml-1">/month</span>
                   </div>
                   {billing === "annual" && (
-                    <span className="text-[10px] text-success font-mono mt-1 font-semibold block">
+                    <span className="text-[10px] text-status-success font-mono mt-1 font-semibold block">
                       * billed annually ($4,788/yr)
                     </span>
                   )}
                 </div>
  
-                <button className="w-full mt-8 py-3.5 px-4 bg-gradient-to-r from-primary to-tertiary text-white rounded-xl text-sm font-semibold shadow-[0_0_30px_var(--prism-primary-glow, rgba(99,102,241,0.4))] hover:shadow-[0_0_40px_var(--prism-primary-glow, rgba(99,102,241,0.6))] hover:scale-[1.02] active:scale-95 transition-all duration-300 focus:outline-none text-center block">
+                <Button variant="primary" className="w-full mt-8 h-12">
                   Start 14-day trial
-                </button>
+                </Button>
  
                 <div className="w-full h-[1px] bg-border-subtle my-6" />
  
@@ -222,10 +215,9 @@ export default function Pricing() {
           {/* Card 3: Enterprise */}
           <motion.div
             whileHover={{
-              y: -4,
-              borderColor: "var(--prism-site-border, rgba(255, 255, 255, 0.15))",
-              boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-            }}
+  y: -4,
+  borderColor: "var(--color-border-subtle)",
+}}
             className="bg-bg-elevated/60 border border-border-subtle rounded-[24px] p-6 sm:p-8 flex flex-col justify-between text-left transition-colors duration-300"
           >
             <div>
@@ -236,9 +228,9 @@ export default function Pricing() {
                 <span className="text-4xl sm:text-5xl font-bold tracking-tight text-text-primary">Custom</span>
               </div>
  
-              <button className="w-full mt-8 py-3 px-4 border border-border-subtle hover:border-text-secondary text-text-primary rounded-xl text-sm font-semibold bg-transparent transition-colors duration-300 focus:outline-none text-center block">
+              <Button variant="outline" className="w-full mt-8 h-12">
                 Contact sales
-              </button>
+              </Button>
  
               <div className="w-full h-[1px] bg-border-subtle my-6" />
  
@@ -255,7 +247,7 @@ export default function Pricing() {
                   "White-glove onboarding",
                 ].map((feat, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <Check className="w-4 h-4 text-indigo-400 shrink-0" />
+                    <Check className="w-4 h-4 text-primary shrink-0" />
                     <span className="text-xs sm:text-sm text-text-secondary">{feat}</span>
                   </div>
                 ))}

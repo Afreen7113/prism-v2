@@ -156,17 +156,17 @@ export default function DeveloperExperience() {
   const getTokenColor = (type: string) => {
     switch (type) {
       case "keyword":
-        return "text-[#C084FC]"; // violet
+        return "text-code-keyword";
       case "string":
-        return "text-[#86EFAC]"; // green
+        return "text-code-string";
       case "component":
-        return "text-[#60A5FA]"; // blue
+        return "text-code-component";
       case "prop":
-        return "text-[#FBBF24]"; // amber
+        return "text-code-prop";
       case "comment":
-        return "text-[#71717A]";
+        return "text-code-comment";
       default:
-        return "text-[#E4E4E7]"; // punctuation/white
+        return "text-code-default";
     }
   };
 
@@ -206,7 +206,7 @@ export default function DeveloperExperience() {
         
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto">
-          <span className="inline-block text-[13px] font-medium tracking-[0.15em] text-primary uppercase mb-4">
+          <span className="inline-block text-[13px] font-medium tracking-[0.15em] text-brand uppercase mb-4">
             Developer Experience
           </span>
           <motion.h2 
@@ -214,7 +214,7 @@ export default function DeveloperExperience() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] leading-[1.05] text-text-primary mb-6"
+            className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] leading-[1.05] text-text-brand mb-6"
           >
             {"Built by developers,".split(" ").map((word, i) => (
               <span key={i} className="inline-block overflow-hidden mr-[0.25em] pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
@@ -254,7 +254,7 @@ export default function DeveloperExperience() {
           
           {/* Left panel - Code Editor */}
           <motion.div
-            whileHover={{ y: -6, scale: 1.01, borderColor: "var(--color-primary)", boxShadow: "var(--shadow-glow-primary)" }}
+            whileHover={{ y: -6, scale: 1.01, borderColor: "var(--color-primary)", boxShadow: "var(--shadow-md)" }}
             transition={{ duration: 0.3 }}
             className="bg-bg-elevated border border-border-subtle rounded-2xl overflow-hidden shadow-2xl flex flex-col min-h-[380px] transition-colors"
           >
@@ -262,11 +262,11 @@ export default function DeveloperExperience() {
             {/* Chrome Header */}
             <div className="bg-bg-surface px-4 py-3 flex items-center justify-between">
               <div className="flex gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F57]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#28C840]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-status-error" />
+                <span className="w-2.5 h-2.5 rounded-full bg-status-warning" />
+                <span className="w-2.5 h-2.5 rounded-full bg-status-success" />
               </div>
-              <span className="text-[10px] text-text-secondary font-mono">prism-setup.tsx</span>
+              <span className="text-[10px] text-slate-600 font-mono">prism-setup.tsx</span>
               <div className="w-12" /> {/* alignment spacer */}
             </div>
 
@@ -280,8 +280,8 @@ export default function DeveloperExperience() {
                     onClick={() => setActiveTab(idx)}
                     className={`px-5 py-3 text-xs font-mono transition-all duration-300 focus:outline-none border-b-2 ${
                       isActive
-                        ? "text-text-primary border-primary"
-                        : "text-text-secondary border-transparent hover:text-text-primary"
+                        ? "text-text-brand border-brand"
+                        : "text-text-secondary border-transparent hover:text-text-brand"
                     }`}
                   >
                     {tab}
@@ -295,10 +295,11 @@ export default function DeveloperExperience() {
               
               {/* Copy button */}
               <button
+                aria-label={copied ? "Copied" : "Copy code"}
                 onClick={handleCopy}
-                className="absolute top-4 right-4 p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white transition-all duration-300 focus:outline-none z-20"
+                className="absolute top-4 right-4 p-2 rounded-lg bg-bg-base/5 hover:bg-bg-base/10 text-text-brand transition-all duration-300 focus:outline-none z-20"
               >
-                {copied ? <Check className="w-4 h-4 text-success" /> : <Clipboard className="w-4 h-4" />}
+                {copied ? <Check className="w-4 h-4 text-status-success" /> : <Clipboard className="w-4 h-4" />}
               </button>
 
               <div
@@ -307,11 +308,11 @@ export default function DeveloperExperience() {
                 }`}
               >
                 {activeTab === 0 && (
-                  <pre className="text-text-primary leading-loose">
+                  <pre className="text-text-brand leading-loose">
                     {/* Render raw install commands */}
                     {tab0Code.slice(0, charCount)}
                     {charCount < tab0Code.length && (
-                      <span className="inline-block w-1.5 h-4 bg-primary/70 ml-0.5 align-middle animate-pulse" />
+                      <span className="inline-block w-1.5 h-4 bg-brand/70 ml-0.5 align-middle animate-pulse" />
                     )}
                   </pre>
                 )}
@@ -320,7 +321,7 @@ export default function DeveloperExperience() {
                   <pre className="whitespace-pre">
                     {renderTypedTokens(tab1Tokens)}
                     {charCount < tab1Tokens.reduce((acc, t) => acc + t.text.length, 0) && (
-                      <span className="inline-block w-1.5 h-4 bg-primary/70 ml-0.5 align-middle animate-pulse" />
+                      <span className="inline-block w-1.5 h-4 bg-brand/70 ml-0.5 align-middle animate-pulse" />
                     )}
                   </pre>
                 )}
@@ -329,7 +330,7 @@ export default function DeveloperExperience() {
                   <pre className="whitespace-pre">
                     {renderTypedTokens(tab2Tokens)}
                     {charCount < tab2Tokens.reduce((acc, t) => acc + t.text.length, 0) && (
-                      <span className="inline-block w-1.5 h-4 bg-primary/70 ml-0.5 align-middle animate-pulse" />
+                      <span className="inline-block w-1.5 h-4 bg-brand/70 ml-0.5 align-middle animate-pulse" />
                     )}
                   </pre>
                 )}
@@ -340,7 +341,7 @@ export default function DeveloperExperience() {
 
           {/* Right panel - Live Preview Window */}
           <motion.div
-            whileHover={{ y: -6, scale: 1.01, borderColor: "var(--color-primary)", boxShadow: "var(--shadow-glow-primary)" }}
+            whileHover={{ y: -6, scale: 1.01, borderColor: "var(--color-primary)", boxShadow: "var(--shadow-md)" }}
             transition={{ duration: 0.3 }}
             className="bg-bg-elevated border border-border-subtle rounded-2xl overflow-hidden shadow-2xl flex flex-col min-h-[380px] transition-colors"
           >
@@ -348,11 +349,11 @@ export default function DeveloperExperience() {
             {/* Chrome Header */}
             <div className="bg-bg-surface px-4 py-3 flex items-center justify-between border-b border-border-subtle">
               <div className="flex gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-white/10" />
-                <span className="w-2.5 h-2.5 rounded-full bg-white/10" />
-                <span className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                <span className="w-2.5 h-2.5 rounded-full bg-bg-base/10" />
+                <span className="w-2.5 h-2.5 rounded-full bg-bg-base/10" />
+                <span className="w-2.5 h-2.5 rounded-full bg-bg-base/10" />
               </div>
-              <span className="text-[10px] text-text-secondary font-mono">
+              <span className="text-[10px] text-slate-600 font-mono">
                 {activeTab === 0 ? "terminal.sh" : activeTab === 1 ? "api-check.log" : "localhost:3000/dashboard"}
               </span>
               <div className="w-12" /> {/* alignment spacer */}
@@ -373,21 +374,21 @@ export default function DeveloperExperience() {
                     transition={{ duration: 0.3 }}
                     className="w-full h-full flex flex-col justify-between text-left font-mono text-xs"
                   >
-                    <div className="space-y-3 text-success bg-bg-base/40 p-5 rounded-xl border border-border-subtle flex-1 flex flex-col justify-center">
+                    <div className="space-y-3 text-status-success bg-bg-base/40 p-5 rounded-xl border border-border-subtle flex-1 flex flex-col justify-center">
                       <div className="flex items-center gap-3">
-                        <CheckCircle2 className="w-4 h-4 text-success shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 text-status-success shrink-0" />
                         <span>Injected @prism/react package</span>
                       </div>
                       <div className="flex items-center gap-3">
-                        <CheckCircle2 className="w-4 h-4 text-success shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 text-status-success shrink-0" />
                         <span>Loaded Typescript declarations</span>
                       </div>
                       <div className="flex items-center gap-3">
-                        <CheckCircle2 className="w-4 h-4 text-success shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 text-status-success shrink-0" />
                         <span>Validated peer dependencies</span>
                       </div>
                     </div>
-                    <div className="mt-4 text-text-secondary opacity-60 text-[10px] text-center">
+                    <div className="mt-4 text-slate-500 text-[10px] text-center">
                       Installation complete. Ready to embed provider context.
                     </div>
                   </motion.div>
@@ -407,11 +408,11 @@ export default function DeveloperExperience() {
                     <motion.div
                       animate={{ scale: [0.95, 1.03, 0.95] }}
                       transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-                      className="w-16 h-16 rounded-full bg-success/10 border border-success/20 flex items-center justify-center text-success mb-4"
+                      className="w-16 h-16 rounded-full bg-status-success/10 border border-success/20 flex items-center justify-center text-status-success mb-4"
                     >
                       <ShieldCheck className="w-8 h-8" />
                     </motion.div>
-                    <h3 className="text-base font-semibold text-text-primary mb-1">Provider Initialized</h3>
+                    <h3 className="text-base font-semibold text-text-brand mb-1">Provider Initialized</h3>
                     <p className="text-xs text-text-secondary leading-relaxed mb-4 max-w-xs">
                       API Credentials verified. Prism wrapper context loaded.
                     </p>
@@ -423,7 +424,7 @@ export default function DeveloperExperience() {
                         "✓ Brand Theme Configurations Loaded",
                         "✓ Tenant Isolation Authenticated",
                       ].map((pill, i) => (
-                        <span key={i} className="text-[10px] py-1.5 px-3 rounded-full bg-success/5 border border-success/15 text-success font-medium inline-block w-full">
+                        <span key={i} className="text-[10px] py-1.5 px-3 rounded-full bg-status-success/5 border border-success/15 text-status-success font-medium inline-block w-full">
                           {pill}
                         </span>
                       ))}
@@ -443,8 +444,8 @@ export default function DeveloperExperience() {
                   >
                     {/* Dashboard top */}
                     <div className="flex justify-between items-center">
-                      <span className="text-xs font-bold text-text-primary">Executive Summary</span>
-                      <span className="text-[9px] text-primary font-semibold py-0.5 px-2 bg-primary/10 rounded-full border border-primary/20">
+                      <span className="text-xs font-bold text-text-brand">Executive Summary</span>
+                      <span className="text-[9px] text-brand font-semibold py-0.5 px-2 bg-brand/10 rounded-full border border-brand/20">
                         Live Embed
                       </span>
                     </div>
@@ -455,15 +456,17 @@ export default function DeveloperExperience() {
                         className="bg-[var(--prism-card-bg)] border border-[var(--prism-card-border)] p-3 flex flex-col justify-between transition-all duration-300"
                         style={{ borderRadius: "var(--prism-card-radius)" }}
                       >
-                        <span className="text-[9px] text-text-muted uppercase tracking-wider">Revenue (Monthly)</span>
-                        <span className="text-base font-bold text-text-primary mt-0.5">$48,290</span>
+<span className="text-[9px] text-slate-400 uppercase tracking-wider">
+  Revenue (Monthly)
+</span>
+                        <span className="text-base font-bold text-text-brand mt-0.5">$48,290</span>
                       </div>
                       <div
                         className="bg-[var(--prism-card-bg)] border border-[var(--prism-card-border)] p-3 flex flex-col justify-between transition-all duration-300"
                         style={{ borderRadius: "var(--prism-card-radius)" }}
                       >
-                        <span className="text-[9px] text-text-muted uppercase tracking-wider">Signups</span>
-                        <span className="text-base font-bold text-text-primary mt-0.5">1,482</span>
+                        <span className="text-[9px] text-slate-400 uppercase tracking-wider">Signups</span>
+                        <span className="text-base font-bold text-text-brand mt-0.5">1,482</span>
                       </div>
                     </div>
 
@@ -472,7 +475,9 @@ export default function DeveloperExperience() {
                       className="flex-1 bg-[var(--prism-card-bg)] border border-[var(--prism-card-border)] p-3 flex flex-col justify-between min-h-[110px] transition-all duration-300"
                       style={{ borderRadius: "var(--prism-card-radius)" }}
                     >
-                      <span className="text-[9px] text-text-muted uppercase tracking-wider mb-1 block">Monthly Growth</span>
+<span className="text-[9px] text-slate-400 uppercase tracking-wider mb-1 block">
+  Monthly Growth
+</span>
                       <div className="flex-1 w-full relative pt-2">
                         <svg className="w-full h-full" viewBox="0 0 300 80" preserveAspectRatio="none">
                           <defs>
@@ -509,9 +514,9 @@ export default function DeveloperExperience() {
               <motion.div
                 key={i}
                 whileHover={{ y: -2, borderColor: "var(--prism-semantic-primary)", boxShadow: "0 0 20px var(--prism-primary-glow)" }}
-                className="bg-bg-elevated/60 glass border border-border-subtle rounded-full px-5 py-2 flex items-center gap-2 cursor-pointer transition-all duration-300 text-sm font-medium text-text-primary shadow-sm"
+                className="bg-bg-elevated/60 glass border border-border-subtle rounded-full px-5 py-2 flex items-center gap-2 cursor-pointer transition-all duration-300 text-sm font-medium text-text-brand shadow-sm"
               >
-                <div className="w-4 h-4 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                <div className="w-4 h-4 rounded-full bg-brand/10 border border-brand/20 flex items-center justify-center text-brand">
                   <PillIcon className="w-2.5 h-2.5 fill-current" />
                 </div>
                 <span>{pill.text}</span>

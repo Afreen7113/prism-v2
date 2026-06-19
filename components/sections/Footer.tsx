@@ -18,14 +18,14 @@ export default function Footer() {
         <svg viewBox="0 0 100 100" className="w-[26vw] max-w-[300px] h-[26vw] max-h-[300px] shrink-0">
           <defs>
             <linearGradient id="footer-watermark-blue-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#3B82F6" />
-              <stop offset="100%" stopColor="#6366F1" />
+              <stop offset="0%" stopColor="var(--color-primary)" />
+              <stop offset="100%" stopColor="var(--color-accent)" />
             </linearGradient>
           </defs>
           <path d="M50 10 L15 75 L50 90 Z" fill="url(#footer-watermark-blue-grad)" />
           <path d="M50 10 L50 90 L85 75 Z" fill="url(#footer-watermark-blue-grad)" opacity="0.8" />
         </svg>
-        <span className="text-[22vw] lg:text-[260px] font-black tracking-tighter uppercase font-sans leading-none bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">
+        <span className="text-[22vw] lg:text-[260px] font-black tracking-tighter uppercase font-sans leading-none bg-gradient-to-r from-brand to-tertiary bg-clip-text text-transparent">
           Prism
         </span>
       </div>
@@ -37,15 +37,15 @@ export default function Footer() {
         <div className="lg:col-span-2 flex flex-col gap-6">
           <Link href="/" className="flex items-center gap-2.5 group w-fit">
             <div className="w-8 h-8 flex items-center justify-center">
-              <svg viewBox="0 0 100 100" className="w-7 h-7 drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]">
+              <svg viewBox="0 0 100 100" className="w-7 h-7 drop-shadow-md">
                 <defs>
                   <linearGradient id="footer-prism-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#6366F1" />
-                    <stop offset="100%" stopColor="#A855F7" />
+                    <stop offset="0%" stopColor="var(--color-primary)" />
+                    <stop offset="100%" stopColor="var(--color-accent)" />
                   </linearGradient>
                   <linearGradient id="footer-prism-grad-2" x1="0%" y1="100%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#A855F7" />
-                    <stop offset="100%" stopColor="#22D3EE" />
+                    <stop offset="0%" stopColor="var(--color-accent)" />
+                    <stop offset="100%" stopColor="var(--color-accent)" />
                   </linearGradient>
                 </defs>
                 <path d="M50 10 L15 75 L50 90 Z" fill="url(#footer-prism-grad-1)" />
@@ -53,7 +53,7 @@ export default function Footer() {
                 <path d="M50 10 L50 90" stroke="rgba(255, 255, 255, 0.3)" strokeWidth="1.5" />
               </svg>
             </div>
-            <span className="font-semibold text-text-primary text-lg tracking-tight">
+            <span className="font-semibold text-text-brand text-lg tracking-tight">
               Prism
             </span>
           </Link>
@@ -91,8 +91,8 @@ export default function Footer() {
                   key={i}
                   href={social.href}
                   aria-label={social.label}
-                  whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)", color: "#FFFFFF" }}
-                  className="w-9 h-9 bg-white/5 border border-border-subtle flex items-center justify-center rounded-lg text-text-secondary transition-colors duration-300 focus:outline-none"
+                  whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)", color: "var(--color-white)" }}
+                  className="w-9 h-9 bg-bg-base/5 border border-border-subtle flex items-center justify-center rounded-lg text-text-secondary transition-colors duration-300 focus:outline-none"
                 >
                   <svg
                     viewBox="0 0 24 24"
@@ -116,7 +116,7 @@ export default function Footer() {
 
         {/* Column 2 - Product */}
         <div className="flex flex-col gap-4">
-          <span className="text-[12px] font-semibold text-text-muted uppercase tracking-[0.15em]">
+          <span className="text-[12px] font-semibold text-slate-700 uppercase tracking-[0.15em]">
             Product
           </span>
           <div className="flex flex-col gap-3">
@@ -124,7 +124,7 @@ export default function Footer() {
               <Link
                 key={link}
                 href="#"
-                className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-200 w-fit"
+                className="text-sm text-text-secondary hover:text-text-brand transition-colors duration-200 w-fit"
               >
                 {link}
               </Link>
@@ -134,7 +134,7 @@ export default function Footer() {
 
         {/* Column 3 - Developers */}
         <div className="flex flex-col gap-4">
-          <span className="text-[12px] font-semibold text-text-muted uppercase tracking-[0.15em]">
+          <span className="text-[12px] font-semibold text-slate-700 uppercase tracking-[0.15em]">
             Developers
           </span>
           <div className="flex flex-col gap-3">
@@ -142,7 +142,7 @@ export default function Footer() {
               <Link
                 key={link}
                 href="#"
-                className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-200 w-fit"
+                className="text-sm text-text-secondary hover:text-text-brand transition-colors duration-200 w-fit"
               >
                 {link}
               </Link>
@@ -152,7 +152,7 @@ export default function Footer() {
 
         {/* Column 4 - Company */}
         <div className="flex flex-col gap-4">
-          <span className="text-[12px] font-semibold text-text-muted uppercase tracking-[0.15em]">
+          <span className="text-[12px] font-semibold text-slate-700 uppercase tracking-[0.15em]">
             Company
           </span>
           <div className="flex flex-col gap-3">
@@ -162,12 +162,12 @@ export default function Footer() {
                 <div key={link} className="flex items-center">
                   <Link
                     href="#"
-                    className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-200 w-fit"
+                    className="text-sm text-text-secondary hover:text-text-brand transition-colors duration-200 w-fit"
                   >
                     {link}
                   </Link>
                   {isCareers && (
-                    <span className="bg-primary/15 text-primary text-[10px] py-0.5 px-2 rounded-full font-medium ml-2 select-none border border-primary/10">
+                    <span className="bg-brand/15 text-brand text-[10px] py-0.5 px-2 rounded-full font-medium ml-2 select-none border border-brand/10">
                       We&apos;re hiring!
                     </span>
                   )}
@@ -183,7 +183,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-border-subtle flex flex-col md:flex-row justify-between items-center gap-6">
         
         {/* Left - Copyright */}
-        <span className="text-xs sm:text-sm text-text-muted">
+        <span className="text-xs sm:text-sm text-slate-700">
           &copy; {currentYear} Prism Analytics, Inc.
         </span>
 
@@ -198,19 +198,19 @@ export default function Footer() {
               key={i}
               className="bg-bg-elevated/40 border border-border-subtle px-3 py-1.5 rounded-full flex items-center gap-2 select-none shadow-sm"
             >
-              <Shield className="w-3.5 h-3.5 text-success fill-success/20" />
-              <span className="text-[11px] font-medium text-text-secondary">{badge.text}</span>
+              <Shield className="w-3.5 h-3.5 text-status-success fill-success/20" />
+              <span className="text-[11px] font-medium text-slate-700">{badge.text}</span>
             </div>
           ))}
         </div>
 
         {/* Right - Legal Links */}
         <div className="flex items-center gap-2 text-xs sm:text-sm text-text-muted">
-          <Link href="#" className="hover:text-text-primary transition-colors">Privacy</Link>
+          <Link href="#" className="hover:text-text-brand transition-colors">Privacy</Link>
           <span>&middot;</span>
-          <Link href="#" className="hover:text-text-primary transition-colors">Terms</Link>
+          <Link href="#" className="hover:text-text-brand transition-colors">Terms</Link>
           <span>&middot;</span>
-          <Link href="#" className="hover:text-text-primary transition-colors">Security</Link>
+          <Link href="#" className="hover:text-text-brand transition-colors">Security</Link>
         </div>
 
       </div>

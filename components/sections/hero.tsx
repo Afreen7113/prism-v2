@@ -9,73 +9,73 @@ import RevealText from "@/components/ui/RevealText";
 // Themes configuration to demonstrate white-label capability
 const themesConfig = {
   white: {
-    bg: "bg-white",
-    text: "text-slate-900",
+    bg: "bg-bg-base",
+    text: "text-text-brand",
     textMuted: "text-text-muted",
-    accent: "text-blue-500",
-    accentBg: "bg-blue-500/10",
-    accentBorder: "border-blue-500/20",
-    sidebar: "bg-slate-50",
-    border: "border-slate-200/80",
+    accent: "text-info",
+    accentBg: "bg-info/10",
+    accentBorder: "border-brand/20",
+    sidebar: "bg-bg-surface",
+    border: "border-border-subtle/80",
     divider: "border-slate-100",
     logoColor: "#3B82F6",
     chartColor: "#3B82F6",
     gradientId: "whiteGrad",
   },
   beige: {
-    bg: "bg-[#FAF7F2]",
+    bg: "bg-stone-50",
     text: "text-stone-900",
     textMuted: "text-stone-400",
-    accent: "text-amber-600",
-    accentBg: "bg-amber-600/10",
+    accent: "text-amber-700",
+    accentBg: "bg-status-warning/10",
     accentBorder: "border-amber-600/20",
-    sidebar: "bg-[#F5F1E8]",
-    border: "border-[#E7E5E0]",
+    sidebar: "bg-stone-100",
+    border: "border-stone-200",
     divider: "border-stone-200/60",
-    logoColor: "#D97706",
-    chartColor: "#D97706",
+    logoColor: "var(--color-warning)",
+    chartColor: "var(--color-warning)",
     gradientId: "beigeGrad",
   },
   darkBlue: {
-    bg: "bg-[#0F172A]",
+    bg: "bg-slate-900",
     text: "text-slate-50",
     textMuted: "text-text-secondary",
-    accent: "text-cyan-400",
-    accentBg: "bg-cyan-400/10",
-    accentBorder: "border-cyan-400/20",
-    sidebar: "bg-[#1E293B]",
+    accent: "text-cyan-800",
+    accentBg: "bg-cyan-100",
+accentBorder: "border-cyan-300",
+    sidebar: "bg-slate-800",
     border: "border-slate-800",
     divider: "border-slate-800",
-    logoColor: "#06B6D4",
-    chartColor: "#06B6D4",
+    logoColor: "var(--color-accent)",
+    chartColor: "var(--color-accent)",
     gradientId: "darkBlueGrad",
   },
   darkPurple: {
-    bg: "bg-[#1E1B4B]",
-    text: "text-indigo-50",
-    textMuted: "text-indigo-500",
-    accent: "text-purple-400",
-    accentBg: "bg-purple-400/10",
-    accentBorder: "border-indigo-900",
-    sidebar: "bg-[#312E81]",
-    border: "border-indigo-900",
-    divider: "border-indigo-900",
-    logoColor: "#A855F7",
-    chartColor: "#A855F7",
+    bg: "bg-bg-elevated",
+    text: "text-text-primary",
+    textMuted: "text-brand",
+    accent: "text-brand",
+    accentBg: "bg-brand/10",
+    accentBorder: "border-border-subtle",
+    sidebar: "bg-bg-surface",
+    border: "border-border-subtle",
+    divider: "border-border-subtle",
+    logoColor: "var(--color-accent)",
+    chartColor: "var(--color-accent)",
     gradientId: "darkPurpleGrad",
   },
   lightMint: {
-    bg: "bg-[#F0FDF4]",
+    bg: "bg-green-50",
     text: "text-emerald-950",
     textMuted: "text-emerald-600/60",
     accent: "text-emerald-600",
-    accentBg: "bg-emerald-600/10",
+    accentBg: "bg-status-success/10",
     accentBorder: "border-emerald-600/20",
-    sidebar: "bg-[#DCFCE7]",
+    sidebar: "bg-green-100",
     border: "border-emerald-200/80",
     divider: "border-emerald-200/60",
-    logoColor: "#10B981",
-    chartColor: "#10B981",
+    logoColor: "var(--color-success)",
+    chartColor: "var(--color-success)",
     gradientId: "lightMintGrad",
   },
 };
@@ -217,10 +217,10 @@ export default function Hero() {
           <div className="flex flex-col items-center">
             {/* Logo */}
             <div 
-              className="w-6 h-6 rounded flex items-center justify-center text-white shadow-sm"
+              className="w-6 h-6 rounded flex items-center justify-center text-text-brand shadow-sm"
               style={{ backgroundColor: t.logoColor }}
             >
-              <Sparkles className="w-3 h-3 text-white" />
+              <Sparkles className="w-3 h-3 text-text-brand" />
             </div>
             
             {/* Nav Icons */}
@@ -232,7 +232,7 @@ export default function Hero() {
             </div>
           </div>
           
-          <div className={`w-5 h-5 rounded-full ${t.accentBg} border ${t.accentBorder} flex items-center justify-center text-[7px] font-bold ${t.accent}`}>
+          <div className={`w-5 h-5 rounded-full ${t.accentBg} border ${t.accentBorder} flex items-center justify-center text-xs font-bold ${t.accent}`}>
             {cardConfig.avatarText}
           </div>
         </div>
@@ -242,7 +242,7 @@ export default function Hero() {
           {/* Header Bar */}
           <div className={`h-[38px] px-3 flex items-center justify-between border-b ${t.divider} shrink-0`}>
             <span className="text-[10px] font-bold tracking-tight truncate">{cardConfig.title}</span>
-            <span className={`text-[7px] font-semibold px-1.5 py-0.5 rounded-full ${t.accentBg} ${t.accent} border ${t.accentBorder}`}>
+            <span className={`text-xs font-semibold px-1.5 py-0.5 rounded-full ${t.accentBg} ${t.accent} border ${t.accentBorder}`}>
               Live
             </span>
           </div>
@@ -251,19 +251,19 @@ export default function Hero() {
             {/* KPIs */}
             <div className="grid grid-cols-2 gap-2 shrink-0">
               <div className={`p-1.5 rounded-lg border ${t.divider} ${t.sidebar}`}>
-                <span className={`text-[7px] font-medium uppercase tracking-wider ${t.textMuted} block`}>
+                <span className={`text-xs font-medium uppercase tracking-wider ${t.textMuted} block`}>
                   {cardConfig.kpi1Label}
                 </span>
                 <div className="flex items-baseline gap-0.5 mt-0.5">
                   <span className="text-xs font-bold">{cardConfig.kpi1Value}</span>
-                  <span className={`text-[6.5px] font-bold px-0.5 py-0.2 rounded ${t.accentBg} ${t.accent}`}>
+                  <span className={`text-xs font-bold px-0.5 py-0.2 rounded ${t.accentBg} ${t.accent}`}>
                     {cardConfig.kpi1Trend}
                   </span>
                 </div>
               </div>
               
               <div className={`p-1.5 rounded-lg border ${t.divider} ${t.sidebar}`}>
-                <span className={`text-[7px] font-medium uppercase tracking-wider ${t.textMuted} block`}>
+                <span className={`text-xs font-medium uppercase tracking-wider ${t.textMuted} block`}>
                   {cardConfig.kpi2Label}
                 </span>
                 <span className="text-xs font-bold block mt-0.5">{cardConfig.kpi2Value}</span>
@@ -272,7 +272,7 @@ export default function Hero() {
 
             {/* Area Chart */}
             <div className="my-2 flex-1 flex flex-col justify-center min-h-0">
-              <span className={`text-[7px] font-medium uppercase tracking-wider ${t.textMuted} mb-0.5 block`}>
+              <span className={`text-xs font-medium uppercase tracking-wider ${t.textMuted} mb-0.5 block`}>
                 Analytics Growth
               </span>
               <div className="flex-1 min-h-[50px] max-h-[70px]">
@@ -300,7 +300,7 @@ export default function Hero() {
 
             {/* Footer */}
             <div className={`pt-1.5 border-t ${t.divider} flex items-center justify-between shrink-0`}>
-              <span className={`text-[7px] font-semibold ${t.textMuted}`}>{cardConfig.detailText}</span>
+              <span className={`text-xs font-semibold ${t.textMuted}`}>{cardConfig.detailText}</span>
               <div className="relative w-6 h-6 flex items-center justify-center shrink-0">
                 <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
                   <circle cx="18" cy="18" r="15.915" fill="none" stroke="rgba(0,0,0,0.04)" strokeWidth="4" />
@@ -315,7 +315,7 @@ export default function Hero() {
                     strokeDashoffset="0"
                   />
                 </svg>
-                <span className={`absolute text-[7px] font-bold ${t.text}`}>{cardConfig.donutPercent}</span>
+                <span className={`absolute text-xs font-bold ${t.text}`}>{cardConfig.donutPercent}</span>
               </div>
             </div>
           </div>
@@ -365,20 +365,20 @@ export default function Hero() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] as const }}
-            className="glass px-6 py-1.5 rounded-full text-[11px] font-semibold border border-primary/25 text-primary flex items-center gap-2 shadow-glow-primary mb-6"
+            className="glass px-6 py-1.5 rounded-full text-[11px] font-semibold border border-brand/25 text-brand flex items-center gap-2 shadow-md mb-6"
           >
             <Sparkles className="w-3.5 h-3.5 text-secondary animate-pulse" />
             <span>WHITE-LABEL ANALYTICS INFRASTRUCTURE</span>
           </motion.div>
 
           {/* Heading */}
-          <div className="text-[clamp(36px,8vw,72px)] font-bold tracking-tight text-text-primary mb-6 leading-[1.1] max-w-xl">
+          <div className="text-[clamp(36px,8vw,72px)] font-bold tracking-tight text-text-brand mb-6 leading-[1.1] max-w-xl">
             <RevealText
               text="Analytics that adapts"
               tag="h1"
               trigger="mount"
               delay={0.1}
-              className="text-text-primary font-bold block"
+              className="text-text-brand font-bold block"
             />
             <RevealText
               text="to any brand"
@@ -408,7 +408,7 @@ export default function Hero() {
           >
             <Link
               href="#get-started"
-              className="group relative inline-flex items-center gap-2 px-6 py-3 font-semibold text-white rounded-lg bg-gradient-primary shadow-glow-primary hover:shadow-glow-primary hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 overflow-hidden min-h-[44px]"
+              className="group relative inline-flex items-center gap-2 px-6 py-3 font-semibold text-white rounded-lg bg-brand shadow-md hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 overflow-hidden min-h-[44px]"
             >
               <motion.span
                 initial={{ x: "-150%" }}
@@ -428,7 +428,7 @@ export default function Hero() {
 
             <Link
               href="#demo"
-              className="glass group inline-flex items-center justify-center px-6 py-3 font-medium text-text-primary rounded-lg border border-border-subtle hover:border-primary/30 hover:bg-primary/5 transition-all duration-300"
+              className="glass group inline-flex items-center justify-center px-6 py-3 font-medium text-text-brand rounded-lg border border-border-subtle hover:border-brand/30 hover:bg-brand/5 transition-all duration-300"
             >
               View Live Demo
             </Link>
@@ -442,15 +442,15 @@ export default function Hero() {
             className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-text-secondary/90 font-medium"
           >
             <div className="flex items-center gap-1.5">
-              <Check className="w-3.5 h-3.5 text-primary" strokeWidth={3} />
+              <Check className="w-3.5 h-3.5 text-brand" strokeWidth={3} />
               <span>14-day free trial</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <Check className="w-3.5 h-3.5 text-primary" strokeWidth={3} />
+              <Check className="w-3.5 h-3.5 text-brand" strokeWidth={3} />
               <span>No credit card</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <Check className="w-3.5 h-3.5 text-primary" strokeWidth={3} />
+              <Check className="w-3.5 h-3.5 text-brand" strokeWidth={3} />
               <span>Cancel anytime</span>
             </div>
           </motion.div>
@@ -541,7 +541,7 @@ strokeOpacity="0.25"
                       }}
                       className={`w-full h-full flex rounded-[16px] overflow-hidden border ${t.bg} ${t.text} ${t.border} ${
                         index === 0 
-                          ? "shadow-card border-primary/20" 
+                          ? "shadow-card border-brand/20" 
                           : index === 1
                           ? "shadow-card"
                           : "shadow-card"
@@ -552,10 +552,10 @@ strokeOpacity="0.25"
                         <div className="flex flex-col items-center">
                           {/* Logo */}
                           <div 
-                            className="w-6 h-6 rounded flex items-center justify-center text-white shadow-sm"
+                            className="w-6 h-6 rounded flex items-center justify-center text-text-brand shadow-sm"
                             style={{ backgroundColor: t.logoColor }}
                           >
-                            <Sparkles className="w-3 h-3 text-white" />
+                            <Sparkles className="w-3 h-3 text-text-brand" />
                           </div>
                           
                           {/* Navigation Icons */}
@@ -568,7 +568,7 @@ strokeOpacity="0.25"
                         </div>
                         
                         {/* Profile initials */}
-                        <div className={`w-5 h-5 rounded-full ${t.accentBg} border ${t.accentBorder} flex items-center justify-center text-[7px] font-bold ${t.accent}`}>
+                        <div className={`w-5 h-5 rounded-full ${t.accentBg} border ${t.accentBorder} flex items-center justify-center text-xs font-bold ${t.accent}`}>
                           {cardConfig.avatarText}
                         </div>
                       </div>
@@ -578,7 +578,7 @@ strokeOpacity="0.25"
                         {/* Header Bar */}
                         <div className={`h-[38px] px-3 flex items-center justify-between border-b ${t.divider} shrink-0`}>
                           <span className="text-[10px] font-bold tracking-tight truncate">{cardConfig.title}</span>
-                          <span className={`text-[7px] font-semibold px-1.5 py-0.5 rounded-full ${t.accentBg} ${t.accent} border ${t.accentBorder}`}>
+                          <span className={`text-xs font-semibold px-1.5 py-0.5 rounded-full ${t.accentBg} ${t.accent} border ${t.accentBorder}`}>
                             Live
                           </span>
                         </div>
@@ -589,12 +589,12 @@ strokeOpacity="0.25"
                           <div className="grid grid-cols-2 gap-2 shrink-0">
                             {/* KPI 1 */}
                             <div className={`p-1.5 rounded-lg border ${t.divider} ${t.sidebar}`}>
-                              <span className={`text-[7px] font-medium uppercase tracking-wider ${t.textMuted} block`}>
+                              <span className={`text-xs font-medium uppercase tracking-wider ${t.textMuted} block`}>
                                 {cardConfig.kpi1Label}
                               </span>
                               <div className="flex items-baseline gap-0.5 mt-0.5">
                                 <span className="text-xs font-bold">{cardConfig.kpi1Value}</span>
-                                <span className={`text-[6.5px] font-bold px-0.5 py-0.2 rounded ${t.accentBg} ${t.accent}`}>
+                                <span className={`text-xs font-bold px-0.5 py-0.2 rounded ${t.accentBg} ${t.accent}`}>
                                   {cardConfig.kpi1Trend}
                                 </span>
                               </div>
@@ -602,7 +602,7 @@ strokeOpacity="0.25"
                             
                             {/* KPI 2 */}
                             <div className={`p-1.5 rounded-lg border ${t.divider} ${t.sidebar}`}>
-                              <span className={`text-[7px] font-medium uppercase tracking-wider ${t.textMuted} block`}>
+                              <span className={`text-xs font-medium uppercase tracking-wider ${t.textMuted} block`}>
                                 {cardConfig.kpi2Label}
                               </span>
                               <span className="text-xs font-bold block mt-0.5">{cardConfig.kpi2Value}</span>
@@ -611,7 +611,7 @@ strokeOpacity="0.25"
 
                           {/* Large Area Chart */}
                           <div className="my-2 flex-1 flex flex-col justify-center min-h-0">
-                            <span className={`text-[7px] font-medium uppercase tracking-wider ${t.textMuted} mb-0.5 block`}>
+                            <span className={`text-xs font-medium uppercase tracking-wider ${t.textMuted} mb-0.5 block`}>
                               Analytics Growth
                             </span>
                             <div className="flex-1 min-h-[50px] max-h-[70px]">
@@ -639,7 +639,7 @@ strokeOpacity="0.25"
 
                           {/* Footer */}
                           <div className={`pt-1.5 border-t ${t.divider} flex items-center justify-between shrink-0`}>
-                            <span className={`text-[7px] font-semibold ${t.textMuted}`}>{cardConfig.detailText}</span>
+                            <span className={`text-xs font-semibold ${t.textMuted}`}>{cardConfig.detailText}</span>
                             
                             {/* Mini Donut Chart */}
                             <div className="relative w-6 h-6 flex items-center justify-center shrink-0">
@@ -656,7 +656,7 @@ strokeOpacity="0.25"
                                   strokeDashoffset="0"
                                 />
                               </svg>
-                              <span className={`absolute text-[7px] font-bold ${t.text}`}>{cardConfig.donutPercent}</span>
+                              <span className={`absolute text-xs font-bold ${t.text}`}>{cardConfig.donutPercent}</span>
                             </div>
                           </div>
                         </div>
@@ -680,7 +680,7 @@ strokeOpacity="0.25"
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] as const }}
         >
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-text-primary mb-3">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-text-brand mb-3">
             One platform. Infinite brands.
           </h2>
           <p className="text-text-secondary text-sm sm:text-base max-w-2xl mx-auto mb-16 leading-relaxed">
@@ -755,8 +755,8 @@ strokeOpacity="0.12"
             transition={{ duration: 0.6, delay: 0.1, ease: [0.32, 0.72, 0, 1] as const }}
             className="z-10 w-full max-w-[360px]"
           >
-            <div className="glass border border-border-subtle rounded-2xl p-5 shadow-glow-primary bg-bg-surface/40">
-              <span className="text-[10px] uppercase font-bold text-primary tracking-wider block mb-4">Prism Engine</span>
+            <div className="glass border border-border-subtle rounded-2xl p-5 shadow-md bg-bg-surface/40">
+              <span className="text-[10px] uppercase font-bold text-brand tracking-wider block mb-4">Prism Engine</span>
               <div className="flex gap-4 items-center">
                 {/* Prism visual */}
                 <div className="w-1/3 flex justify-center">
@@ -764,17 +764,17 @@ strokeOpacity="0.12"
                     <polygon points="50,15 15,80 85,80" fill="url(#prismGrad)" opacity="0.8" />
                     <polygon points="50,15 50,80 85,80" fill="url(#prismSideGrad)" opacity="0.6" />
                     <line x1="50" y1="15" x2="15" y2="80" stroke="var(--color-accent)" strokeWidth="1.5" />
-                    <line x1="50" y1="15" x2="85" y2="80" stroke="#ec4899" strokeWidth="1.5" />
-                    <line x1="15" y1="80" x2="85" y2="80" stroke="#6366f1" strokeWidth="1.5" />
-                    <line x1="50" y1="15" x2="50" y2="80" stroke="#ffffff" strokeWidth="1" strokeDasharray="2 2" opacity="0.4" />
+                    <line x1="50" y1="15" x2="85" y2="80" stroke="var(--color-accent)" strokeWidth="1.5" />
+                    <line x1="15" y1="80" x2="85" y2="80" stroke="var(--color-primary)" strokeWidth="1.5" />
+                    <line x1="50" y1="15" x2="50" y2="80" stroke="var(--color-text-primary)" strokeWidth="1" strokeDasharray="2 2" opacity="0.4" />
                     <defs>
                       <linearGradient id="prismGrad" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0%" stopColor="#6366f1" />
-                        <stop offset="100%" stopColor="#a855f7" />
+                        <stop offset="0%" stopColor="var(--color-primary)" />
+<stop offset="100%" stopColor="var(--color-accent)" />
                       </linearGradient>
                       <linearGradient id="prismSideGrad" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0%" stopColor="#ec4899" />
-                        <stop offset="100%" stopColor="#a855f7" />
+                        <stop offset="0%" stopColor="var(--color-accent)" />
+                        <stop offset="100%" stopColor="var(--color-accent)" />
                       </linearGradient>
                     </defs>
                   </svg>
@@ -788,8 +788,8 @@ strokeOpacity="0.12"
                     "Visualization",
                     "Exports & APIs"
                   ].map((text, i) => (
-                    <div key={i} className="flex items-center gap-2 text-[11px] text-text-primary/95 font-medium">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                    <div key={i} className="flex items-center gap-2 text-[11px] text-text-brand/95 font-medium">
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand"></span>
                       <span>{text}</span>
                     </div>
                   ))}
@@ -807,7 +807,7 @@ strokeOpacity="0.12"
             className="z-10 w-full max-w-[330px]"
           >
             <div className="text-center mb-3">
-              <span className="text-[10px] uppercase font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/15">Retail SaaS</span>
+              <span className="text-[10px] uppercase font-bold text-status-success bg-status-success/10 px-2 py-0.5 rounded-full border border-status-success/15">Retail SaaS</span>
             </div>
             <div className="w-full aspect-[1.4] scale-95 border border-border-subtle rounded-2xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] overflow-hidden">
               {renderCardContent(3)}

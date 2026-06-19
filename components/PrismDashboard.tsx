@@ -87,15 +87,15 @@ export default function PrismDashboard({
               <LayoutDashboard className="w-3.5 h-3.5" />
               Overview
             </span>
-            <span className="px-2.5 py-1.5 rounded hover:bg-white/5 cursor-pointer transition-colors flex items-center gap-2 text-[var(--prism-dashboard-text-secondary)] hover:text-[var(--prism-dashboard-text)]">
+            <span className="px-2.5 py-1.5 rounded hover:bg-brand/5 cursor-pointer transition-colors flex items-center gap-2 text-[var(--prism-dashboard-text-secondary)] hover:text-[var(--prism-dashboard-text)]">
               <Users className="w-3.5 h-3.5" />
               Tenants
             </span>
-            <span className="px-2.5 py-1.5 rounded hover:bg-white/5 cursor-pointer transition-colors flex items-center gap-2 text-[var(--prism-dashboard-text-secondary)] hover:text-[var(--prism-dashboard-text)]">
+            <span className="px-2.5 py-1.5 rounded hover:bg-brand/5 cursor-pointer transition-colors flex items-center gap-2 text-[var(--prism-dashboard-text-secondary)] hover:text-[var(--prism-dashboard-text)]">
               <CreditCard className="w-3.5 h-3.5" />
               Billing
             </span>
-            <span className="px-2.5 py-1.5 rounded hover:bg-white/5 cursor-pointer transition-colors flex items-center gap-2 text-[var(--prism-dashboard-text-secondary)] hover:text-[var(--prism-dashboard-text)]">
+            <span className="px-2.5 py-1.5 rounded hover:bg-brand/5 cursor-pointer transition-colors flex items-center gap-2 text-[var(--prism-dashboard-text-secondary)] hover:text-[var(--prism-dashboard-text)]">
               <Settings className="w-3.5 h-3.5" />
               Settings
             </span>
@@ -334,7 +334,7 @@ export default function PrismDashboard({
               color: "var(--prism-button-text)",
               borderRadius: "var(--prism-button-radius)",
             }}
-            className="flex-1 py-2 text-xs font-semibold shadow-md active:scale-[0.98] transition-all duration-150 focus:outline-none text-center justify-center flex items-center hover:brightness-110"
+            className="flex-1 py-2 text-xs font-semibold shadow-md active:scale-[0.98] transition-all duration-150 focus:outline-none text-center justify-center flex items-center hover:opacity-90"
           >
             Export Report
           </button>
@@ -357,19 +357,20 @@ export default function PrismDashboard({
           className="absolute inset-0 z-50 flex items-center justify-center bg-black/65 backdrop-blur-md transition-all duration-300"
           style={{ borderRadius: "var(--prism-card-radius)" }}
         >
-          <div className="bg-[#111827] border border-border-subtle p-5 rounded-2xl w-[90%] max-w-xs shadow-2xl relative flex flex-col gap-4 text-left">
+          <div className="bg-[var(--prism-card-bg)] border border-border-subtle p-5 rounded-2xl w-[90%] max-w-xs shadow-2xl relative flex flex-col gap-4 text-left">
             <button
-              onClick={() => setShowExportModal(false)}
-              className="absolute top-3 right-3 p-1 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors"
-            >
-              <X className="w-4 h-4" />
-            </button>
+  aria-label="Close modal"
+  onClick={() => setShowExportModal(false)}
+  className="absolute top-3 right-3 p-1 rounded-full ..."
+>
+  <X className="w-4 h-4" />
+</button>
             
             {!isExporting && !exportSuccess && (
               <>
                 <div className="flex flex-col">
-                  <span className="text-xs font-bold text-white flex items-center gap-1.5">
-                    <Download className="w-4 h-4 text-primary" /> Export Platform Report
+                  <span className="text-xs font-bold text-text-brand flex items-center gap-1.5">
+                    <Download className="w-4 h-4 text-brand" /> Export Platform Report
                   </span>
                   <span className="text-[10px] text-text-secondary mt-1">
                     Select target compile format for dashboard metrics.
@@ -378,27 +379,29 @@ export default function PrismDashboard({
                 
                 <div className="flex flex-col gap-2">
                   <button
+                    aria-label="Export report as CSV"
                     onClick={() => handleExport("csv")}
-                    className="p-3 rounded-xl border border-border-subtle bg-white/5 hover:bg-white/10 hover:border-border-subtle flex items-center gap-3 transition-all text-left"
+                    className="p-3 rounded-xl border border-border-subtle bg-bg-base/5 flex items-center gap-3 text-left hover-semantic-button"
                   >
-                    <div className="w-8 h-8 rounded bg-[#10B981]/15 text-[#10B981] flex items-center justify-center">
+                    <div className="w-8 h-8 rounded bg-[var(--color-success)]/15 text-[var(--color-success)] flex items-center justify-center">
                       <FileText className="w-4 h-4" />
                     </div>
                     <div>
-                      <div className="text-[11px] font-semibold text-white">Export to CSV</div>
+                      <div className="text-[11px] font-semibold text-text-brand">Export to CSV</div>
                       <div className="text-[9px] text-text-secondary">Raw tabular metrics file (.csv)</div>
                     </div>
                   </button>
 
                   <button
+                    aria-label="Export report as PDF"
                     onClick={() => handleExport("pdf")}
-                    className="p-3 rounded-xl border border-border-subtle bg-white/5 hover:bg-white/10 hover:border-border-subtle flex items-center gap-3 transition-all text-left"
+                    className="p-3 rounded-xl border border-border-subtle bg-bg-base/5 hover:bg-brand/10 hover:border-border-subtle flex items-center gap-3 transition-all text-left"
                   >
-                    <div className="w-8 h-8 rounded bg-[#EF4444]/15 text-[#EF4444] flex items-center justify-center">
+                    <div className="w-8 h-8 rounded bg-[var(--prism-semantic-accent)]/15 text-[var(--prism-semantic-accent)] flex items-center justify-center">
                       <FileText className="w-4 h-4" />
                     </div>
                     <div>
-                      <div className="text-[11px] font-semibold text-white">Export to PDF</div>
+                      <div className="text-[11px] font-semibold text-text-brand">Export to PDF</div>
                       <div className="text-[9px] text-text-secondary">Printable canvas vectors document (.pdf)</div>
                     </div>
                   </button>
@@ -408,9 +411,9 @@ export default function PrismDashboard({
 
             {isExporting && (
               <div className="py-6 flex flex-col items-center justify-center gap-4 text-center">
-                <Loader2 className="w-8 h-8 text-primary animate-spin" />
+                <Loader2 className="w-8 h-8 text-brand animate-spin" />
                 <div>
-                  <div className="text-xs font-bold text-white uppercase tracking-wider">
+                  <div className="text-xs font-bold text-text-brand uppercase tracking-wider">
                     Compiling {isExporting.toUpperCase()}...
                   </div>
                   <div className="text-[9px] text-text-secondary mt-1">
@@ -422,9 +425,9 @@ export default function PrismDashboard({
 
             {exportSuccess && (
               <div className="py-6 flex flex-col items-center justify-center gap-4 text-center">
-                <CheckCircle2 className="w-8 h-8 text-[#10B981] animate-bounce" />
+                <CheckCircle2 className="w-8 h-8 text-[var(--color-success)] animate-bounce" />
                 <div>
-                  <div className="text-xs font-bold text-white uppercase tracking-wider">
+                  <div className="text-xs font-bold text-text-brand uppercase tracking-wider">
                     File Download Started!
                   </div>
                   <div className="text-[9px] text-text-secondary mt-1">

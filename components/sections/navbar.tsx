@@ -54,10 +54,10 @@ export default function Navbar() {
                 <defs>
                   <linearGradient id="prism-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="var(--color-primary)" />
-                    <stop offset="100%" stopColor="var(--color-accent-2)" />
+                    <stop offset="100%" stopColor="var(--color-accent)" />
                   </linearGradient>
                   <linearGradient id="prism-grad-2" x1="0%" y1="100%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="var(--color-accent-2)" />
+                    <stop offset="0%" stopColor="var(--color-accent)" />
                     <stop offset="100%" stopColor="var(--color-primary)" />
                   </linearGradient>
                 </defs>
@@ -100,7 +100,7 @@ export default function Navbar() {
             {/* Admin Portal Button */}
             <Link
               href="/admin"
-              className="flex items-center gap-2 bg-primary text-white px-5 py-2 rounded-lg"
+              className="flex items-center gap-2 bg-primary text-text-on-primary px-5 py-2 rounded-lg"
             >
               <LayoutDashboard size={16} />
               Admin Portal
@@ -113,24 +113,25 @@ export default function Navbar() {
             </Link>
             <Link
               href="#book-demo"
-              className="group relative inline-flex items-center justify-center px-7 py-2 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-primary to-tertiary transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
+              className="group relative inline-flex items-center justify-center px-7 py-2 text-sm font-medium text-text-on-primary rounded-lg bg-gradient-to-r from-primary to-tertiary transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
               style={{
                 boxShadow: "0 0 15px rgba(99, 102, 241, 0.3)",
               }}
             >
               {/* Soft Pulsing Ambient Glow Background */}
-              <div className="absolute inset-0 -z-10 bg-gradient-to-r from-primary to-tertiary opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md" />
+              <div className="absolute inset-0 -z-10 bg-gradient-to-r from-brand/20 to-transparent opacity-0 group-hover:opacity-30 transition-opacity duration-500 blur-sm" />
               Book a Demo
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="flex md:hidden p-2 text-text-secondary hover:text-text-primary focus:outline-none"
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+  aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+  className="flex md:hidden p-2 text-text-secondary hover:text-text-primary focus:outline-none"
+>
+  {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+</button>
         </div>
       </motion.header>
 
@@ -160,7 +161,7 @@ export default function Navbar() {
               <Link
                 href="/admin"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-2 bg-primary text-white px-5 py-2 rounded-lg"
+                className="flex items-center gap-2 bg-primary text-text-on-primary px-5 py-2 rounded-lg"
               >
                 <LayoutDashboard size={16} />
                 Admin Portal
@@ -175,7 +176,7 @@ export default function Navbar() {
               <Link
                 href="#book-demo"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-primary to-tertiary"
+                className="flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-medium text-text-on-primary rounded-lg bg-gradient-to-r from-primary to-tertiary"
               >
                 Book a Demo
               </Link>

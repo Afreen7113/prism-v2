@@ -4,8 +4,9 @@ import React, { useState, useEffect } from "react";
 import {
   BarChart3, X, Clipboard, Check, Code2, LineChart, PieChart,
   ChevronDown, Search, Download, Calendar, Grid3X3, Play,
-  Share2, FileDown
+  Share2, FileDown, Library
 } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 import {
   DndContext,
   DragOverlay,
@@ -72,11 +73,11 @@ function FieldChip({ id, label, type, emoji }: FieldChipProps) {
       {...attributes}
       className={`px-3 py-2 rounded-lg border text-xs font-bold flex items-center gap-2 transition-all select-none ${
         type === "metric"
-          ? "bg-success/10 border-success text-success hover:bg-success/25"
-          : "bg-[#3B82F6]/10 border-[#3B82F6] text-blue-400 hover:bg-[#3B82F6]/25"
+          ? "bg-status-success/10 border-success text-status-success hover:bg-status-success/25"
+          : "bg-info/10 border-info text-info hover:bg-info/25"
       } ${
         isDragging
-          ? "opacity-40 scale-95 cursor-grabbing border-primary"
+          ? "opacity-40 scale-95 cursor-grabbing border-brand"
           : "cursor-grab hover:scale-[1.02] hover:shadow-md active:cursor-grabbing"
       }`}
     >
@@ -115,11 +116,11 @@ function DropZone({ id, label, accepts, items, onRemove, flashWarning }: DropZon
           isEmpty && !isOver
             ? "bg-bg-elevated/10 border-dashed border-border-subtle"
             : isOver
-            ? "border-solid border-primary bg-primary/15 shadow-glow-primary"
+            ? "border-solid border-brand bg-brand/15 shadow-md"
             : "bg-bg-surface border-solid border-border-subtle"
         } ${
           flashWarning
-            ? "border-error bg-error/10 animate-shake"
+            ? "border-error bg-status-error/10 animate-shake"
             : ""
         }`}
       >
@@ -136,7 +137,7 @@ function DropZone({ id, label, accepts, items, onRemove, flashWarning }: DropZon
         )}
 
         {isOver && isEmpty && (
-          <span className="text-xs text-primary font-bold w-full text-center py-5 pointer-events-none select-none">
+          <span className="text-xs text-brand font-bold w-full text-center py-5 pointer-events-none select-none">
             Release to drop
           </span>
         )}
@@ -146,24 +147,25 @@ function DropZone({ id, label, accepts, items, onRemove, flashWarning }: DropZon
             key={item.id}
             className={`px-2.5 py-1.5 rounded-md border text-xs font-bold flex items-center gap-1.5 select-none ${
               item.type === "metric"
-                ? "bg-success/15 border-success text-success"
-                : "bg-[#3B82F6]/15 border-[#3B82F6] text-blue-400"
+                ? "bg-status-success/15 border-success text-status-success"
+                : "bg-info/15 border-info text-info"
             }`}
           >
             <span>{item.emoji}</span>
             <span>{item.label}</span>
             <button
-              type="button"
-              onClick={() => onRemove(item.id)}
-              className="text-text-muted hover:text-text-primary transition-colors cursor-pointer"
-            >
-              <X className="w-3 h-3" />
-            </button>
+  type="button"
+  aria-label="Remove field"
+  onClick={() => onRemove(item.id)}
+  className="text-text-muted hover:text-text-brand transition-colors cursor-pointer"
+>
+  <X className="w-3 h-3" />
+</button>
           </div>
         ))}
 
         {flashWarning && (
-          <div className="absolute top-2.5 right-2.5 bg-error text-white text-[9px] font-bold py-0.5 px-2 rounded shadow-md z-50 animate-pulse">
+          <div className="absolute top-2.5 right-2.5 bg-status-error text-text-brand text-[9px] font-bold py-0.5 px-2 rounded shadow-md z-50 animate-pulse">
             {flashWarning}
           </div>
         )}
@@ -222,7 +224,7 @@ export default function ChartBuilder() {
 
   // Embed Modal State
   const [showEmbedModal, setShowEmbedModal] = useState(false);
-  const [embedCopied, setEmbedCopied] = useState<"react" | "html" | null>(null);
+  const [embedCopied, setEmbedCopied] = useState<"react" | "html" | "vue" | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -378,10 +380,10 @@ export default function ChartBuilder() {
 
   const getColorPalette = (idx: number, scheme: string) => {
     const palettes: Record<string, string[]> = {
-      default: ["#6366F1", "#A855F7", "#10B981", "#3B82F6", "#EC4899"],
-      categorical: ["#6366F1", "#10B981", "#3B82F6", "#F59E0B", "#EC4899", "#8B5CF6", "#06B6D4"],
-      sequential: ["#312E81", "#3730A3", "#4338CA", "#4F46E5", "#6366F1", "#818CF8", "#A5B4FC"],
-      diverging: ["#EF4444", "#F87171", "#FCA5A5", "#E2E8F0", "#86EFAC", "#4ADE80", "#22C55E"]
+      default: ["var(--color-primary)","var(--color-info)", "var(--color-success)", "var(--color-border-default)", "var(--color-accent)"],
+      categorical: ["var(--color-primary)", "var(--color-success)", "var(--color-border-default)", "var(--color-info)", "var(--color-accent)", "var(--color-text-muted)", "var(--color-text-secondary)"],
+      sequential: ["var(--color-text-primary)", "var(--color-text-secondary)", "var(--color-text-muted)", "var(--color-border-subtle)", "var(--color-primary)", "var(--color-accent)", "var(--color-border-default)"],
+      diverging: ["var(--color-error)", "var(--color-warning)", "var(--color-text-muted)", "var(--color-border-subtle)", "var(--color-success)", "var(--color-info)", "var(--color-primary)"]
     };
     const activePalette = palettes[scheme] || palettes.default;
     return activePalette[idx % activePalette.length];
@@ -449,7 +451,7 @@ export default function ChartBuilder() {
     d.label.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const copyEmbed = (type: "react" | "html") => {
+  const copyEmbed = (type: "react" | "html" | "vue") => {
     let text = "";
     const metricsParam = yAxis.map(y => y.id).join(",");
     const xParam = xAxis.length > 0 ? xAxis[0].id : "";
@@ -511,7 +513,7 @@ export default function ChartBuilder() {
       <div className="flex flex-col gap-4 text-left">
         {/* Page Titles */}
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-text-primary">Self-Serve Chart Builder</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-text-brand">Self-Serve Chart Builder</h1>
           <p className="text-sm text-text-secondary mt-1">
             Build bespoke reporting widgets by dragging metrics and dimensions into visual dropzones.
           </p>
@@ -534,7 +536,7 @@ export default function ChartBuilder() {
                 placeholder="Search metrics & categories..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-bg-elevated border border-border-subtle pl-9 pr-3.5 py-2 rounded-xl text-xs text-text-primary focus:outline-none focus:border-primary placeholder-text-muted font-medium"
+                className="w-full bg-bg-elevated border border-border-subtle pl-9 pr-3.5 py-2 rounded-xl text-xs text-text-brand focus:outline-none focus:border-brand placeholder-text-muted font-medium"
               />
               <Search className="w-4 h-4 text-text-muted absolute left-3 top-2.5" />
             </div>
@@ -610,8 +612,8 @@ export default function ChartBuilder() {
                       onClick={() => setChartType(item.id as "Bar" | "Line" | "Area" | "Donut" | "Table")}
                       className={`flex-1 min-w-[80px] flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
                         isActive
-                          ? "bg-primary text-white shadow-lg shadow-primary/10"
-                          : "text-text-secondary hover:text-text-primary hover:bg-bg-surface/40"
+                          ? "bg-brand text-text-on-primary shadow-lg shadow-primary/10"
+                          : "text-text-secondary hover:text-text-brand hover:bg-bg-surface/40"
                       }`}
                     >
                       <Icon className="w-3.5 h-3.5" />
@@ -668,7 +670,7 @@ export default function ChartBuilder() {
               <div className="flex justify-end pt-2 border-t border-border-subtle/50">
                 <button
                   onClick={handleResetCanvas}
-                  className="text-[10px] font-extrabold text-text-muted hover:text-primary transition-colors cursor-pointer"
+                  className="text-[10px] font-extrabold text-text-muted hover:text-brand transition-colors cursor-pointer"
                 >
                   Clear Config Layout
                 </button>
@@ -683,20 +685,20 @@ export default function ChartBuilder() {
               {/* Header */}
               <div className="flex justify-between items-start border-b border-border-subtle/50 pb-3 z-10">
                 <div>
-                  <h3 className="text-sm font-bold text-text-primary">Chart Preview</h3>
+                  <h3 className="text-sm font-bold text-text-brand">Chart Preview</h3>
                   <span className="text-[10px] text-text-secondary font-semibold capitalize tracking-wide block mt-0.5">
                     {getPreviewSubtitle()}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   {hasData && (
-                    <div className="flex items-center gap-1.5 border border-border-subtle rounded-md px-2 py-0.5 bg-bg-base/50 text-[10px] text-text-secondary cursor-pointer hover:text-text-primary transition-colors">
+                    <div className="flex items-center gap-1.5 border border-border-subtle rounded-md px-2 py-0.5 bg-bg-base/50 text-[10px] text-text-secondary cursor-pointer hover:text-text-brand transition-colors">
                       <Download className="w-3 h-3" />
                       <span className="font-medium">Export</span>
                     </div>
                   )}
                   {hasData && (
-                    <span className="text-[9px] uppercase font-bold text-success bg-success/10 border border-success/25 px-2 py-0.5 rounded-full select-none">
+                    <span className="text-[9px] uppercase font-bold text-status-success bg-status-success/10 border border-success/25 px-2 py-0.5 rounded-full select-none">
                       Render Live
                     </span>
                   )}
@@ -708,7 +710,7 @@ export default function ChartBuilder() {
                 {!hasData ? (
                   <div className="h-full flex flex-col items-center justify-center text-center max-w-[280px] mx-auto">
                     <div className="text-3xl mb-3 animate-bounce">📊</div>
-                    <span className="text-xs font-bold text-text-primary uppercase tracking-wide">Build your view</span>
+                    <span className="text-xs font-bold text-text-brand uppercase tracking-wide">No data selected</span>
                     <span className="text-[10px] text-text-muted mt-1 font-semibold leading-normal">
                       Drag metrics to the Y-Axis dropzone and dimensions to the X-Axis dropzone to start visual aggregation.
                     </span>
@@ -742,10 +744,10 @@ export default function ChartBuilder() {
                                         borderRadius: "4px 4px 0 0",
                                         minHeight: "8px"
                                       }}
-                                      className="w-full relative group-hover:brightness-110 transition-all duration-300"
+                                      className="w-full relative group-hover:opacity-90 transition-all duration-300"
                                     />
                                     {showDataLabels && (
-                                      <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-[8px] font-extrabold text-text-primary whitespace-nowrap bg-bg-surface/90 px-1 py-0.5 rounded shadow">
+                                      <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-[8px] font-extrabold text-text-brand whitespace-nowrap bg-bg-surface/90 px-1 py-0.5 rounded shadow">
                                         {ds.prefix}{ds.data[cIdx]}{ds.suffix}
                                       </span>
                                     )}
@@ -798,7 +800,7 @@ export default function ChartBuilder() {
                                       cy={y}
                                       r="4"
                                       fill={ds.color}
-                                      stroke="rgba(15,23,42,0.9)"
+                                      stroke="var(--color-bg-base)"
                                       strokeWidth="1.5"
                                     />
                                   );
@@ -871,7 +873,7 @@ export default function ChartBuilder() {
                       <div className="flex-1 flex items-center justify-center py-4 gap-8">
                         <div className="relative w-40 h-40 shrink-0">
                           <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                            <path className="text-slate-700/20" stroke="currentColor" strokeWidth="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path className="text-text-secondary/20" stroke="currentColor" strokeWidth="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                             {categories.map((cat, cIdx) => {
                               const totalVal = datasets[0]?.data.reduce((a, b) => a + b, 0) || 1;
                               const currentVal = datasets[0]?.data[cIdx] || 0;
@@ -898,7 +900,7 @@ export default function ChartBuilder() {
                             })}
                           </svg>
                           <div className="absolute inset-0 flex flex-col items-center justify-center">
-                            <span className="text-[18px] font-black text-text-primary">Breakdown</span>
+                            <span className="text-[18px] font-black text-text-brand">Breakdown</span>
                             <span className="text-[9px] text-text-secondary uppercase font-extrabold tracking-wider">{xAxis[0].label}</span>
                           </div>
                         </div>
@@ -914,7 +916,7 @@ export default function ChartBuilder() {
                               <div key={cIdx} className="flex items-center gap-2 text-[10px] font-semibold text-text-secondary">
                                 <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: strokeColor }} />
                                 <span className="truncate max-w-[80px]">{cat}:</span>
-                                <span className="text-text-primary font-bold">{pctShare}%</span>
+                                <span className="text-text-brand font-bold">{pctShare}%</span>
                               </div>
                             );
                           })}
@@ -936,10 +938,10 @@ export default function ChartBuilder() {
                           </thead>
                           <tbody>
                             {categories.map((catVal, cIdx) => (
-                              <tr key={cIdx} className="border-b border-border-subtle/50 last:border-0 hover:bg-white/[0.01]">
-                                <td className="py-2 px-2.5 font-bold text-text-primary">{catVal}</td>
+                              <tr key={cIdx} className="border-b border-border-subtle/50 last:border-0 hover:bg-bg-base/[0.01]">
+                                <td className="py-2 px-2.5 font-bold text-text-brand">{catVal}</td>
                                 {datasets.map((ds, dIdx) => (
-                                  <td key={dIdx} className="py-2 px-2.5 text-right font-mono font-semibold text-text-primary">
+                                  <td key={dIdx} className="py-2 px-2.5 text-right font-mono font-semibold text-text-brand">
                                     {ds.prefix}{ds.data[cIdx].toLocaleString()}{ds.suffix}
                                   </td>
                                 ))}
@@ -994,7 +996,7 @@ export default function ChartBuilder() {
                   type="text"
                   value={chartTitle}
                   onChange={(e) => setChartTitle(e.target.value)}
-                  className="w-full bg-bg-elevated border border-border-subtle px-3 py-2 rounded-xl text-xs text-text-primary focus:outline-none focus:border-primary font-medium"
+                  className="w-full bg-bg-elevated border border-border-subtle px-3 py-2 rounded-xl text-xs text-text-brand focus:outline-none focus:border-brand font-medium"
                 />
               </div>
 
@@ -1004,7 +1006,7 @@ export default function ChartBuilder() {
                   <select
                     value={colorScheme}
                     onChange={(e) => setColorScheme(e.target.value)}
-                    className="w-full bg-bg-elevated border border-border-subtle p-2.5 rounded-xl text-xs text-text-primary focus:outline-none focus:border-primary appearance-none cursor-pointer font-medium"
+                    className="w-full bg-bg-elevated border border-border-subtle p-2.5 rounded-xl text-xs text-text-brand focus:outline-none focus:border-brand appearance-none cursor-pointer font-medium"
                   >
                     <option value="default">Default Palette</option>
                     <option value="categorical">Categorical (Distinct)</option>
@@ -1058,7 +1060,7 @@ export default function ChartBuilder() {
                     placeholder="Auto"
                     value={xAxisLabel}
                     onChange={(e) => setXAxisLabel(e.target.value)}
-                    className="w-full bg-bg-elevated border border-border-subtle px-3 py-2 rounded-xl text-xs text-text-primary focus:outline-none focus:border-primary font-medium"
+                    className="w-full bg-bg-elevated border border-border-subtle px-3 py-2 rounded-xl text-xs text-text-brand focus:outline-none focus:border-brand font-medium"
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
@@ -1068,7 +1070,7 @@ export default function ChartBuilder() {
                     placeholder="Auto"
                     value={yAxisLabel}
                     onChange={(e) => setYAxisLabel(e.target.value)}
-                    className="w-full bg-bg-elevated border border-border-subtle px-3 py-2 rounded-xl text-xs text-text-primary focus:outline-none focus:border-primary font-medium"
+                    className="w-full bg-bg-elevated border border-border-subtle px-3 py-2 rounded-xl text-xs text-text-brand focus:outline-none focus:border-brand font-medium"
                   />
                 </div>
               </div>
@@ -1079,7 +1081,7 @@ export default function ChartBuilder() {
                   <select
                     value={yAxisFormat}
                     onChange={(e) => setYAxisFormat(e.target.value)}
-                    className="w-full bg-bg-elevated border border-border-subtle p-2.5 rounded-xl text-xs text-text-primary focus:outline-none focus:border-primary appearance-none cursor-pointer font-medium"
+                    className="w-full bg-bg-elevated border border-border-subtle p-2.5 rounded-xl text-xs text-text-brand focus:outline-none focus:border-brand appearance-none cursor-pointer font-medium"
                   >
                     <option value="number">Numeric Formatting</option>
                     <option value="currency">Currency ($)</option>
@@ -1101,7 +1103,7 @@ export default function ChartBuilder() {
                   <select
                     value={dateRange}
                     onChange={(e) => setDateRange(e.target.value)}
-                    className="w-full bg-bg-elevated border border-border-subtle p-2.5 pl-9 rounded-xl text-xs text-text-primary focus:outline-none focus:border-primary appearance-none cursor-pointer font-medium"
+                    className="w-full bg-bg-elevated border border-border-subtle p-2.5 pl-9 rounded-xl text-xs text-text-brand focus:outline-none focus:border-brand appearance-none cursor-pointer font-medium"
                   >
                     <option value="7">Last 7 days</option>
                     <option value="30">Last 30 days</option>
@@ -1120,7 +1122,7 @@ export default function ChartBuilder() {
                     <select
                       value={aggregation}
                       onChange={(e) => setAggregation(e.target.value)}
-                      className="w-full bg-bg-elevated border border-border-subtle p-2 rounded-xl text-xs text-text-primary focus:outline-none focus:border-primary appearance-none cursor-pointer font-medium"
+                      className="w-full bg-bg-elevated border border-border-subtle p-2 rounded-xl text-xs text-text-brand focus:outline-none focus:border-brand appearance-none cursor-pointer font-medium"
                     >
                       <option value="sum">Sum</option>
                       <option value="avg">Average</option>
@@ -1136,7 +1138,7 @@ export default function ChartBuilder() {
                     type="number"
                     value={limitResults}
                     onChange={(e) => setLimitResults(Number(e.target.value))}
-                    className="w-full bg-bg-elevated border border-border-subtle px-3 py-1.5 rounded-xl text-xs text-text-primary focus:outline-none focus:border-primary font-medium"
+                    className="w-full bg-bg-elevated border border-border-subtle px-3 py-1.5 rounded-xl text-xs text-text-brand focus:outline-none focus:border-brand font-medium"
                   />
                 </div>
               </div>
@@ -1144,29 +1146,37 @@ export default function ChartBuilder() {
 
             {/* SECTION 4: EXPORT ACTIONS */}
             <div className="flex flex-col gap-3">
-              <button className="w-full py-2.5 rounded-xl text-xs font-bold bg-primary text-white hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/10 cursor-pointer">
-                <Play className="w-4 h-4" />
-                <span>Save Widget View</span>
-              </button>
-
               <div className="grid grid-cols-2 gap-2.5">
-                <button className="py-2 border border-border-subtle rounded-xl text-[10px] font-bold text-text-primary hover:bg-bg-elevated/40 transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
-                  <FileDown className="w-3.5 h-3.5 text-primary" />
-                  <span>Export Image</span>
-                </button>
-                <button className="py-2 border border-border-subtle rounded-xl text-[10px] font-bold text-text-primary hover:bg-bg-elevated/40 transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
-                  <FileDown className="w-3.5 h-3.5 text-success" />
-                  <span>Export Data</span>
-                </button>
+                <Button variant="primary" size="sm" onClick={() => {}} className="w-full text-xs shadow-lg shadow-brand/20">
+                  <Play className="w-3.5 h-3.5 mr-2" />
+                  Save Widget
+                </Button>
+                <Button variant="outline" size="sm" onClick={() => {}} className="w-full text-xs">
+                  <Library className="w-3.5 h-3.5 mr-2" />
+                  Widget Library
+                </Button>
               </div>
 
-              <button
+              <div className="grid grid-cols-3 gap-2.5">
+                <Button variant="secondary" size="sm" className="w-full text-[10px]">
+                  <FileDown className="w-3.5 h-3.5 mr-1 text-brand" /> PNG
+                </Button>
+                <Button variant="secondary" size="sm" className="w-full text-[10px]">
+                  <FileDown className="w-3.5 h-3.5 mr-1 text-status-success" /> SVG
+                </Button>
+                <Button variant="secondary" size="sm" className="w-full text-[10px]">
+                  <FileDown className="w-3.5 h-3.5 mr-1 text-status-warning" /> PDF
+                </Button>
+              </div>
+
+              <Button
+                variant="outline"
                 onClick={() => setShowEmbedModal(true)}
-                className="w-full py-2 border border-border-subtle hover:border-primary/30 rounded-xl text-xs font-bold text-primary hover:text-text-primary hover:bg-primary/5 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full text-xs font-bold text-brand hover:text-text-brand border-brand/30 hover:border-brand/50 hover:bg-brand/5"
               >
-                <Share2 className="w-4 h-4" />
-                <span>Get Integration Code</span>
-              </button>
+                <Share2 className="w-4 h-4 mr-2" />
+                Generate Embed Code
+              </Button>
             </div>
           </div>
 
@@ -1176,10 +1186,10 @@ export default function ChartBuilder() {
         <DragOverlay>
           {activeDragId && activeDragData ? (
             <div
-              className={`px-3.5 py-2 rounded-lg border text-xs font-extrabold flex items-center gap-2 shadow-2xl opacity-90 scale-105 select-none w-fit shrink-0 cursor-grabbing border-primary ${
+              className={`px-3.5 py-2 rounded-lg border text-xs font-extrabold flex items-center gap-2 shadow-2xl opacity-90 scale-105 select-none w-fit shrink-0 cursor-grabbing border-brand ${
                 activeDragData.type === "metric"
-                  ? "bg-success/15 text-success"
-                  : "bg-[#3B82F6]/15 text-blue-400"
+                  ? "bg-status-success/15 text-status-success"
+                  : "bg-info/15 text-info"
               }`}
             >
               <span>{activeDragData.emoji}</span>
@@ -1190,35 +1200,36 @@ export default function ChartBuilder() {
 
         {/* EMBED CODE MODAL */}
         {showEmbedModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0A0A0A]/70 backdrop-blur-sm p-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-bg-elevated/70 backdrop-blur-sm p-4">
             <div className="bg-bg-surface border border-border-subtle p-6 rounded-2xl w-full max-w-xl shadow-2xl relative flex flex-col gap-5">
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="text-lg font-bold text-text-primary">Get Embed Code</h3>
+                  <h3 className="text-lg font-bold text-text-brand">Get Embed Code</h3>
                   <p className="text-xs text-text-secondary mt-0.5">Integrate this custom compiled chart into your developer platforms.</p>
                 </div>
-                <button
-                  onClick={() => setShowEmbedModal(false)}
-                  className="p-1 rounded-lg hover:bg-bg-elevated text-text-muted hover:text-text-primary transition-colors cursor-pointer"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+<button
+  aria-label="Close modal"
+  onClick={() => setShowEmbedModal(false)}
+  className="p-1 rounded-lg hover:bg-bg-elevated text-text-muted hover:text-text-brand transition-colors cursor-pointer"
+>
+  <X className="w-5 h-5" />
+</button>
               </div>
 
               <div className="flex flex-col gap-1.5 text-left">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-bold text-text-secondary flex items-center gap-1.5">
-                    <Code2 className="w-4 h-4 text-primary" /> React Component Integration
+                    <Code2 className="w-4 h-4 text-brand" /> React Component Integration
                   </span>
                   <button
                     onClick={() => copyEmbed("react")}
-                    className="text-[10px] font-extrabold text-primary hover:text-text-primary transition-colors flex items-center gap-1 cursor-pointer"
+                    className="text-[10px] font-extrabold text-brand hover:text-text-brand transition-colors flex items-center gap-1 cursor-pointer"
                   >
-                    {embedCopied === "react" ? <Check className="w-3.5 h-3.5 text-success" /> : <Clipboard className="w-3.5 h-3.5" />}
+                    {embedCopied === "react" ? <Check className="w-3.5 h-3.5 text-status-success" /> : <Clipboard className="w-3.5 h-3.5" />}
                     Copy Snippet
                   </button>
                 </div>
-                <div className="bg-[#0A0A0A] p-3.5 rounded-xl border border-border-subtle font-mono text-[10px] text-success max-h-[140px] overflow-y-auto hide-scrollbar">
+                <div className="bg-bg-elevated p-3.5 rounded-xl border border-border-subtle font-mono text-[10px] text-status-success max-h-[140px] overflow-y-auto hide-scrollbar">
                   <pre>{`<PrismComposer
   chartType="${chartType}"
   metrics={[${yAxis.map(y => `"${y.id}"`).join(", ")}]}
@@ -1234,20 +1245,51 @@ export default function ChartBuilder() {
                 </div>
               </div>
 
+              <div className="flex flex-col gap-1.5 text-left mt-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-text-secondary flex items-center gap-1.5">
+                    <Code2 className="w-4 h-4 text-status-warning" /> Vue Component Integration
+                  </span>
+                  <button
+                    onClick={() => copyEmbed("vue")}
+                    className="text-[10px] font-extrabold text-brand hover:text-text-brand transition-colors flex items-center gap-1 cursor-pointer"
+                  >
+                    {embedCopied === "vue" ? <Check className="w-3.5 h-3.5 text-status-success" /> : <Clipboard className="w-3.5 h-3.5" />}
+                    Copy Snippet
+                  </button>
+                </div>
+                <div className="bg-bg-elevated p-3.5 rounded-xl border border-border-subtle font-mono text-[10px] text-status-warning max-h-[140px] overflow-y-auto hide-scrollbar">
+                  <pre>{`<template>
+  <PrismComposer
+    chartType="${chartType}"
+    :metrics="[${yAxis.map(y => `'${y.id}'`).join(", ")}]"
+    dimension="${xAxis.length > 0 ? xAxis[0].id : ""}"
+    groupBy="${groupBy.length > 0 ? groupBy[0].id : ""}"
+    :properties="{
+      title: '${chartTitle}',
+      colorScheme: '${colorScheme}',
+      showLegend: ${showLegend},
+      showGridlines: ${showGridlines}
+    }"
+  />
+</template>`}</pre>
+                </div>
+              </div>
+
               <div className="flex flex-col gap-1.5 text-left">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-bold text-text-secondary flex items-center gap-1.5">
-                    <Share2 className="w-4 h-4 text-primary" /> Raw HTML Iframe Link
+                    <Share2 className="w-4 h-4 text-brand" /> Raw HTML Iframe Link
                   </span>
                   <button
                     onClick={() => copyEmbed("html")}
-                    className="text-[10px] font-extrabold text-primary hover:text-text-primary transition-colors flex items-center gap-1 cursor-pointer"
+                    className="text-[10px] font-extrabold text-brand hover:text-text-brand transition-colors flex items-center gap-1 cursor-pointer"
                   >
-                    {embedCopied === "html" ? <Check className="w-3.5 h-3.5 text-success" /> : <Clipboard className="w-3.5 h-3.5" />}
+                    {embedCopied === "html" ? <Check className="w-3.5 h-3.5 text-status-success" /> : <Clipboard className="w-3.5 h-3.5" />}
                     Copy Link
                   </button>
                 </div>
-                <div className="bg-[#0A0A0A] p-3.5 rounded-xl border border-border-subtle font-mono text-[10px] text-text-primary max-h-[100px] overflow-y-auto break-all hide-scrollbar">
+                <div className="bg-bg-elevated p-3.5 rounded-xl border border-border-subtle font-mono text-[10px] text-text-brand max-h-[100px] overflow-y-auto break-all hide-scrollbar">
                   <code>{`<iframe src="https://cdn.prism.dev/embed/composer?type=${chartType.toLowerCase()}&metrics=${encodeURIComponent(yAxis.map(y => y.id).join(","))}&dimension=${encodeURIComponent(xAxis.length > 0 ? xAxis[0].id : "")}&groupBy=${encodeURIComponent(groupBy.length > 0 ? groupBy[0].id : "")}&title=${encodeURIComponent(chartTitle)}" width="100%" height="450" frameborder="0"></iframe>`}</code>
                 </div>
               </div>
@@ -1255,7 +1297,7 @@ export default function ChartBuilder() {
               <div className="flex justify-end gap-3.5 mt-2">
                 <button
                   onClick={() => setShowEmbedModal(false)}
-                  className="px-5 py-2 bg-bg-elevated border border-border-subtle rounded-xl text-xs font-bold text-text-primary hover:bg-bg-elevated/80 transition-colors cursor-pointer"
+                  className="px-5 py-2 bg-bg-elevated border border-border-subtle rounded-xl text-xs font-bold text-text-brand hover:bg-bg-elevated/80 transition-colors cursor-pointer"
                 >
                   Close Panel
                 </button>

@@ -60,7 +60,7 @@ export default function MetricsBand() {
           {Array.from({ length: 50 }).map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 rounded-full bg-primary/20"
+              className="absolute w-1 h-1 rounded-full bg-brand/20"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -83,7 +83,7 @@ export default function MetricsBand() {
         
         {/* Header */}
         <div className="mb-16">
-          <span className="block text-[13px] font-semibold text-primary uppercase tracking-[0.15em] mb-4">
+          <span className="block text-[13px] font-semibold text-brand uppercase tracking-[0.15em] mb-4">
             By The Numbers
           </span>
           <motion.h2 
@@ -91,7 +91,7 @@ export default function MetricsBand() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] text-text-primary"
+            className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] text-text-brand"
           >
             {"Trusted at".split(" ").map((word, i) => (
               <span key={i} className="inline-block overflow-hidden mr-[0.25em] pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
@@ -104,7 +104,7 @@ export default function MetricsBand() {
             <span
               className="gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] inline-block"
               style={{
-                backgroundImage: "linear-gradient(120deg, #6366F1, #A855F7, #22D3EE, #6366F1)",
+                backgroundImage: "linear-gradient(120deg, var(--color-primary), var(--color-accent), var(--color-accent), var(--color-primary))",
               }}
             >
               {"scale.".split(" ").map((word, i) => (
@@ -123,13 +123,13 @@ export default function MetricsBand() {
           
           {/* Stat 1 */}
           <div className="flex flex-col items-center">
-            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.05em] leading-none mb-3 gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] bg-gradient-to-r from-primary to-accent text-center flex justify-center">
+            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.05em] leading-none mb-3 gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] bg-gradient-to-r from-brand to-accent text-center flex justify-center">
               <AnimatedNumber
                 target={2400}
                 format={(n) => Math.round(n).toLocaleString() + "+"}
               />
             </span>
-            <span className="text-sm sm:text-base font-semibold text-text-primary mb-1">
+            <span className="text-sm sm:text-base font-semibold text-text-brand mb-1">
               B2B companies
             </span>
             <span className="text-xs text-text-secondary">
@@ -139,13 +139,13 @@ export default function MetricsBand() {
 
           {/* Stat 2 */}
           <div className="flex flex-col items-center">
-            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.05em] leading-none mb-3 gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] bg-gradient-to-r from-primary to-accent text-center flex justify-center">
+            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.05em] leading-none mb-3 gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] bg-gradient-to-r from-brand to-accent text-center flex justify-center">
               <AnimatedNumber
                 target={180}
                 format={(n) => Math.round(n) + "M"}
               />
             </span>
-            <span className="text-sm sm:text-base font-semibold text-text-primary mb-1">
+            <span className="text-sm sm:text-base font-semibold text-text-brand mb-1">
               API calls per day
             </span>
             <span className="text-xs text-text-secondary">
@@ -155,13 +155,13 @@ export default function MetricsBand() {
 
           {/* Stat 3 */}
           <div className="flex flex-col items-center">
-            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.05em] leading-none mb-3 gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] bg-gradient-to-r from-primary to-accent text-center flex justify-center">
+            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.05em] leading-none mb-3 gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] bg-gradient-to-r from-brand to-accent text-center flex justify-center">
               <AnimatedNumber
                 target={47}
                 format={(n) => Math.round(n) + "ms"}
               />
             </span>
-            <span className="text-sm sm:text-base font-semibold text-text-primary mb-1">
+            <span className="text-sm sm:text-base font-semibold text-text-brand mb-1">
               Average query latency
             </span>
             <span className="text-xs text-text-secondary">
@@ -171,13 +171,13 @@ export default function MetricsBand() {
 
           {/* Stat 4 */}
           <div className="flex flex-col items-center">
-            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.05em] leading-none mb-3 gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] bg-gradient-to-r from-primary to-accent text-center flex justify-center">
+            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.05em] leading-none mb-3 gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] bg-gradient-to-r from-brand to-accent text-center flex justify-center">
               <AnimatedNumber
                 target={99.99}
                 format={(n) => n.toFixed(2) + "%"}
               />
             </span>
-            <span className="text-sm sm:text-base font-semibold text-text-primary mb-1">
+            <span className="text-sm sm:text-base font-semibold text-text-brand mb-1">
               Uptime SLA
             </span>
             <span className="text-xs text-text-secondary">

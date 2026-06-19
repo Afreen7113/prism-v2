@@ -83,7 +83,7 @@ export default function ProblemSection() {
         <div className="lg:sticky lg:top-32 h-fit self-start mb-12 lg:mb-0">
           
           {/* Eyebrow Label */}
-          <span className="inline-block text-[13px] font-medium tracking-[0.15em] text-primary uppercase mb-6">
+          <span className="inline-block text-[13px] font-medium tracking-[0.15em] text-brand uppercase mb-6">
             The Build vs. Buy Problem
           </span>
           
@@ -93,7 +93,7 @@ export default function ProblemSection() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] leading-[1.05] text-text-primary max-w-lg mb-6"
+            className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.03em] leading-[1.05] text-text-brand max-w-lg mb-6"
           >
             {"Your team shouldn't".split(" ").map((word, i) => (
               <span key={i} className="inline-block overflow-hidden mr-[0.25em] pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
@@ -105,7 +105,7 @@ export default function ProblemSection() {
             {" "}
             <span className="gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] inline-block"
               style={{
-                backgroundImage: "linear-gradient(120deg, #6366F1, #A855F7, #22D3EE, #6366F1)",
+                backgroundImage: "linear-gradient(120deg, var(--color-primary), var(--color-accent), var(--color-accent), var(--color-primary))",
               }}
             >
               {"rebuild Tableau.".split(" ").map((word, i) => (
@@ -145,21 +145,21 @@ export default function ProblemSection() {
                 className="relative max-w-[420px] w-full bg-bg-elevated/40 glass rounded-[16px] p-5 md:p-6 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300"
               >
                 {/* Top Right Corner Icon */}
-                <div className="absolute top-5 right-5 text-text-primary opacity-25 select-none pointer-events-none">
+                <div className="absolute top-5 right-5 text-text-brand opacity-25 select-none pointer-events-none">
                   <Icon className="w-4.5 h-4.5" />
                 </div>
                 
                 {/* Massive Number */}
                 <div className="text-3xl sm:text-4xl font-bold tracking-[-0.04em] leading-none mb-2.5 gradient-text"
                   style={{
-                    backgroundImage: "linear-gradient(120deg, #6366F1, #A855F7, #22D3EE)",
+                    backgroundImage: "linear-gradient(120deg, var(--color-primary), var(--color-accent), var(--color-accent))",
                   }}
                 >
                   <CardCounter target={card.target} prefix={card.prefix} suffix={card.suffix} />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-base sm:text-lg font-semibold text-text-primary mb-1">
+                <h3 className="text-base sm:text-lg font-semibold text-text-brand mb-1">
                   {card.title}
                 </h3>
 

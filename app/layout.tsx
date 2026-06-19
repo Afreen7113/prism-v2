@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "Prism | White-label Embeddable Analytics SDK for B2B SaaS",
@@ -33,9 +34,11 @@ export default function RootLayout({
         <div className="bg-grid" aria-hidden="true" />
 
         {/* Content wrapper */}
-        <div className="relative z-10 flex flex-col min-h-screen">
-          {children}
-        </div>
+        <ThemeProvider>
+          <div className="relative z-10 flex flex-col min-h-screen">
+            {children}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

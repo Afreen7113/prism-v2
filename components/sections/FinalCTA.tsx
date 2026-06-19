@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import RevealText from "@/components/ui/RevealText";
+import { Button } from "@/components/ui/Button";
 
 export default function FinalCTA() {
   return (
@@ -84,18 +85,18 @@ export default function FinalCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="block text-[14px] font-semibold text-primary uppercase tracking-[0.3em] mb-6"
+          className="block text-[14px] font-semibold text-brand uppercase tracking-[0.3em] mb-6"
         >
           Ready to ship?
         </motion.span>
 
         {/* Massive Staggered Heading */}
-        <div className="text-[clamp(36px,5.5vw,64px)] font-semibold tracking-[-0.03em] leading-[1.1] text-text-primary mt-6 mb-8 block flex flex-col items-center">
+        <div className="text-[clamp(36px,5.5vw,64px)] font-semibold tracking-[-0.03em] leading-[1.1] text-text-brand mt-6 mb-8 block flex flex-col items-center">
           <RevealText
             text="Stop building charts."
             tag="h2"
             trigger="view"
-            className="text-text-primary font-semibold text-center block"
+            className="text-text-brand font-semibold text-center block"
           />
           <RevealText
             text="Start building product."
@@ -125,13 +126,13 @@ export default function FinalCTA() {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-tertiary text-white rounded-xl text-base font-semibold shadow-[0_0_40px_var(--prism-primary-glow)] hover:shadow-[0_0_50px_var(--prism-primary-glow)] hover:scale-1.05 active:scale-95 transition-all duration-300 focus:outline-none flex items-center justify-center gap-2 group cursor-pointer">
+          <Button aria-label="Get API Key Free" className="w-full sm:w-auto h-14 px-8 bg-gradient-to-r from-brand to-tertiary text-text-primary rounded-xl text-base font-semibold shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-95 transition-all duration-300 group">
             <span>Get API Key Free</span>
             <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-          </button>
-          <button className="w-full sm:w-auto px-8 py-4 border border-border-subtle hover:border-text-secondary text-text-primary rounded-xl text-base font-semibold hover:bg-white/5 active:scale-95 transition-all duration-300 focus:outline-none text-center cursor-pointer">
+          </Button>
+          <Button variant="outline" aria-label="Talk to Sales" className="w-full sm:w-auto h-14 px-8 rounded-xl text-base font-semibold transition-all duration-300">
             Talk to Sales
-          </button>
+          </Button>
         </motion.div>
 
         {/* Trust Line */}
@@ -149,7 +150,7 @@ export default function FinalCTA() {
             {["Stripe", "Linear", "Notion", "Vercel", "Framer"].map((name) => (
               <span
                 key={name}
-                className="text-sm sm:text-base font-semibold text-text-secondary/60 hover:text-text-primary transition-colors duration-300 cursor-default select-none"
+                className="text-sm sm:text-base font-semibold text-text-secondary/60 hover:text-text-brand transition-colors duration-300 cursor-default select-none"
               >
                 {name}
               </span>

@@ -9,7 +9,11 @@ import {
   BarChart3,
   Users,
   CreditCard,
-  BookOpen
+  BookOpen,
+  Key,
+  ClipboardList,
+  Settings,
+  Code2
 } from "lucide-react";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -17,32 +21,46 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   const navItems = [
     { id: "dashboard", label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+    { id: "api-keys", label: "API Keys", href: "/admin/api-keys", icon: Key },
     { id: "playground", label: "Theme Playground", href: "/admin/theme-playground", icon: Sliders },
     { id: "builder", label: "Chart Builder", href: "/admin/chart-builder", icon: BarChart3 },
     { id: "customers", label: "Tenant Manager", href: "/admin/tenant-manager", icon: Users },
     { id: "billing", label: "Usage & Telemetry", href: "/admin/usage-telemetry", icon: CreditCard },
+    { id: "audit-logs", label: "Audit Logs", href: "/admin/audit-logs", icon: ClipboardList },
+    { id: "sdk", label: "SDK & Integration", href: "/admin/sdk", icon: Code2 },
+    { id: "settings", label: "Settings", href: "/admin/settings", icon: Settings },
   ];
 
   return (
-    <div className="h-screen bg-bg-base text-text-primary flex flex-col relative font-sans overflow-hidden">
+    <div className="h-screen bg-bg-base text-text-brand flex flex-col relative font-sans overflow-hidden">
       {/* Background patterns */}
       <div className="absolute inset-0 z-0 bg-grid opacity-20 pointer-events-none" />
 
       {/* Admin Portal Header */}
       <header className="h-16 border-b border-border-subtle bg-bg-surface/60 backdrop-blur-md flex items-center justify-between px-6 sticky top-0 z-40">
         <Link href="/" className="flex items-center gap-2.5 group">
-          <svg viewBox="0 0 100 100" className="w-6 h-6 drop-shadow-[0_0_6px_rgba(99,102,241,0.4)]">
-            <path d="M50 10 L15 75 L50 90 Z" fill="url(#prism-grad-1)" />
-            <path d="M50 10 L50 90 L85 75 Z" fill="url(#prism-grad-2)" />
+          <svg viewBox="0 0 100 100" className="w-6 h-6 drop-shadow-md">
+            <defs>
+              <linearGradient id="admin-prism-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="var(--prism-semantic-primary, var(--color-primary))" />
+                <stop offset="100%" stopColor="var(--prism-semantic-accent, var(--color-accent))" />
+              </linearGradient>
+              <linearGradient id="admin-prism-grad-2" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="var(--prism-semantic-accent, var(--color-accent))" />
+                <stop offset="100%" stopColor="var(--prism-semantic-primary, var(--color-primary))" />
+              </linearGradient>
+            </defs>
+            <path d="M50 10 L15 75 L50 90 Z" fill="url(#admin-prism-grad-1)" />
+            <path d="M50 10 L50 90 L85 75 Z" fill="url(#admin-prism-grad-2)" />
             <path d="M50 10 L50 90" stroke="rgba(255, 255, 255, 0.3)" strokeWidth="1.5" />
           </svg>
-          <span className="font-semibold text-text-primary text-base tracking-tight">
-            Prism <span className="text-primary font-bold text-xs uppercase bg-primary/10 px-2 py-0.5 rounded ml-1.5 border border-primary/20">Admin Surface</span>
+          <span className="font-semibold text-text-brand text-base tracking-tight">
+            Prism <span className="text-brand font-bold text-xs uppercase bg-brand/10 px-2 py-0.5 rounded ml-1.5 border border-brand/20">Admin Surface</span>
           </span>
         </Link>
 
         <div className="flex items-center gap-4">
-          <Link href="/" className="text-xs text-text-secondary hover:text-text-primary transition-all">
+          <Link href="/" className="text-xs text-text-secondary hover:text-text-brand transition-all">
             ← Back to marketing page
           </Link>
         </div>
@@ -66,8 +84,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 href={item.href}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-left transition-all duration-300 ${
                   isActive
-                    ? "bg-primary/15 text-primary border border-primary/20 shadow-[0_0_12px_rgba(99,102,241,0.1)]"
-                    : "text-text-secondary hover:text-text-primary hover:bg-bg-elevated/60 border border-transparent"
+                    ? "bg-brand/15 text-brand border border-brand/20 shadow-md"
+                    : "text-text-secondary hover:text-text-brand hover:bg-bg-elevated/60 border border-transparent"
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -78,9 +96,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
           <Link
             href="/storybook"
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-left text-text-secondary hover:text-text-primary hover:bg-bg-elevated/60 border border-transparent transition-all duration-300"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-left text-text-secondary hover:text-text-brand hover:bg-bg-elevated/60 border border-transparent transition-all duration-300"
           >
-            <BookOpen className="w-4 h-4 text-primary" />
+            <BookOpen className="w-4 h-4 text-brand" />
             <span>Storybook Docs</span>
           </Link>
 
@@ -88,14 +106,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <span className="text-[10px] uppercase font-bold text-text-muted tracking-widest block mb-1">Status Overview</span>
             <div className="flex items-center justify-between text-xs">
               <span className="text-text-secondary">API Status:</span>
-              <span className="text-success font-semibold flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-success animate-ping" />
+              <span className="text-status-success font-semibold flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-status-success animate-ping" />
                 Operational
               </span>
             </div>
             <div className="flex items-center justify-between text-xs">
               <span className="text-text-secondary">Gateway latency:</span>
-              <span className="text-text-primary font-mono">14.2ms</span>
+              <span className="text-text-brand font-mono">14.2ms</span>
             </div>
           </div>
         </aside>

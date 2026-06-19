@@ -20,8 +20,8 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({
         className={clsx(
           'px-3 py-1 text-sm font-medium rounded-full transition-colors',
           currentTheme === 'light' 
-            ? 'bg-primary text-text-inverse' 
-            : 'text-text-secondary hover:text-text-primary hover:bg-bg-subtle'
+            ? 'bg-brand text-text-inverse' 
+            : 'text-text-secondary hover:text-text-brand hover:bg-bg-subtle'
         )}
       >
         Light
@@ -31,8 +31,8 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({
         className={clsx(
           'px-3 py-1 text-sm font-medium rounded-full transition-colors',
           currentTheme === 'dark' 
-            ? 'bg-primary text-text-inverse' 
-            : 'text-text-secondary hover:text-text-primary hover:bg-bg-subtle'
+            ? 'bg-brand text-text-inverse' 
+            : 'text-text-secondary hover:text-text-brand hover:bg-bg-subtle'
         )}
       >
         Dark
