@@ -13,11 +13,14 @@ import {
   Key,
   ClipboardList,
   Settings,
-  Code2
+  Code2,
+  ChevronDown
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const [isStorybookOpen, setIsStorybookOpen] = React.useState(false);
 
   const navItems = [
     { id: "dashboard", label: "Dashboard", href: "/admin", icon: LayoutDashboard },
@@ -94,13 +97,43 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             );
           })}
 
-          <Link
-            href="/storybook"
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold text-left text-text-secondary hover:text-text-brand hover:bg-bg-elevated/60 border border-transparent transition-all duration-300"
-          >
-            <BookOpen className="w-4 h-4 text-brand" />
-            <span>Storybook Docs</span>
-          </Link>
+          <div className="w-full flex flex-col mt-1">
+            <button
+              onClick={() => setIsStorybookOpen(!isStorybookOpen)}
+              className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold text-left transition-all duration-300 ${
+                pathname.startsWith("/admin/storybook")
+                  ? "bg-brand/15 text-brand border border-brand/20 shadow-md"
+                  : "text-text-secondary hover:text-text-brand hover:bg-bg-elevated/60 border border-transparent"
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <BookOpen className="w-4 h-4" />
+                <span>Storybook Docs</span>
+              </div>
+              <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isStorybookOpen ? "rotate-180" : ""}`} />
+            </button>
+            <AnimatePresence>
+              {isStorybookOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="overflow-hidden"
+                >
+                  <div className="flex flex-col pl-10 pr-3 py-1 gap-0.5">
+                    <Link href="/admin/storybook/button" className={`text-xs py-1.5 transition-colors ${pathname === "/admin/storybook/button" ? "text-brand font-semibold" : "text-text-secondary hover:text-text-brand"}`}>Button</Link>
+                    <Link href="/admin/storybook/inputs" className={`text-xs py-1.5 transition-colors ${pathname === "/admin/storybook/inputs" ? "text-brand font-semibold" : "text-text-secondary hover:text-text-brand"}`}>Inputs</Link>
+                    <Link href="/admin/storybook/modals" className={`text-xs py-1.5 transition-colors ${pathname === "/admin/storybook/modals" ? "text-brand font-semibold" : "text-text-secondary hover:text-text-brand"}`}>Modals</Link>
+                    <Link href="/admin/storybook/toasts" className={`text-xs py-1.5 transition-colors ${pathname === "/admin/storybook/toasts" ? "text-brand font-semibold" : "text-text-secondary hover:text-text-brand"}`}>Toasts</Link>
+                    <a href="http://localhost:6006" target="_blank" rel="noopener noreferrer" className="text-xs text-brand hover:text-brand/80 font-semibold py-1.5 mt-1 flex items-center gap-1 transition-colors">
+                      Open Full Storybook ↗
+                    </a>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           <div className="mt-8 pt-6 border-t border-border-subtle px-3 hidden lg:flex flex-col gap-2">
             <span className="text-[10px] uppercase font-bold text-text-muted tracking-widest block mb-1">Status Overview</span>

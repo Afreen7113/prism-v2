@@ -6,7 +6,7 @@ import { useState } from "react";
 import RevealText from "@/components/ui/RevealText";
 import Link from "next/link";
 
-const legoBlocks = [
+const componentBlocks = [
   {
     icon: BarChart3,
     title: "Charts",
@@ -72,7 +72,7 @@ const countries = [
   { name: "Other", pct: "22%", color: "bg-bg-elevated border border-border-subtle" },
 ];
 
-export default function LegoSection() {
+export default function ComponentsSection() {
   const [activeTab, setActiveTab] = useState("Overview");
 
   return (
@@ -83,11 +83,11 @@ export default function LegoSection() {
       
       <div className="max-w-7xl mx-auto flex flex-col gap-20 relative z-10">
         
-        {/* Top Header & Lego Tiles */}
+        {/* Top Header & Component Tiles */}
         <div className="flex flex-col items-center">
           <div className="text-center max-w-xl mb-12 flex flex-col items-center">
             <RevealText
-              text="Build analytics like LEGO"
+              text="Enterprise analytics. Modular by design."
               tag="h2"
               className="text-3xl sm:text-4xl font-bold tracking-tight text-text-brand leading-tight text-center"
             />
@@ -98,13 +98,18 @@ export default function LegoSection() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="text-text-secondary text-sm sm:text-base mt-2 font-medium"
             >
-              Composable components. Drag, drop, and embed.
+              A fully white-labeled, multi-tenant SDK. Embed production-ready charts, builders, and dashboards directly into your SaaS.
             </motion.p>
           </div>
 
-          {/* Lego grid cards */}
+          {/* Component grid cards */}
+          <div className="w-full flex items-center justify-center mb-6">
+            <span className="text-xs font-bold text-brand/80 uppercase tracking-[0.2em]">
+              Production-ready building blocks for modern SaaS platforms
+            </span>
+          </div>
           <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
-            {legoBlocks.map((block, idx) => {
+            {componentBlocks.map((block, idx) => {
               const Icon = block.icon;
               return (
                 <Link key={idx} href={block.href}>

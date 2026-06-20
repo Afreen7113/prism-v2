@@ -123,27 +123,41 @@ export default function AuditLogsPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.05 }}
                   key={log.id} 
-                  className="hover:bg-bg-elevated/50 transition-colors"
+                  className={`transition-colors group ${
+                    log.status === "Failed" 
+                      ? "bg-[color-mix(in_srgb,var(--color-error)_4%,transparent)] hover:bg-[color-mix(in_srgb,var(--color-error)_8%,transparent)]" 
+                      : "hover:bg-bg-elevated/50"
+                  }`}
                 >
-                  <td className="px-6 py-4 text-xs font-mono text-text-secondary whitespace-nowrap">
+                  <td className={`px-6 py-4 text-xs font-mono text-text-secondary whitespace-nowrap border-l-[3px] ${
+                    log.status === "Failed" 
+                      ? "border-[color-mix(in_srgb,var(--color-error)_50%,transparent)]" 
+                      : "border-transparent"
+                  }`}>
                     {log.timestamp}
                   </td>
-                  <td className="px-6 py-4 text-text-primary font-medium">
-                    {log.user}
+                  <td className="px-6 py-4 text-text-primary font-medium whitespace-nowrap">
+                    <div className="max-w-[120px] sm:max-w-[180px] truncate" title={log.user}>
+                      {log.user}
+                    </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-bg-base border border-border-subtle text-xs font-medium text-text-primary">
-                      {log.action}
-                    </span>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="max-w-[120px] sm:max-w-[160px]">
+                      <span className="flex items-center justify-center px-2.5 py-1 rounded-md bg-bg-base border border-border-subtle text-xs font-medium text-text-primary whitespace-nowrap truncate" title={log.action}>
+                        {log.action}
+                      </span>
+                    </div>
                   </td>
-                  <td className="px-6 py-4 text-text-secondary text-xs flex items-center gap-2">
-                    <Server className="w-3.5 h-3.5 text-text-muted" />
-                    {log.resource}
+                  <td className="px-6 py-4 text-text-secondary text-xs whitespace-nowrap">
+                    <div className="flex items-center gap-2 max-w-[120px] sm:max-w-[160px] truncate" title={log.resource}>
+                      <Server className="w-3.5 h-3.5 text-text-muted shrink-0" />
+                      <span className="truncate">{log.resource}</span>
+                    </div>
                   </td>
-                  <td className="px-6 py-4 font-mono text-text-muted text-[11px]">
+                  <td className="px-6 py-4 font-mono text-text-muted text-[11px] whitespace-nowrap">
                     {log.ip}
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 whitespace-nowrap">
                     {log.status === "Success" ? (
                       <span className="text-[10px] uppercase tracking-wider font-bold text-status-success bg-status-success/10 border border-status-success/20 px-2 py-0.5 rounded-full">
                         Success

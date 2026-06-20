@@ -137,8 +137,6 @@
   --color-border-subtle: var(--semantic-border);
   --color-text-primary: var(--semantic-text-primary);
 --color-text-secondary: var(--semantic-text-secondary);
---color-text-muted: #64748B;
-
 --color-chart-axis: #CBD5E1;
 
 --color-border-subtle: var(--semantic-border);
@@ -164,7 +162,7 @@
     
     --semantic-text-primary: var(--color-slate-50);
     --semantic-text-secondary: var(--color-slate-300);
-    --semantic-text-muted: var(--color-slate-700);
+    --semantic-text-muted: var(--color-slate-400);
     
     --semantic-border: rgba(255, 255, 255, 0.08);
     
@@ -186,7 +184,7 @@
   
   --semantic-text-primary: var(--color-slate-50);
   --semantic-text-secondary: var(--color-slate-300);
-  --semantic-text-muted: var(--color-slate-700);
+  --semantic-text-muted: var(--color-slate-400);
   
   --semantic-border: rgba(255, 255, 255, 0.08);
   

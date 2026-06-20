@@ -1,328 +1,88 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Check, LayoutDashboard, Users, CreditCard, Settings } from "lucide-react";
+import { ArrowRight, Sparkles, LayoutDashboard, Users, CreditCard, Settings, ChevronRight, Activity, Bell, Search, Check } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import RevealText from "@/components/ui/RevealText";
 
-// Themes configuration to demonstrate white-label capability
-const themesConfig = {
-  white: {
-    bg: "bg-bg-base",
-    text: "text-text-brand",
-    textMuted: "text-text-muted",
-    accent: "text-info",
-    accentBg: "bg-info/10",
-    accentBorder: "border-brand/20",
-    sidebar: "bg-bg-surface",
-    border: "border-border-subtle/80",
-    divider: "border-slate-100",
-    logoColor: "#3B82F6",
-    chartColor: "#3B82F6",
-    gradientId: "whiteGrad",
-  },
-  beige: {
-    bg: "bg-stone-50",
-    text: "text-stone-900",
-    textMuted: "text-stone-400",
-    accent: "text-amber-700",
-    accentBg: "bg-status-warning/10",
-    accentBorder: "border-amber-600/20",
-    sidebar: "bg-stone-100",
-    border: "border-stone-200",
-    divider: "border-stone-200/60",
-    logoColor: "var(--color-warning)",
-    chartColor: "var(--color-warning)",
-    gradientId: "beigeGrad",
-  },
-  darkBlue: {
-    bg: "bg-slate-900",
-    text: "text-slate-50",
-    textMuted: "text-text-secondary",
-    accent: "text-cyan-800",
-    accentBg: "bg-cyan-100",
-accentBorder: "border-cyan-300",
-    sidebar: "bg-slate-800",
-    border: "border-slate-800",
-    divider: "border-slate-800",
-    logoColor: "var(--color-accent)",
-    chartColor: "var(--color-accent)",
-    gradientId: "darkBlueGrad",
-  },
-  darkPurple: {
-    bg: "bg-bg-elevated",
-    text: "text-text-primary",
-    textMuted: "text-brand",
-    accent: "text-brand",
-    accentBg: "bg-brand/10",
-    accentBorder: "border-border-subtle",
-    sidebar: "bg-bg-surface",
-    border: "border-border-subtle",
-    divider: "border-border-subtle",
-    logoColor: "var(--color-accent)",
-    chartColor: "var(--color-accent)",
-    gradientId: "darkPurpleGrad",
-  },
-  lightMint: {
-    bg: "bg-green-50",
-    text: "text-emerald-950",
-    textMuted: "text-emerald-600/60",
-    accent: "text-emerald-600",
-    accentBg: "bg-status-success/10",
-    accentBorder: "border-emerald-600/20",
-    sidebar: "bg-green-100",
-    border: "border-emerald-200/80",
-    divider: "border-emerald-200/60",
-    logoColor: "var(--color-success)",
-    chartColor: "var(--color-success)",
-    gradientId: "lightMintGrad",
-  },
+type ShowcaseTheme = {
+  id: string;
+  name: string;
+  tokens: React.CSSProperties;
 };
 
-const cardConfigs = [
+const showcaseThemes: ShowcaseTheme[] = [
   {
-    theme: "white" as const,
-    title: "Clinix Portal",
-    kpi1Label: "Total Patients",
-    kpi1Value: "23,685",
-    kpi1Trend: "+12.5%",
-    kpi2Label: "Avg Stay",
-    kpi2Value: "4.2 days",
-    chartPath: "M 0 80 Q 40 40 80 70 T 160 30 T 240 50 T 300 20",
-    donutRatio: "75 25",
-    donutPercent: "75%",
-    detailText: "Admissions: 1,420",
-    avatarText: "CX",
+    id: "medical",
+    name: "Medical",
+    tokens: {
+      "--color-primary": "#0284C7",
+      "--color-accent": "#0F766E",
+      "--color-bg-base": "#F8FAFC",
+      "--color-bg-surface": "#FFFFFF",
+      "--color-bg-elevated": "#F1F5F9",
+      "--color-text-primary": "#0F172A",
+      "--color-text-secondary": "#475569",
+      "--color-text-muted": "#64748B",
+      "--color-border-subtle": "#E2E8F0",
+      "--color-border-default": "#CBD5E1",
+      "--color-success": "#10B981",
+      "--color-warning": "#F59E0B",
+    } as React.CSSProperties,
   },
   {
-    theme: "beige" as const,
-    title: "Apex Wealth",
-    kpi1Label: "Transactions",
-    kpi1Value: "12,480",
-    kpi1Trend: "+8.2%",
-    kpi2Label: "Revenue",
-    kpi2Value: "$48.2K",
-    chartPath: "M 0 90 Q 45 60 90 80 T 180 40 T 270 60 T 300 30",
-    donutRatio: "60 40",
-    donutPercent: "60%",
-    detailText: "Fulfill Rate: 99.4%",
-    avatarText: "AW",
+    id: "fintech",
+    name: "Fintech",
+    tokens: {
+      "--color-primary": "#059669",
+      "--color-accent": "#EAB308",
+      "--color-bg-base": "#0B0F19",
+      "--color-bg-surface": "#111827",
+      "--color-bg-elevated": "#1F2937",
+      "--color-text-primary": "#F8FAFC",
+      "--color-text-secondary": "#94A3B8",
+      "--color-text-muted": "#64748B",
+      "--color-border-subtle": "#1E293B",
+      "--color-border-default": "#334155",
+      "--color-success": "#10B981",
+      "--color-warning": "#EAB308",
+    } as React.CSSProperties,
   },
   {
-    theme: "darkBlue" as const,
-    title: "DevEngine Metrics",
-    kpi1Label: "API Requests",
-    kpi1Value: "1.2M",
-    kpi1Trend: "+18.4%",
-    kpi2Label: "Latency",
-    kpi2Value: "14ms",
-    chartPath: "M 0 95 Q 30 70 70 85 T 150 40 T 230 65 T 300 15",
-    donutRatio: "80 20",
-    donutPercent: "80%",
-    detailText: "Uptime: 99.98%",
-    avatarText: "DE",
-  },
-  {
-    theme: "darkPurple" as const,
-    title: "Prism Premium",
-    kpi1Label: "Active Users",
-    kpi1Value: "45.2K",
-    kpi1Trend: "+15.1%",
-    kpi2Label: "MRR",
-    kpi2Value: "$84.2K",
-    chartPath: "M 0 75 Q 40 30 90 60 T 180 20 T 270 45 T 300 10",
-    donutRatio: "70 30",
-    donutPercent: "70%",
-    detailText: "ARPU: $184.20",
-    avatarText: "PR",
-  },
-  {
-    theme: "lightMint" as const,
-    title: "ShopSync Retail",
-    kpi1Label: "Net Orders",
-    kpi1Value: "3,842",
-    kpi1Trend: "+24.1%",
-    kpi2Label: "Conversion",
-    kpi2Value: "3.8%",
-    chartPath: "M 0 85 Q 50 45 100 70 T 200 30 T 300 15",
-    donutRatio: "84 16",
-    donutPercent: "84%",
-    detailText: "Fulfillment: 99.1%",
-    avatarText: "SS",
-  },
+    id: "retail",
+    name: "Retail",
+    tokens: {
+      "--color-primary": "#1F2937",
+      "--color-accent": "#D4A017",
+      "--color-bg-base": "#F3F4F6",
+      "--color-bg-surface": "#FFFFFF",
+      "--color-bg-elevated": "#F9FAFB",
+      "--color-text-primary": "#111827",
+      "--color-text-secondary": "#4B5563",
+      "--color-text-muted": "#9CA3AF",
+      "--color-border-subtle": "#E5E7EB",
+      "--color-border-default": "#D1D5DB",
+      "--color-success": "#10B981",
+      "--color-warning": "#F59E0B",
+    } as React.CSSProperties,
+  }
 ];
 
 export default function Hero() {
-  const [isStackHovered, setIsStackHovered] = useState(false);
-  const [screenSize, setScreenSize] = useState<"mobile" | "tablet" | "desktop">("desktop");
+  const [activeThemeIndex, setActiveThemeIndex] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
 
+  // Auto-cycle themes
   useEffect(() => {
-    const handleResize = () => {
-      const w = window.innerWidth;
-      if (w < 768) {
-        setScreenSize("mobile");
-      } else if (w < 1024) {
-        setScreenSize("tablet");
-      } else {
-        setScreenSize("desktop");
-      }
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    if (isHovering) return;
+    const interval = setInterval(() => {
+      setActiveThemeIndex((prev) => (prev + 1) % showcaseThemes.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [isHovering]);
 
-  const getCardTransforms = (index: number, hovered: boolean) => {
-    
-    // Stack goes from front-left (Card 0) to back-right (Card 4), rotated Y to face left
-    const basePositions = [
-      { left: 0, top: 25, rotateY: -5, rotateX: 0, z: 80, opacity: 1, zIndex: 5 },
-      { left: 55, top: 18, rotateY: -10, rotateX: 0, z: 40, opacity: 1, zIndex: 4 },
-      { left: 110, top: 10, rotateY: -15, rotateX: 2, z: 0, opacity: 0.95, zIndex: 3 },
-      { left: 165, top: 5, rotateY: -20, rotateX: 3, z: -40, opacity: 0.9, zIndex: 2 },
-      { left: 220, top: 0, rotateY: -25, rotateX: 5, z: -80, opacity: 0.85, zIndex: 1 },
-    ];
-
-    const current = basePositions[index];
-
-    // Hover spreads out the stack horizontally (Card 0 moves left, Card 4 moves right)
-    const spreadOffset = hovered ? (index - 2) * 7.5 : 0;
-    
-    // On mobile, visible cards [0, 1, 2] start directly from left: 0px fanning to 110px
-    const leftVal = current.left + spreadOffset;
-
-    return {
-      left: leftVal,
-      top: current.top,
-      rotateY: current.rotateY,
-      rotateX: current.rotateX,
-      z: current.z,
-      opacity: current.opacity,
-      zIndex: current.zIndex,
-    };
-  };
-
-  const visibleCardIndices = screenSize === "mobile" ? [0, 1, 2] : [0, 1, 2, 3, 4];
-
-  // Render static copy of card contents for bottom diagram or stack cards
-  const renderCardContent = (index: number) => {
-    const cardConfig = cardConfigs[index];
-    const t = themesConfig[cardConfig.theme];
-
-    return (
-      <div className={`w-full h-full flex rounded-[16px] border ${t.bg} ${t.text} ${t.border} overflow-hidden font-sans`}>
-        {/* Sidebar (45px wide) */}
-        <div className={`w-[45px] h-full flex flex-col justify-between items-center py-3 border-r ${t.sidebar} ${t.border} shrink-0`}>
-          <div className="flex flex-col items-center">
-            {/* Logo */}
-            <div 
-              className="w-6 h-6 rounded flex items-center justify-center text-text-brand shadow-sm"
-              style={{ backgroundColor: t.logoColor }}
-            >
-              <Sparkles className="w-3 h-3 text-text-brand" />
-            </div>
-            
-            {/* Nav Icons */}
-            <div className="flex flex-col gap-4.5 mt-6">
-              <LayoutDashboard className={`w-3.5 h-3.5 ${t.accent}`} />
-              <Users className={`w-3.5 h-3.5 ${t.textMuted} opacity-40`} />
-              <CreditCard className={`w-3.5 h-3.5 ${t.textMuted} opacity-40`} />
-              <Settings className={`w-3.5 h-3.5 ${t.textMuted} opacity-40`} />
-            </div>
-          </div>
-          
-          <div className={`w-5 h-5 rounded-full ${t.accentBg} border ${t.accentBorder} flex items-center justify-center text-xs font-bold ${t.accent}`}>
-            {cardConfig.avatarText}
-          </div>
-        </div>
-
-        {/* Content Area */}
-        <div className="flex-1 flex flex-col min-w-0">
-          {/* Header Bar */}
-          <div className={`h-[38px] px-3 flex items-center justify-between border-b ${t.divider} shrink-0`}>
-            <span className="text-[10px] font-bold tracking-tight truncate">{cardConfig.title}</span>
-            <span className={`text-xs font-semibold px-1.5 py-0.5 rounded-full ${t.accentBg} ${t.accent} border ${t.accentBorder}`}>
-              Live
-            </span>
-          </div>
-
-          <div className="flex-1 p-3 flex flex-col justify-between min-h-0">
-            {/* KPIs */}
-            <div className="grid grid-cols-2 gap-2 shrink-0">
-              <div className={`p-1.5 rounded-lg border ${t.divider} ${t.sidebar}`}>
-                <span className={`text-xs font-medium uppercase tracking-wider ${t.textMuted} block`}>
-                  {cardConfig.kpi1Label}
-                </span>
-                <div className="flex items-baseline gap-0.5 mt-0.5">
-                  <span className="text-xs font-bold">{cardConfig.kpi1Value}</span>
-                  <span className={`text-xs font-bold px-0.5 py-0.2 rounded ${t.accentBg} ${t.accent}`}>
-                    {cardConfig.kpi1Trend}
-                  </span>
-                </div>
-              </div>
-              
-              <div className={`p-1.5 rounded-lg border ${t.divider} ${t.sidebar}`}>
-                <span className={`text-xs font-medium uppercase tracking-wider ${t.textMuted} block`}>
-                  {cardConfig.kpi2Label}
-                </span>
-                <span className="text-xs font-bold block mt-0.5">{cardConfig.kpi2Value}</span>
-              </div>
-            </div>
-
-            {/* Area Chart */}
-            <div className="my-2 flex-1 flex flex-col justify-center min-h-0">
-              <span className={`text-xs font-medium uppercase tracking-wider ${t.textMuted} mb-0.5 block`}>
-                Analytics Growth
-              </span>
-              <div className="flex-1 min-h-[50px] max-h-[70px]">
-                <svg viewBox="0 0 300 120" className="w-full h-full" preserveAspectRatio="none">
-                  <defs>
-                    <linearGradient id={t.gradientId} x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor={t.chartColor} stopOpacity="0.25" />
-                      <stop offset="100%" stopColor={t.chartColor} stopOpacity="0.0" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    d={`${cardConfig.chartPath} L 300 120 L 0 120 Z`}
-                    fill={`url(#${t.gradientId})`}
-                  />
-                  <path
-                    d={cardConfig.chartPath}
-                    fill="none"
-                    stroke={t.chartColor}
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </div>
-            </div>
-
-            {/* Footer */}
-            <div className={`pt-1.5 border-t ${t.divider} flex items-center justify-between shrink-0`}>
-              <span className={`text-xs font-semibold ${t.textMuted}`}>{cardConfig.detailText}</span>
-              <div className="relative w-6 h-6 flex items-center justify-center shrink-0">
-                <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
-                  <circle cx="18" cy="18" r="15.915" fill="none" stroke="rgba(0,0,0,0.04)" strokeWidth="4" />
-                  <circle
-                    cx="18"
-                    cy="18"
-                    r="15.915"
-                    fill="none"
-                    stroke={t.chartColor}
-                    strokeWidth="4"
-                    strokeDasharray={cardConfig.donutRatio}
-                    strokeDashoffset="0"
-                  />
-                </svg>
-                <span className={`absolute text-xs font-bold ${t.text}`}>{cardConfig.donutPercent}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
+  const activeTheme = showcaseThemes[activeThemeIndex];
 
   return (
     <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-bg-base pt-24 pb-16 md:pt-28 md:pb-20 px-6 z-10">
@@ -355,10 +115,10 @@ export default function Hero() {
         className="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,var(--prism-border-glow)_0%,transparent_70%)] pointer-events-none blur-[100px] z-0"
       />
 
-      <div className="w-full max-w-[1240px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
         
         {/* Left Column - Content */}
-        <div className="col-span-1 lg:col-span-6 flex flex-col items-start text-left lg:pl-8">
+        <div className="col-span-1 lg:col-span-6 flex flex-col items-start text-left xl:pr-8">
           
           {/* Eyebrow Badge */}
           <motion.div
@@ -372,19 +132,19 @@ export default function Hero() {
           </motion.div>
 
           {/* Heading */}
-          <div className="text-[clamp(36px,8vw,72px)] font-bold tracking-tight text-text-brand mb-6 leading-[1.1] max-w-xl">
+          <div className="text-[clamp(40px,5vw,64px)] font-bold tracking-tight text-text-brand mb-6 leading-[1.05] max-w-2xl">
             <RevealText
-              text="Analytics that adapts"
+              text="Ship analytics under"
               tag="h1"
               trigger="mount"
               delay={0.1}
               className="text-text-brand font-bold block"
             />
             <RevealText
-              text="to any brand"
+              text="your brand in hours."
               tag="span"
               trigger="mount"
-              delay={0.4}
+              delay={0.3}
               className="gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] font-bold block mt-1"
             />
           </div>
@@ -394,20 +154,31 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3, ease: [0.32, 0.72, 0, 1] as const }}
-            className="text-text-secondary text-base md:text-lg max-w-xl leading-relaxed mb-8"
+            className="text-text-secondary text-base md:text-lg max-w-xl leading-relaxed mb-6"
           >
-            Build once. Embed everywhere. Prism gives B2B software companies the analytics infrastructure to deliver beautiful dashboards, reports, and exports inside their own product.
+            Drop a React component. Pass a theme token file. Prism renders inside your product with your branding.
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35, ease: [0.32, 0.72, 0, 1] as const }}
+            className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-text-muted mb-8 uppercase"
+          >
+            <span>One Platform</span>
+            <span className="w-1 h-1 rounded-full bg-border-default" />
+            <span>Infinite Brands</span>
+          </motion.div>
 
           {/* CTA Buttons Row */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4, ease: [0.32, 0.72, 0, 1] as const }}
-            className="flex flex-wrap gap-4 items-center mb-6 w-full"
+            className="flex flex-wrap gap-4 items-center mb-8 w-full"
           >
             <Link
-              href="#get-started"
+              href="#api"
               className="group relative inline-flex items-center gap-2 px-6 py-3 font-semibold text-white rounded-lg bg-brand shadow-md hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 overflow-hidden min-h-[44px]"
             >
               <motion.span
@@ -422,7 +193,7 @@ export default function Hero() {
                 }}
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 pointer-events-none"
               />
-              Start Free Trial
+              View API
               <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
 
@@ -430,394 +201,231 @@ export default function Hero() {
               href="#demo"
               className="glass group inline-flex items-center justify-center px-6 py-3 font-medium text-text-brand rounded-lg border border-border-subtle hover:border-brand/30 hover:bg-brand/5 transition-all duration-300"
             >
-              View Live Demo
+              See it in your brand
             </Link>
           </motion.div>
 
-          {/* Trust Indicators Row */}
+          {/* Developer Trust Indicators */}
           <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5, ease: [0.32, 0.72, 0, 1] as const }}
+            className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-medium text-text-secondary mt-2"
+          >
+            {["React SDK", "Multi-Tenant", "Theme Tokens", "Export Ready"].map((item) => (
+              <div key={item} className="flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-success" />
+                <span>{item}</span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Right Column - Large Dashboard Proof of Concept */}
+        <div className="col-span-1 lg:col-span-6 flex flex-col items-center justify-center w-full relative z-20 perspective-[2000px]">
+          {/* Live Theme Preview Label */}
+          <motion.span
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="text-[10px] font-semibold tracking-wider text-text-muted uppercase mb-3"
+          >
+            LIVE BRAND THEME PREVIEW
+          </motion.span>
+
+          {/* Theme Selectors */}
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="flex items-center gap-2 mb-2 bg-bg-surface border border-border-subtle rounded-full p-1.5 shadow-sm"
+          >
+            {showcaseThemes.map((theme, index) => (
+              <button
+                key={theme.id}
+                onClick={() => setActiveThemeIndex(index)}
+                className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 ${
+                  activeThemeIndex === index 
+                    ? "bg-brand text-white shadow-md scale-105" 
+                    : "text-text-secondary hover:text-text-primary hover:bg-bg-elevated"
+                }`}
+              >
+                {theme.name}
+              </button>
+            ))}
+          </motion.div>
+
+          <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-text-secondary/90 font-medium"
+            transition={{ delay: 0.7 }}
+            className="text-[10px] text-text-secondary mb-6 block"
           >
-            <div className="flex items-center gap-1.5">
-              <Check className="w-3.5 h-3.5 text-brand" strokeWidth={3} />
-              <span>14-day free trial</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Check className="w-3.5 h-3.5 text-brand" strokeWidth={3} />
-              <span>No credit card</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Check className="w-3.5 h-3.5 text-brand" strokeWidth={3} />
-              <span>Cancel anytime</span>
-            </div>
-          </motion.div>
+            + 2 additional presets available in Theme Playground
+          </motion.span>
 
-        </div>
-
-        <div className="col-span-1 lg:col-span-6 flex items-center justify-center lg:justify-end lg:pr-2 xl:pr-0 min-h-[350px] lg:min-h-[400px] w-full relative lg:translate-x-8 xl:translate-x-16 2xl:translate-x-24">
-          
-          {/* Decorative Indigo Glow */}
-<div
-  className="absolute top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] blur-[120px] rounded-full pointer-events-none z-0"
-  style={{
-    background: "color-mix(in srgb, var(--color-primary) 20%, transparent)"
-  }}
-/>          
-          {/* Subtle connecting curve behind the stack */}
-          <div className="absolute inset-0 w-full h-full z-0 pointer-events-none flex items-center justify-center lg:justify-end lg:pr-2 xl:pr-0 lg:-translate-x-16 xl:-translate-x-24 2xl:-translate-x-32 translate-y-20">
-            <svg className="w-[530px] h-[250px] scale-75 sm:scale-85 md:scale-90 lg:scale-[0.88] xl:scale-[0.95] 2xl:scale-100 opacity-60" viewBox="0 0 530 250" fill="none">
-              <path
-                d="M 30 180 C 130 250, 400 250, 500 180"
-                stroke="var(--color-primary)"
-strokeOpacity="0.25"
-                strokeWidth="2"
-                strokeDasharray="6 6"
-              />
-              <circle cx="100" cy="205" r="3" className="fill-primary animate-pulse" />
-              <circle cx="260" cy="225" r="3.5" className="fill-accent animate-pulse" />
-              <circle cx="420" cy="205" r="3" className="fill-success animate-pulse" />
-            </svg>
-          </div>
-
-          {/* Fanned Stack scaling wrapper */}
-          <div 
-            onMouseEnter={() => setIsStackHovered(true)}
-            onMouseLeave={() => setIsStackHovered(false)}
-            className="scale-75 sm:scale-85 md:scale-90 lg:scale-[0.88] xl:scale-[0.95] 2xl:scale-100 origin-center transition-transform duration-500 z-10"
-          >
-            <div 
-              className="relative w-[320px] sm:w-[530px] h-[180px] sm:h-[250px]"
-              style={{ perspective: "2000px", transformStyle: "preserve-3d" }}
-            >
-              {visibleCardIndices.map((index) => {
-                const cardTransforms = getCardTransforms(index, isStackHovered);
-                const cardConfig = cardConfigs[index];
-                const t = themesConfig[cardConfig.theme];
-                
-                return (
-                  <motion.div
-                    key={index}
-                    style={{ 
-                      position: "absolute",
-                      left: cardTransforms.left,
-                      top: cardTransforms.top,
-                      zIndex: cardTransforms.zIndex,
-                      transformStyle: "preserve-3d", 
-                    }}
-                    animate={{
-                      left: cardTransforms.left,
-                      opacity: cardTransforms.opacity,
-                      rotateY: cardTransforms.rotateY,
-                      rotateX: cardTransforms.rotateX,
-                      z: cardTransforms.z,
-                    }}
-                    transition={{
-                      left: { duration: 0.5, ease: "easeOut" },
-                      rotateY: { duration: 0.5, ease: "easeOut" },
-                      rotateX: { duration: 0.5, ease: "easeOut" },
-                      z: { duration: 0.5, ease: "easeOut" },
-                      x: { duration: 0.8, delay: index * 0.1, ease: [0.32, 0.72, 0, 1] as const },
-                      opacity: { duration: 0.8, delay: index * 0.1, ease: [0.32, 0.72, 0, 1] as const },
-                    }}
-                    initial={{
-                      opacity: 0,
-                      x: -100,
-                      rotateY: cardTransforms.rotateY - 20,
-                      rotateX: cardTransforms.rotateX + 2,
-                      z: cardTransforms.z - 50
-                    }}
-                    className={`w-[310px] h-[220px]`}
-                  >
-                    {/* Floating bobbing wrapper */}
-                    <motion.div
-                      animate={{ y: [0, -8, 0] }}
-                      transition={{
-                        duration: 4 + (index * 0.5),
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                      className={`w-full h-full flex rounded-[16px] overflow-hidden border ${t.bg} ${t.text} ${t.border} ${
-                        index === 0 
-                          ? "shadow-card border-brand/20" 
-                          : index === 1
-                          ? "shadow-card"
-                          : "shadow-card"
-                      }`}
-                    >
-                      {/* Sidebar (45px wide) */}
-                      <div className={`w-[45px] h-full flex flex-col justify-between items-center py-3 border-r ${t.sidebar} ${t.border} shrink-0`}>
-                        <div className="flex flex-col items-center">
-                          {/* Logo */}
-                          <div 
-                            className="w-6 h-6 rounded flex items-center justify-center text-text-brand shadow-sm"
-                            style={{ backgroundColor: t.logoColor }}
-                          >
-                            <Sparkles className="w-3 h-3 text-text-brand" />
-                          </div>
-                          
-                          {/* Navigation Icons */}
-                          <div className="flex flex-col gap-4.5 mt-6">
-                            <LayoutDashboard className={`w-3.5 h-3.5 ${t.accent}`} />
-                            <Users className={`w-3.5 h-3.5 ${t.textMuted} opacity-40`} />
-                            <CreditCard className={`w-3.5 h-3.5 ${t.textMuted} opacity-40`} />
-                            <Settings className={`w-3.5 h-3.5 ${t.textMuted} opacity-40`} />
-                          </div>
-                        </div>
-                        
-                        {/* Profile initials */}
-                        <div className={`w-5 h-5 rounded-full ${t.accentBg} border ${t.accentBorder} flex items-center justify-center text-xs font-bold ${t.accent}`}>
-                          {cardConfig.avatarText}
-                        </div>
-                      </div>
-
-                      {/* Right Content Area */}
-                      <div className="flex-1 flex flex-col min-w-0">
-                        {/* Header Bar */}
-                        <div className={`h-[38px] px-3 flex items-center justify-between border-b ${t.divider} shrink-0`}>
-                          <span className="text-[10px] font-bold tracking-tight truncate">{cardConfig.title}</span>
-                          <span className={`text-xs font-semibold px-1.5 py-0.5 rounded-full ${t.accentBg} ${t.accent} border ${t.accentBorder}`}>
-                            Live
-                          </span>
-                        </div>
-
-                        {/* Main Body */}
-                        <div className="flex-1 p-3 flex flex-col justify-between min-h-0">
-                          {/* KPIs Grid */}
-                          <div className="grid grid-cols-2 gap-2 shrink-0">
-                            {/* KPI 1 */}
-                            <div className={`p-1.5 rounded-lg border ${t.divider} ${t.sidebar}`}>
-                              <span className={`text-xs font-medium uppercase tracking-wider ${t.textMuted} block`}>
-                                {cardConfig.kpi1Label}
-                              </span>
-                              <div className="flex items-baseline gap-0.5 mt-0.5">
-                                <span className="text-xs font-bold">{cardConfig.kpi1Value}</span>
-                                <span className={`text-xs font-bold px-0.5 py-0.2 rounded ${t.accentBg} ${t.accent}`}>
-                                  {cardConfig.kpi1Trend}
-                                </span>
-                              </div>
-                            </div>
-                            
-                            {/* KPI 2 */}
-                            <div className={`p-1.5 rounded-lg border ${t.divider} ${t.sidebar}`}>
-                              <span className={`text-xs font-medium uppercase tracking-wider ${t.textMuted} block`}>
-                                {cardConfig.kpi2Label}
-                              </span>
-                              <span className="text-xs font-bold block mt-0.5">{cardConfig.kpi2Value}</span>
-                            </div>
-                          </div>
-
-                          {/* Large Area Chart */}
-                          <div className="my-2 flex-1 flex flex-col justify-center min-h-0">
-                            <span className={`text-xs font-medium uppercase tracking-wider ${t.textMuted} mb-0.5 block`}>
-                              Analytics Growth
-                            </span>
-                            <div className="flex-1 min-h-[50px] max-h-[70px]">
-                              <svg viewBox="0 0 300 120" className="w-full h-full" preserveAspectRatio="none">
-                                <defs>
-                                  <linearGradient id={t.gradientId} x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stopColor={t.chartColor} stopOpacity="0.25" />
-                                    <stop offset="100%" stopColor={t.chartColor} stopOpacity="0.0" />
-                                  </linearGradient>
-                                </defs>
-                                <path
-                                  d={`${cardConfig.chartPath} L 300 120 L 0 120 Z`}
-                                  fill={`url(#${t.gradientId})`}
-                                />
-                                <path
-                                  d={cardConfig.chartPath}
-                                  fill="none"
-                                  stroke={t.chartColor}
-                                  strokeWidth="2.5"
-                                  strokeLinecap="round"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-
-                          {/* Footer */}
-                          <div className={`pt-1.5 border-t ${t.divider} flex items-center justify-between shrink-0`}>
-                            <span className={`text-xs font-semibold ${t.textMuted}`}>{cardConfig.detailText}</span>
-                            
-                            {/* Mini Donut Chart */}
-                            <div className="relative w-6 h-6 flex items-center justify-center shrink-0">
-                              <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
-                                <circle cx="18" cy="18" r="15.915" fill="none" stroke="rgba(0,0,0,0.04)" strokeWidth="4" />
-                                <circle
-                                  cx="18"
-                                  cy="18"
-                                  r="15.915"
-                                  fill="none"
-                                  stroke={t.chartColor}
-                                  strokeWidth="4"
-                                  strokeDasharray={cardConfig.donutRatio}
-                                  strokeDashoffset="0"
-                                />
-                              </svg>
-                              <span className={`absolute text-xs font-bold ${t.text}`}>{cardConfig.donutPercent}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* Bottom section diagram */}
-      <div className="mt-24 lg:mt-32 w-full max-w-[1100px] mx-auto text-center px-4 relative z-20">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] as const }}
-        >
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-text-brand mb-3">
-            One platform. Infinite brands.
-          </h2>
-          <p className="text-text-secondary text-sm sm:text-base max-w-2xl mx-auto mb-16 leading-relaxed">
-            The same powerful analytics engine, styled to match your product perfectly.
-          </p>
-        </motion.div>
-
-        {/* Three connected nodes */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-4 relative w-full pt-4">
-          
-          {/* SVG Connector Lines - Desktop only */}
-          <div className="hidden lg:block absolute inset-0 z-0 pointer-events-none">
-            <svg className="w-full h-full" viewBox="0 0 1000 300" fill="none">
-              {/* Left path: Medical SaaS to Prism Engine */}
-              <path
-                id="left-path"
-                d="M 230 150 C 320 150, 360 150, 450 150"
-                stroke="var(--color-primary)"
-strokeOpacity="0.12"
-                strokeWidth="2"
-                strokeDasharray="4 4"
-              />
-              {/* Right path: Prism Engine to Retail SaaS */}
-              <path
-                id="right-path"
-                d="M 550 150 C 640 150, 680 150, 770 150"
-                stroke="var(--color-accent)"
-strokeOpacity="0.12"
-                strokeWidth="2"
-                strokeDasharray="4 4"
-              />
-
-              {/* Animated flow dots - Left Direction */}
-              <motion.circle r="3.5" className="fill-primary">
-                <animateMotion dur="4.2s" repeatCount="indefinite" path="M 500 150 C 410 150, 370 150, 230 150" />
-              </motion.circle>
-              <motion.circle r="3.5" className="fill-info">
-                <animateMotion dur="4.2s" repeatCount="indefinite" path="M 230 150 C 320 150, 360 150, 500 150" />
-              </motion.circle>
-
-              {/* Animated flow dots - Right Direction */}
-              <motion.circle r="3.5" className="fill-accent">
-                <animateMotion dur="4.8s" repeatCount="indefinite" path="M 500 150 C 590 150, 630 150, 770 150" />
-              </motion.circle>
-              <motion.circle r="3.5" className="fill-success">
-                <animateMotion dur="4.8s" repeatCount="indefinite" path="M 770 150 C 680 150, 640 150, 500 150" />
-              </motion.circle>
-            </svg>
-          </div>
-
-          {/* Left Node: Medical SaaS */}
+          {/* Scaled Dashboard Container wrapped in motion.div with inline tokens */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.32, 0.72, 0, 1] as const }}
-            className="z-10 w-full max-w-[330px]"
+            animate={activeTheme.tokens as unknown as Record<string, string>}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+            className="w-full max-w-[580px] h-[420px] sm:h-[480px] rounded-lg border border-border-subtle shadow-sm flex overflow-hidden bg-bg-base font-sans transform-gpu hover:scale-[1.01] transition-transform duration-500"
           >
-            <div className="text-center mb-3">
-              <span className="text-[10px] uppercase font-bold text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded-full border border-sky-500/15">Medical SaaS</span>
-            </div>
-            <div className="w-full aspect-[1.4] scale-95 border border-border-subtle rounded-2xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] overflow-hidden">
-              {renderCardContent(0)}
-            </div>
-          </motion.div>
-
-          {/* Center Node: Prism Engine */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.32, 0.72, 0, 1] as const }}
-            className="z-10 w-full max-w-[360px]"
-          >
-            <div className="glass border border-border-subtle rounded-2xl p-5 shadow-md bg-bg-surface/40">
-              <span className="text-[10px] uppercase font-bold text-brand tracking-wider block mb-4">Prism Engine</span>
-              <div className="flex gap-4 items-center">
-                {/* Prism visual */}
-                <div className="w-1/3 flex justify-center">
-                  <svg viewBox="0 0 100 100" className="w-16 h-16">
-                    <polygon points="50,15 15,80 85,80" fill="url(#prismGrad)" opacity="0.8" />
-                    <polygon points="50,15 50,80 85,80" fill="url(#prismSideGrad)" opacity="0.6" />
-                    <line x1="50" y1="15" x2="15" y2="80" stroke="var(--color-accent)" strokeWidth="1.5" />
-                    <line x1="50" y1="15" x2="85" y2="80" stroke="var(--color-accent)" strokeWidth="1.5" />
-                    <line x1="15" y1="80" x2="85" y2="80" stroke="var(--color-primary)" strokeWidth="1.5" />
-                    <line x1="50" y1="15" x2="50" y2="80" stroke="var(--color-text-primary)" strokeWidth="1" strokeDasharray="2 2" opacity="0.4" />
-                    <defs>
-                      <linearGradient id="prismGrad" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0%" stopColor="var(--color-primary)" />
-<stop offset="100%" stopColor="var(--color-accent)" />
-                      </linearGradient>
-                      <linearGradient id="prismSideGrad" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0%" stopColor="var(--color-accent)" />
-                        <stop offset="100%" stopColor="var(--color-accent)" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
+            {/* Sidebar */}
+            <div className="w-[40px] md:w-[52px] h-full flex flex-col items-center py-3 border-r border-border-subtle bg-bg-surface shrink-0">
+              <div className="w-5 h-5 rounded-md bg-brand flex items-center justify-center shadow-glow-primary mb-5 transition-colors duration-500">
+                <Activity className="w-3.5 h-3.5 text-white" />
+              </div>
+              <div className="flex flex-col gap-3">
+                <div className="p-1 rounded-md bg-brand/10 text-brand transition-colors duration-500">
+                  <LayoutDashboard className="w-3.5 h-3.5" />
                 </div>
-                {/* Capabilities list */}
-                <div className="w-2/3 flex flex-col gap-2.5 text-left border-l border-border-subtle pl-4">
-                  {[
-                    "Data Collection",
-                    "Processing",
-                    "Analytics",
-                    "Visualization",
-                    "Exports & APIs"
-                  ].map((text, i) => (
-                    <div key={i} className="flex items-center gap-2 text-[11px] text-text-brand/95 font-medium">
-                      <span className="w-1.5 h-1.5 rounded-full bg-brand"></span>
-                      <span>{text}</span>
+                <div className="p-1 text-text-muted hover:text-text-primary transition-colors cursor-pointer">
+                  <Users className="w-3.5 h-3.5" />
+                </div>
+                <div className="p-1 text-text-muted hover:text-text-primary transition-colors cursor-pointer">
+                  <CreditCard className="w-3.5 h-3.5" />
+                </div>
+                <div className="p-1 text-text-muted hover:text-text-primary transition-colors cursor-pointer">
+                  <Settings className="w-3.5 h-3.5" />
+                </div>
+              </div>
+            </div>
+
+            {/* Main Content Area */}
+            <div className="flex-1 flex flex-col min-w-0 bg-bg-base transition-colors duration-500">
+              {/* Header */}
+              <div className="h-10 px-3 md:px-5 border-b border-border-subtle flex items-center justify-between bg-bg-surface shrink-0 transition-colors duration-500">
+                <div className="flex items-center gap-3">
+                  <div className="relative hidden sm:block text-text-muted">
+                    <Search className="w-3 h-3 absolute left-1.5 top-1/2 -translate-y-1/2" />
+                    <input 
+                      disabled
+                      placeholder="Search..." 
+                      className="pl-6 pr-2 py-0.5 rounded-sm bg-bg-elevated border border-border-subtle text-[10px] w-28 text-text-primary transition-colors duration-500"
+                    />
+                  </div>
+                  <span className="sm:hidden font-semibold text-text-primary text-xs">Dashboard</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="text-text-muted hover:text-text-primary cursor-pointer relative">
+                    <Bell className="w-3.5 h-3.5" />
+                    <div className="absolute top-0 right-0 w-1.5 h-1.5 bg-brand rounded-full border border-bg-surface transition-colors duration-500" />
+                  </div>
+                  <div className="w-5 h-5 rounded-full bg-accent text-bg-base flex items-center justify-center font-bold text-[9px] shadow-sm transition-colors duration-500">
+                    {activeTheme.name.substring(0, 2).toUpperCase()}
+                  </div>
+                </div>
+              </div>
+
+              {/* Dashboard Content */}
+              <div className="p-3 md:p-5 flex-1 overflow-y-auto">
+                <div className="flex items-center justify-between mb-3">
+                  <div>
+                    <h2 className="text-base font-bold text-text-primary transition-colors duration-500">Overview</h2>
+                    <p className="text-[10px] text-text-secondary mt-0.5 transition-colors duration-500">Welcome back to your analytics.</p>
+                  </div>
+                  <div className="px-1.5 py-0.5 rounded-sm bg-bg-surface border border-border-subtle text-[10px] font-medium text-text-primary shadow-sm hidden sm:block transition-colors duration-500">
+                    Last 30 Days <ChevronRight className="w-2.5 h-2.5 inline-block ml-0.5 opacity-50" />
+                  </div>
+                </div>
+
+                {/* KPIs */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 md:gap-3 mb-3">
+                  {/* KPI 1 */}
+                  <div className="p-3 rounded-md border border-border-subtle bg-bg-surface shadow-sm transition-colors duration-500">
+                    <span className="text-[9px] font-semibold text-text-muted uppercase tracking-wider">Total Revenue</span>
+                    <div className="mt-1 flex items-baseline gap-1.5">
+                      <span className="text-base font-bold text-text-primary transition-colors duration-500">$124,500</span>
+                      <span className="text-[9px] font-bold text-status-success bg-status-success/10 px-1 py-0.5 rounded-sm transition-colors duration-500">+14.2%</span>
                     </div>
-                  ))}
+                  </div>
+                  {/* KPI 2 */}
+                  <div className="p-3 rounded-md border border-border-subtle bg-bg-surface shadow-sm transition-colors duration-500">
+                    <span className="text-[9px] font-semibold text-text-muted uppercase tracking-wider">Active Users</span>
+                    <div className="mt-1 flex items-baseline gap-1.5">
+                      <span className="text-base font-bold text-text-primary transition-colors duration-500">45.2K</span>
+                      <span className="text-[9px] font-bold text-status-success bg-status-success/10 px-1 py-0.5 rounded-sm transition-colors duration-500">+8.1%</span>
+                    </div>
+                  </div>
+                  {/* KPI 3 */}
+                  <div className="p-3 rounded-md border border-border-subtle bg-bg-surface shadow-sm hidden sm:block transition-colors duration-500">
+                    <span className="text-[9px] font-semibold text-text-muted uppercase tracking-wider">Avg Session</span>
+                    <div className="mt-1 flex items-baseline gap-1.5">
+                      <span className="text-base font-bold text-text-primary transition-colors duration-500">4m 12s</span>
+                      <span className="text-[9px] font-bold text-status-warning bg-status-warning/10 px-1 py-0.5 rounded-sm transition-colors duration-500">-1.2%</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Big Chart Area */}
+                <div className="p-3 rounded-md border border-border-subtle bg-bg-surface shadow-sm flex-1 min-h-[120px] md:min-h-[160px] flex flex-col transition-colors duration-500">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-semibold text-text-primary transition-colors duration-500">User Growth</span>
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1">
+                        <div className="w-1.5 h-1.5 rounded-full bg-brand transition-colors duration-500" />
+                        <span className="text-[9px] text-text-secondary transition-colors duration-500">Current</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <div className="w-1.5 h-1.5 rounded-full bg-accent transition-colors duration-500" />
+                        <span className="text-[9px] text-text-secondary transition-colors duration-500">Previous</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* SVG Chart Graphic */}
+                  <div className="flex-1 w-full relative">
+                    <svg viewBox="0 0 500 150" className="w-full h-full" preserveAspectRatio="none">
+                      <defs>
+                        {/* Current Gradient */}
+                        <linearGradient id="chartGradientBrand" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="var(--color-primary)" stopOpacity="0.25" />
+                          <stop offset="100%" stopColor="var(--color-primary)" stopOpacity="0.0" />
+                        </linearGradient>
+                      </defs>
+                      
+                      {/* Grid Lines */}
+                      <path d="M 0 37.5 L 500 37.5" stroke="var(--color-border-subtle)" strokeWidth="1" strokeDasharray="4 4" className="transition-colors duration-500" />
+                      <path d="M 0 75 L 500 75" stroke="var(--color-border-subtle)" strokeWidth="1" strokeDasharray="4 4" className="transition-colors duration-500" />
+                      <path d="M 0 112.5 L 500 112.5" stroke="var(--color-border-subtle)" strokeWidth="1" strokeDasharray="4 4" className="transition-colors duration-500" />
+                      
+                      {/* Previous line (Accent) */}
+                      <path 
+                        d="M 0 120 Q 80 110 150 90 T 300 70 T 450 50 L 500 45" 
+                        fill="none" 
+                        stroke="var(--color-accent)" 
+                        strokeWidth="1.5" 
+                        strokeLinecap="round" 
+                        strokeDasharray="4 4"
+                        className="opacity-60 transition-colors duration-500"
+                      />
+
+                      {/* Current Fill & Line (Brand) */}
+                      <path 
+                        d="M 0 100 Q 100 80 200 60 T 350 40 T 500 15 L 500 150 L 0 150 Z" 
+                        fill="url(#chartGradientBrand)" 
+                      />
+                      <path 
+                        d="M 0 100 Q 100 80 200 60 T 350 40 T 500 15" 
+                        fill="none" 
+                        stroke="var(--color-primary)" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        className="transition-colors duration-500"
+                      />
+                      
+                      {/* Data Point */}
+                      <circle cx="350" cy="40" r="3" fill="var(--color-bg-surface)" stroke="var(--color-primary)" strokeWidth="1.5" className="transition-colors duration-500" />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </div>
           </motion.div>
-
-          {/* Right Node: Retail SaaS */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.32, 0.72, 0, 1] as const }}
-            className="z-10 w-full max-w-[330px]"
-          >
-            <div className="text-center mb-3">
-              <span className="text-[10px] uppercase font-bold text-status-success bg-status-success/10 px-2 py-0.5 rounded-full border border-status-success/15">Retail SaaS</span>
-            </div>
-            <div className="w-full aspect-[1.4] scale-95 border border-border-subtle rounded-2xl shadow-[0_15px_30px_rgba(0,0,0,0.5)] overflow-hidden">
-              {renderCardContent(3)}
-            </div>
-          </motion.div>
-
         </div>
       </div>
     </section>
   );
 }
-
-

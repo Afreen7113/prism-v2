@@ -44,7 +44,7 @@ export default function UsageTelemetry() {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Billing Simulator Card */}
           <div className="lg:col-span-4 bg-bg-surface border border-border-subtle p-6 rounded-2xl shadow-sm flex flex-col gap-6">
@@ -52,71 +52,78 @@ export default function UsageTelemetry() {
               <span className="block text-xs font-bold text-text-primary uppercase tracking-wider mb-3 flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-brand" /> Billing Configurator
               </span>
-              <div className="flex gap-1.5 p-1 rounded-xl bg-bg-elevated border border-border-subtle">
-               {(["developer", "growth", "enterprise"] as const).map((tier) => (
-  <Button
-    key={tier}
-    variant={selectedTier === tier ? "primary" : "ghost"}
-    size="sm"
-    onClick={() => setSelectedTier(tier)}
-    className="flex-1 capitalize min-w-0 truncate px-1 sm:px-3"
-  >
-    <span className="truncate w-full">{tier}</span>
-  </Button>
+              <div className="grid grid-cols-3 gap-1 p-1 rounded-xl bg-bg-elevated border border-border-subtle w-full overflow-hidden">
+                {(["developer", "growth", "enterprise"] as const).map((tier) => (
+                  <Button
+                    key={tier}
+                    variant={selectedTier === tier ? "primary" : "ghost"}
+                    size="sm"
+                    onClick={() => setSelectedTier(tier)}
+                    className="w-full capitalize px-1 sm:px-2 whitespace-nowrap text-[11px] sm:text-xs font-semibold h-8"
+                  >
+                    {tier}
+                  </Button>
                 ))}
               </div>
             </div>
 
             {/* Tier details panel */}
-            <div className="bg-bg-elevated/50 rounded-xl border border-border-subtle p-4 flex flex-col gap-3">
-              <div className="flex justify-between items-baseline">
-                <span className="text-xs text-text-secondary font-bold tracking-wide">Monthly Price</span>
-                <span className="text-xl font-bold text-text-primary">{billingConfig[selectedTier].price}</span>
-              </div>
-              <div className="flex justify-between items-baseline border-b border-border-subtle/50 pb-3">
-                <span className="text-xs text-text-secondary font-bold tracking-wide">Usage Limit</span>
-                <span className="text-sm font-semibold text-text-primary">{billingConfig[selectedTier].limit}</span>
+            <div className="bg-bg-elevated/50 rounded-xl border border-border-subtle p-5 sm:p-6 flex flex-col flex-1">
+              <div>
+                <div className="flex justify-between items-baseline mb-4">
+                  <span className="text-xs text-text-secondary font-bold tracking-wide">Monthly Price</span>
+                  <span className="text-xl font-bold text-text-primary">{billingConfig[selectedTier].price}</span>
+                </div>
+                <div className="flex justify-between items-baseline border-b border-border-subtle/50 pb-5 mb-5">
+                  <span className="text-xs text-text-secondary font-bold tracking-wide">Usage Limit</span>
+                  <span className="text-sm font-semibold text-text-primary">{billingConfig[selectedTier].limit}</span>
+                </div>
               </div>
 
-              <div className="flex flex-col gap-2 pt-1">
-                <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">Features Included:</span>
-                {billingConfig[selectedTier].features.map((f, i) => (
-                  <div key={i} className="flex items-center gap-2 text-xs">
-                    <ShieldCheck className="w-3.5 h-3.5 text-status-success shrink-0" />
-                    <span className="text-text-secondary">{f}</span>
-                  </div>
-                ))}
+              <div className="flex flex-col flex-1">
+                <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-4">Features Included:</span>
+                <div className="flex flex-col justify-between flex-1 pb-1">
+                  {billingConfig[selectedTier].features.map((f, i) => (
+                    <div key={i} className="flex items-center gap-3 text-xs py-1">
+                      <ShieldCheck className="w-3.5 h-3.5 text-status-success shrink-0" />
+                      <span className="text-text-secondary font-medium">{f}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Limit usage bars */}
-            <div>
-              <div className="flex justify-between text-xs mb-1.5 font-bold">
-                <span className="text-text-secondary">Current tier limit reached</span>
-                <span className={`${billingConfig[selectedTier].capPct >= 80 ? "text-status-warning" : "text-status-success"}`}>
-                  {billingConfig[selectedTier].capPct}%
-                </span>
+            {/* Bottom Section */}
+            <div className="flex flex-col gap-6 pt-2">
+              {/* Limit usage bars */}
+              <div>
+                <div className="flex justify-between text-xs mb-1.5 font-bold">
+                  <span className="text-text-secondary">Current tier limit reached</span>
+                  <span className={`${billingConfig[selectedTier].capPct >= 80 ? "text-status-warning" : "text-status-success"}`}>
+                    {billingConfig[selectedTier].capPct}%
+                  </span>
+                </div>
+                <div className="w-full bg-bg-elevated border border-border-subtle h-2.5 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full transition-all duration-500 rounded-full ${
+                      billingConfig[selectedTier].capPct >= 80
+                        ? "bg-status-warning"
+                        : "bg-status-success"
+                    }`}
+                    style={{ width: `${billingConfig[selectedTier].capPct}%` }}
+                  />
+                </div>
+                {billingConfig[selectedTier].capPct >= 80 && (
+                  <span className="text-[10px] text-status-warning font-bold flex items-center gap-1 mt-2">
+                    <AlertTriangle className="w-3 h-3" /> Approaching caps. Requests will be throttled.
+                  </span>
+                )}
               </div>
-              <div className="w-full bg-bg-elevated border border-border-subtle h-2.5 rounded-full overflow-hidden">
-                <div
-                  className={`h-full transition-all duration-500 rounded-full ${
-                    billingConfig[selectedTier].capPct >= 80
-                      ? "bg-status-warning"
-                      : "bg-status-success"
-                  }`}
-                  style={{ width: `${billingConfig[selectedTier].capPct}%` }}
-                />
-              </div>
-              {billingConfig[selectedTier].capPct >= 80 && (
-                <span className="text-[10px] text-status-warning font-bold flex items-center gap-1 mt-2">
-                  <AlertTriangle className="w-3 h-3" /> Approaching caps. Requests will be throttled.
-                </span>
-              )}
-            </div>
 
-            <Button className="w-full">
-              Apply Subscription Upgrade
-            </Button>
+              <Button className="w-full">
+                Apply Subscription Upgrade
+              </Button>
+            </div>
           </div>
 
           {/* Telemetry charts */}
@@ -199,6 +206,26 @@ export default function UsageTelemetry() {
                 <h3 className="text-sm font-bold text-text-primary mb-4 flex items-center gap-2">
                   <Clock className="w-4 h-4 text-brand" /> Status Codes
                 </h3>
+                
+                <div className="flex flex-wrap gap-x-3 gap-y-2 mb-4 pb-4 border-b border-border-subtle">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-status-success"></span>
+                    <span className="text-[10px] font-bold text-text-secondary tracking-wide uppercase">2xx Success</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-info"></span>
+                    <span className="text-[10px] font-bold text-text-secondary tracking-wide uppercase">3xx Redirect</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-status-warning"></span>
+                    <span className="text-[10px] font-bold text-text-secondary tracking-wide uppercase">4xx Client Error</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-status-error"></span>
+                    <span className="text-[10px] font-bold text-text-secondary tracking-wide uppercase">5xx Server Error</span>
+                  </div>
+                </div>
+
                 <div className="space-y-3">
                   {[
                     { code: "200 OK", count: "2.4M", color: "text-status-success" },

@@ -117,23 +117,47 @@ export default function ApiKeysPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.05 }}
                   key={item.id} 
-                  className="hover:bg-bg-elevated/50 transition-colors group"
+                  className={`transition-colors group ${
+                    item.status === "Revoked" 
+                      ? "bg-[color-mix(in_srgb,var(--color-error)_4%,transparent)] hover:bg-[color-mix(in_srgb,var(--color-error)_8%,transparent)]" 
+                      : "hover:bg-bg-elevated/50"
+                  }`}
                 >
-                  <td className="px-6 py-4">
-                    <p className="font-semibold text-text-primary">{item.name}</p>
-                    <div className="flex gap-1 mt-1">
-                      {item.scopes.map(s => (
-                        <span key={s} className="text-[10px] px-2 py-0.5 rounded-full bg-bg-base border border-border-subtle text-text-secondary">{s}</span>
-                      ))}
+                  <td className={`px-6 py-4 w-[25%] border-l-[3px] ${
+                    item.status === "Revoked" 
+                      ? "border-[color-mix(in_srgb,var(--color-error)_50%,transparent)]" 
+                      : "border-transparent"
+                  }`}>
+                    <div className="max-w-[140px] sm:max-w-[180px] lg:max-w-[240px]">
+                      <p className="font-semibold text-text-primary truncate" title={item.name}>{item.name}</p>
+                    </div>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {item.scopes.map(s => {
+                        const scopeColors: Record<string, string> = {
+                          "Full Access": "bg-status-warning/10 text-status-warning border-status-warning/20",
+                          "Read Only": "bg-info/10 text-info border-info/20",
+                          "Write": "bg-status-success/10 text-status-success border-status-success/20",
+                        };
+                        const colorClass = scopeColors[s] || "bg-bg-base text-text-secondary border-border-subtle";
+                        return (
+                          <span key={s} className={`text-[10px] px-2 py-0.5 rounded-full border ${colorClass}`}>{s}</span>
+                        );
+                      })}
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className="flex items-center gap-1.5 text-xs text-text-secondary">
-                      {item.environment === "Production" ? <Globe className="w-3.5 h-3.5 text-status-warning" /> : <Shield className="w-3.5 h-3.5 text-text-muted" />}
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase border ${
+                      item.environment === "Production" 
+                        ? "bg-status-warning/10 text-status-warning border-status-warning/20"
+                        : item.environment === "Testing"
+                        ? "bg-info/10 text-info border-info/20"
+                        : "bg-text-muted/10 text-text-secondary border-border-subtle"
+                    }`}>
+                      {item.environment === "Production" ? <Globe className="w-3 h-3" /> : <Shield className="w-3 h-3" />}
                       {item.environment}
                     </span>
                   </td>
-                  <td className="px-6 py-4 font-mono text-text-secondary text-xs">
+                  <td className="px-6 py-4 font-mono text-text-secondary text-xs whitespace-nowrap">
                     <div className="flex items-center gap-2">
                       <span>{item.status === "Active" ? item.key.slice(0, 8) + "••••••••••••" : "••••••••••••••••"}</span>
                       {item.status === "Active" && (
@@ -147,11 +171,11 @@ export default function ApiKeysPage() {
                       )}
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-xs">
+                  <td className="px-6 py-4 text-xs whitespace-nowrap">
                     <p className="text-text-primary">{item.created}</p>
                     <p className="text-text-muted mt-0.5">{item.lastUsed}</p>
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase border ${
                       item.status === "Active" 
                         ? "bg-status-success/10 text-status-success border-status-success/20" 

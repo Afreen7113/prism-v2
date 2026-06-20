@@ -9,6 +9,8 @@ import {
   Code2,
   Palette,
   Layers,
+  ArrowRight,
+  ArrowDown,
 } from 'lucide-react'
 import { type ReactNode } from 'react'
 import { Button } from "@/components/ui/Button";
@@ -144,21 +146,21 @@ const tokenColumns: TokenColumn[] = [
     title: 'Primitive Tokens',
     description:
       "Raw design values — colors, spacing, fonts — that form your brand's visual foundation.",
-    code: `--color-blue-500: var(--color-accent);\n--space-unit: 4px;\n--font-body: 'Inter';`,
+    code: `--color-primary\n--color-surface\n--color-accent\n--color-text`,
   },
   {
     icon: <Layers className="w-5 h-5 text-brand" />,
     title: 'Semantic Tokens',
     description:
       'Purpose-driven aliases that map primitives to UI roles, ensuring consistency across every component.',
-    code: `--color-primary: var(--color-blue-500);\n--color-surface: var(--color-slate-900);\n--radius-card: calc(var(--space-unit) * 3);`,
+    code: `--semantic-brand\n--semantic-surface\n--semantic-border\n--semantic-text-primary\n--semantic-text-secondary`,
   },
   {
     icon: <Code2 className="w-5 h-5 text-emerald-400" />,
     title: 'Component Tokens',
     description:
       'Scoped overrides for individual elements, giving you pixel-perfect control without breaking the system.',
-    code: `--btn-bg: var(--color-primary);\n--btn-radius: var(--radius-card);\n--card-shadow: 0 4px 24px rgba(0,0,0,0.12);`,
+    code: `--button-primary-bg\n--chart-primary-stroke\n--card-border\n--sidebar-surface`,
   },
 ]
 
@@ -200,9 +202,7 @@ export default function ThemeEngine() {
           </h2>
 
           <p className="max-w-[600px] mx-auto text-center text-[var(--prism-site-text-secondary)] text-base leading-relaxed">
-            The same Prism dashboard, customized to feel native inside any
-            product. See how design teams use our 3-layer token system to match
-            their brand perfectly.
+            The same Prism dashboard, customized to feel native inside any product. Same dashboard. Different themes. Powered by token overrides.
           </p>
         </div>
 
@@ -295,7 +295,15 @@ export default function ThemeEngine() {
         </div>
 
         {/* ---- TOKEN SYSTEM EXPLAINER ---- */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mt-24 text-center">
+          <p className="text-brand text-[13px] uppercase tracking-[0.15em] font-bold mb-4">
+            WHITE-LABEL TOKEN ARCHITECTURE
+          </p>
+          <h3 className="font-semibold text-xl md:text-2xl text-[var(--prism-site-text)] mb-4 max-w-2xl mx-auto">
+            Swap token values once. Every chart, card, dashboard, and interaction automatically adapts.
+          </h3>
+        </div>
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
           {tokenColumns.map((col, i) => (
             <motion.div
               key={col.title}
@@ -320,6 +328,26 @@ export default function ThemeEngine() {
             </motion.div>
           ))}
         </div>
+
+        {/* Token Flow Visualization */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-12 flex flex-col md:flex-row items-center justify-center gap-4 text-sm font-semibold text-[var(--prism-site-text-secondary)]"
+        >
+          <div className="px-4 py-2 rounded-md bg-bg-surface border border-border-subtle shadow-sm text-text-primary">Primitive Tokens</div>
+          <ArrowRight className="w-4 h-4 hidden md:block text-brand" />
+          <ArrowDown className="w-4 h-4 md:hidden text-brand" />
+          <div className="px-4 py-2 rounded-md bg-bg-surface border border-border-subtle shadow-sm text-text-primary">Semantic Tokens</div>
+          <ArrowRight className="w-4 h-4 hidden md:block text-brand" />
+          <ArrowDown className="w-4 h-4 md:hidden text-brand" />
+          <div className="px-4 py-2 rounded-md bg-bg-surface border border-border-subtle shadow-sm text-text-primary">Component Tokens</div>
+          <ArrowRight className="w-4 h-4 hidden md:block text-brand" />
+          <ArrowDown className="w-4 h-4 md:hidden text-brand" />
+          <div className="px-4 py-2 rounded-md bg-brand text-white shadow-md">Dashboard UI</div>
+        </motion.div>
       </div>
     </section>
   )

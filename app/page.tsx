@@ -1,7 +1,7 @@
 import Navbar from "@/components/sections/navbar";
 import Hero from "@/components/sections/hero";
 import LogoMarquee from "@/components/sections/LogoMarquee";
-import LegoSection from "@/components/sections/LegoSection";
+import ComponentsSection from "@/components/sections/ComponentsSection";
 import ProblemSection from "@/components/sections/ProblemSection";
 import BentoGrid from "@/components/sections/BentoGrid";
 import ThemeEngine from "@/components/sections/ThemeEngine";
@@ -21,7 +21,7 @@ export default function Home() {
       <main className="flex-1 flex flex-col relative">
         <Hero />
         <LogoMarquee />
-        <LegoSection />
+        <ComponentsSection />
         <ProblemSection />
         <BentoGrid />
         <ThemeEngine />
