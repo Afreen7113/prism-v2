@@ -373,20 +373,20 @@ export default function TokenArchitecture() {
           {/* ROW 3: Architecture Metrics */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[1000px] mx-auto w-full">
             <div className="bg-bg-elevated border border-border-subtle rounded-xl p-6 text-center shadow-sm flex flex-col items-center justify-center aspect-video md:aspect-auto h-[120px]">
-              <div className="text-3xl font-bold text-brand mb-1">50+</div>
+              <div className="text-3xl font-bold text-text-primary mb-1">50+</div>
               <div className="text-[10px] sm:text-xs font-bold text-text-muted uppercase tracking-wider">Primitive Tokens</div>
             </div>
             <div className="bg-bg-elevated border border-border-subtle rounded-xl p-6 text-center shadow-sm flex flex-col items-center justify-center aspect-video md:aspect-auto h-[120px]">
-              <div className="text-3xl font-bold text-brand mb-1">120+</div>
+              <div className="text-3xl font-bold text-text-primary mb-1">120+</div>
               <div className="text-[10px] sm:text-xs font-bold text-text-muted uppercase tracking-wider">Semantic Tokens</div>
             </div>
             <div className="bg-bg-elevated border border-border-subtle rounded-xl p-6 text-center shadow-sm flex flex-col items-center justify-center aspect-video md:aspect-auto h-[120px]">
               <div className="text-3xl font-bold text-brand mb-1">300+</div>
-              <div className="text-[10px] sm:text-xs font-bold text-text-muted uppercase tracking-wider">Component Tokens</div>
+              <div className="text-[10px] sm:text-xs font-bold text-brand/70 uppercase tracking-wider">Component Tokens</div>
             </div>
             <div className="bg-bg-elevated border border-border-subtle rounded-xl p-6 text-center shadow-sm flex flex-col items-center justify-center aspect-video md:aspect-auto h-[120px]">
               <div className="text-3xl font-bold text-brand mb-1">100%</div>
-              <div className="text-[10px] sm:text-xs font-bold text-text-muted uppercase tracking-wider">UI Adaptation</div>
+              <div className="text-[10px] sm:text-xs font-bold text-brand/70 uppercase tracking-wider">UI Adaptation</div>
             </div>
           </div>
 

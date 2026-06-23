@@ -219,27 +219,27 @@ export default function EmbeddableIsolation() {
         <div className="max-w-[900px] mx-auto bg-bg-surface border border-border-subtle rounded-[20px] p-5 md:p-6 shadow-sm mb-6 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-border-subtle/60">
            {/* Metric 1 */}
            <div className="flex flex-col items-center justify-center flex-1 w-full py-2 md:py-0">
-             <div className="text-3xl md:text-4xl font-[900] text-brand mb-1 tracking-tight leading-none">1</div>
+             <div className="text-3xl md:text-4xl font-[900] text-text-primary mb-1 tracking-tight leading-none">1</div>
              <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-text-secondary text-center">Component Source</div>
            </div>
            {/* Metric 2 */}
            <div className="flex flex-col items-center justify-center flex-1 w-full py-2 md:py-0">
-             <div className="text-3xl md:text-4xl font-[900] text-brand mb-1 tracking-tight leading-none">2</div>
+             <div className="text-3xl md:text-4xl font-[900] text-text-primary mb-1 tracking-tight leading-none">2</div>
              <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-text-secondary text-center">Host Applications</div>
            </div>
            {/* Metric 3 */}
            <div className="flex flex-col items-center justify-center flex-1 w-full py-2 md:py-0">
-             <div className="text-3xl md:text-4xl font-[900] text-brand mb-1 tracking-tight leading-none">0</div>
+             <div className="text-3xl md:text-4xl font-[900] text-text-primary mb-1 tracking-tight leading-none">0</div>
              <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-text-secondary text-center">Component Rewrites</div>
            </div>
            {/* Metric 4 */}
            <div className="flex flex-col items-center justify-center flex-1 w-full py-2 md:py-0">
-             <div className="text-3xl md:text-4xl font-[900] text-brand mb-1 tracking-tight leading-none">0</div>
+             <div className="text-3xl md:text-4xl font-[900] text-text-primary mb-1 tracking-tight leading-none">0</div>
              <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-text-secondary text-center">CSS Conflicts</div>
            </div>
            {/* Metric 5 */}
            <div className="flex flex-col items-center justify-center flex-1 w-full py-2 md:py-0">
-             <div className="text-3xl md:text-4xl font-[900] text-brand mb-1 tracking-tight leading-none">100%</div>
+             <div className="text-3xl md:text-4xl font-[900] mb-1 tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-brand to-accent">100%</div>
              <div className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-text-secondary text-center">Host Isolation</div>
            </div>
         </div>

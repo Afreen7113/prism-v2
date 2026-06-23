@@ -188,8 +188,6 @@ export default function Hero() {
               href="#api"
               className="group relative inline-flex items-center gap-2 px-8 py-3.5 font-bold text-text-on-primary rounded-lg bg-brand shadow-xl shadow-brand/20 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand/30 active:scale-[0.98] transition-all duration-300 overflow-hidden min-h-[52px]"
             >
-              {/* Local contrast correction overlay to ensure bg-brand meets 4.5:1 against text-text-on-primary without altering global tokens */}
-              <div className="absolute inset-0 bg-black/20 pointer-events-none transition-colors duration-300 group-hover:bg-black/15 z-0" />
               <motion.span
                 initial={{ x: "-150%" }}
                 animate={{ x: "150%" }}
@@ -200,12 +198,10 @@ export default function Hero() {
                   ease: "linear",
                   repeatDelay: 1.5,
                 }}
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 pointer-events-none z-10"
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 pointer-events-none"
               />
-              <span className="relative z-20 flex items-center gap-2">
-                View the API
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </span>
+              View the API
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
 
             <Link

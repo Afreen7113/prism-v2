@@ -150,7 +150,11 @@ export default function ProblemSection() {
                 </div>
                 
                 {/* Massive Number */}
-                <div className="text-3xl sm:text-4xl font-bold tracking-[-0.04em] leading-none mb-2.5 text-brand">
+                <div className="text-3xl sm:text-4xl font-bold tracking-[-0.04em] leading-none mb-2.5 gradient-text"
+                  style={{
+                    backgroundImage: "linear-gradient(120deg, var(--color-primary), var(--color-accent), var(--color-accent))",
+                  }}
+                >
                   <CardCounter target={card.target} prefix={card.prefix} suffix={card.suffix} />
                 </div>
 

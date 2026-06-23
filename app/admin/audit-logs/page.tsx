@@ -125,7 +125,7 @@ export default function AuditLogsPage() {
                   key={log.id} 
                   className={`transition-colors group ${
                     log.status === "Failed" 
-                      ? "bg-[color-mix(in_srgb,var(--color-error)_8%,transparent)] hover:bg-[color-mix(in_srgb,var(--color-error)_12%,transparent)]" 
+                      ? "bg-[color-mix(in_srgb,var(--color-error)_4%,transparent)] hover:bg-[color-mix(in_srgb,var(--color-error)_8%,transparent)]" 
                       : "hover:bg-bg-elevated/50"
                   }`}
                 >

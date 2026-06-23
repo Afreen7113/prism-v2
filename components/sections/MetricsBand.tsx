@@ -129,84 +129,84 @@ export default function MetricsBand() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           
           {/* Stat 1 */}
-          <div className="flex flex-col items-center bg-[color-mix(in_srgb,var(--color-brand)_2%,var(--color-bg-surface))] border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group">
+          <div className="flex flex-col items-center bg-[color-mix(in_srgb,var(--color-brand)_2%,var(--color-bg-surface))] border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-2xl p-5 sm:p-6 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-b from-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-            <div className="w-12 h-12 rounded-full flex items-center justify-center bg-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] border border-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:border-[color-mix(in_srgb,var(--color-brand)_20%,transparent)] transition-colors duration-300 mb-6">
-              <Building2 className="w-5 h-5 text-brand opacity-80" />
+            <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] border border-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:border-[color-mix(in_srgb,var(--color-brand)_20%,transparent)] transition-colors duration-300 mb-4">
+              <Building2 className="w-4 h-4 text-brand opacity-80" />
             </div>
-            <span className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.05em] leading-none mb-4 text-brand text-center flex justify-center">
+            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.04em] leading-none mb-2 gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] bg-gradient-to-r from-brand to-accent text-center flex justify-center">
               <AnimatedNumber
                 target={2400}
                 format={(n) => Math.round(n).toLocaleString() + "+"}
               />
             </span>
-            <span className="text-xs sm:text-sm font-bold text-text-brand mb-1.5 tracking-[0.1em] uppercase">
+            <span className="text-[11px] sm:text-xs font-bold text-text-brand mb-1 tracking-[0.1em] uppercase">
               Active Customers
             </span>
-            <span className="text-sm text-text-secondary font-medium text-center">
+            <span className="text-xs sm:text-sm text-text-secondary font-medium text-center">
               Trust Prism in production
             </span>
           </div>
 
           {/* Stat 2 */}
-          <div className="flex flex-col items-center bg-[color-mix(in_srgb,var(--color-brand)_2%,var(--color-bg-surface))] border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group">
+          <div className="flex flex-col items-center bg-[color-mix(in_srgb,var(--color-brand)_2%,var(--color-bg-surface))] border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-2xl p-5 sm:p-6 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-b from-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-            <div className="w-12 h-12 rounded-full flex items-center justify-center bg-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] border border-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:border-[color-mix(in_srgb,var(--color-brand)_20%,transparent)] transition-colors duration-300 mb-6">
-              <Activity className="w-5 h-5 text-brand opacity-80" />
+            <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] border border-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:border-[color-mix(in_srgb,var(--color-brand)_20%,transparent)] transition-colors duration-300 mb-4">
+              <Activity className="w-4 h-4 text-brand opacity-80" />
             </div>
-            <span className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.05em] leading-none mb-4 text-brand text-center flex justify-center">
+            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.04em] leading-none mb-2 gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] bg-gradient-to-r from-brand to-accent text-center flex justify-center">
               <AnimatedNumber
                 target={180}
                 format={(n) => Math.round(n) + "M"}
               />
             </span>
-            <span className="text-xs sm:text-sm font-bold text-text-brand mb-1.5 tracking-[0.1em] uppercase">
+            <span className="text-[11px] sm:text-xs font-bold text-text-brand mb-1 tracking-[0.1em] uppercase">
               Events Processed
             </span>
-            <span className="text-sm text-text-secondary font-medium text-center">
-              Across all tenant deployments
+            <span className="text-xs sm:text-sm text-text-secondary font-medium text-center">
+              Across all deployments
             </span>
           </div>
 
           {/* Stat 3 */}
-          <div className="flex flex-col items-center bg-[color-mix(in_srgb,var(--color-brand)_2%,var(--color-bg-surface))] border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group">
+          <div className="flex flex-col items-center bg-[color-mix(in_srgb,var(--color-brand)_2%,var(--color-bg-surface))] border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-2xl p-5 sm:p-6 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-b from-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-            <div className="w-12 h-12 rounded-full flex items-center justify-center bg-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] border border-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:border-[color-mix(in_srgb,var(--color-brand)_20%,transparent)] transition-colors duration-300 mb-6">
-              <Zap className="w-5 h-5 text-brand opacity-80" />
+            <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] border border-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:border-[color-mix(in_srgb,var(--color-brand)_20%,transparent)] transition-colors duration-300 mb-4">
+              <Zap className="w-4 h-4 text-brand opacity-80" />
             </div>
-            <span className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.05em] leading-none mb-4 text-brand text-center flex justify-center">
+            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.04em] leading-none mb-2 gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] bg-gradient-to-r from-brand to-accent text-center flex justify-center">
               <AnimatedNumber
                 target={47}
                 format={(n) => Math.round(n) + "ms"}
               />
             </span>
-            <span className="text-xs sm:text-sm font-bold text-text-brand mb-1.5 tracking-[0.1em] uppercase">
+            <span className="text-[11px] sm:text-xs font-bold text-text-brand mb-1 tracking-[0.1em] uppercase">
               Average Latency
             </span>
-            <span className="text-sm text-text-secondary font-medium text-center">
+            <span className="text-xs sm:text-sm text-text-secondary font-medium text-center">
               P95 response time
             </span>
           </div>
 
           {/* Stat 4 */}
-          <div className="flex flex-col items-center bg-[color-mix(in_srgb,var(--color-brand)_2%,var(--color-bg-surface))] border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group">
+          <div className="flex flex-col items-center bg-[color-mix(in_srgb,var(--color-brand)_2%,var(--color-bg-surface))] border border-border-subtle hover:border-[color-mix(in_srgb,var(--color-brand)_30%,transparent)] rounded-2xl p-5 sm:p-6 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-b from-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-            <div className="w-12 h-12 rounded-full flex items-center justify-center bg-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] border border-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:border-[color-mix(in_srgb,var(--color-brand)_20%,transparent)] transition-colors duration-300 mb-6">
-              <ShieldCheck className="w-5 h-5 text-brand opacity-80" />
+            <div className="w-10 h-10 rounded-full flex items-center justify-center bg-[color-mix(in_srgb,var(--color-brand)_5%,transparent)] border border-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-brand)_10%,transparent)] group-hover:border-[color-mix(in_srgb,var(--color-brand)_20%,transparent)] transition-colors duration-300 mb-4">
+              <ShieldCheck className="w-4 h-4 text-brand opacity-80" />
             </div>
-            <span className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.05em] leading-none mb-4 text-brand text-center flex justify-center">
+            <span className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.04em] leading-none mb-2 gradient-text bg-[length:200%_auto] animate-[text-shimmer_8s_ease_infinite] bg-gradient-to-r from-brand to-accent text-center flex justify-center">
               <AnimatedNumber
                 target={99.99}
                 format={(n) => n.toFixed(2) + "%"}
               />
             </span>
-            <span className="text-xs sm:text-sm font-bold text-text-brand mb-1.5 tracking-[0.1em] uppercase">
+            <span className="text-[11px] sm:text-xs font-bold text-text-brand mb-1 tracking-[0.1em] uppercase">
               Uptime SLA
             </span>
-            <span className="text-sm text-text-secondary font-medium text-center">
+            <span className="text-xs sm:text-sm text-text-secondary font-medium text-center">
               Guaranteed availability
             </span>
           </div>
