@@ -92,7 +92,7 @@ export default function Footer() {
                   href={social.href}
                   aria-label={social.label}
                   whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)", color: "var(--color-white)" }}
-                  className="w-9 h-9 bg-bg-base/5 border border-border-subtle flex items-center justify-center rounded-lg text-text-secondary transition-colors duration-300 focus:outline-none"
+                  className="w-11 h-11 bg-bg-base/5 border border-border-subtle flex items-center justify-center rounded-lg text-text-secondary transition-colors duration-300 focus:outline-none"
                 >
                   <svg
                     viewBox="0 0 24 24"
@@ -124,7 +124,7 @@ export default function Footer() {
               <Link
                 key={link}
                 href="#"
-                className="text-sm text-text-secondary hover:text-text-brand transition-colors duration-200 w-fit"
+                    className="text-sm text-text-secondary hover:text-text-brand transition-colors duration-200 w-fit inline-flex items-center min-h-[44px]"
               >
                 {link}
               </Link>
@@ -142,7 +142,7 @@ export default function Footer() {
               <Link
                 key={link}
                 href="#"
-                className="text-sm text-text-secondary hover:text-text-brand transition-colors duration-200 w-fit"
+                    className="text-sm text-text-secondary hover:text-text-brand transition-colors duration-200 w-fit inline-flex items-center min-h-[44px]"
               >
                 {link}
               </Link>
@@ -162,7 +162,7 @@ export default function Footer() {
                 <div key={link} className="flex items-center">
                   <Link
                     href="#"
-                    className="text-sm text-text-secondary hover:text-text-brand transition-colors duration-200 w-fit"
+                        className="text-sm text-text-secondary hover:text-text-brand transition-colors duration-200 w-fit inline-flex items-center min-h-[44px]"
                   >
                     {link}
                   </Link>
@@ -206,11 +206,11 @@ export default function Footer() {
 
         {/* Right - Legal Links */}
         <div className="flex items-center gap-2 text-xs sm:text-sm text-text-muted">
-          <Link href="#" className="hover:text-text-brand transition-colors">Privacy</Link>
+          <Link href="#" className="hover:text-text-brand transition-colors inline-flex items-center min-h-[44px]">Privacy</Link>
           <span>&middot;</span>
-          <Link href="#" className="hover:text-text-brand transition-colors">Terms</Link>
+          <Link href="#" className="hover:text-text-brand transition-colors inline-flex items-center min-h-[44px]">Terms</Link>
           <span>&middot;</span>
-          <Link href="#" className="hover:text-text-brand transition-colors">Security</Link>
+          <Link href="#" className="hover:text-text-brand transition-colors inline-flex items-center min-h-[44px]">Security</Link>
         </div>
 
       </div>

@@ -278,7 +278,7 @@ export default function DeveloperExperience() {
                   <button
                     key={idx}
                     onClick={() => setActiveTab(idx)}
-                    className={`px-5 py-3 text-xs font-mono transition-all duration-300 focus:outline-none border-b-2 ${
+                    className={`px-5 py-3 text-xs font-mono transition-all duration-300 focus:outline-none border-b-2 inline-flex items-center justify-center min-h-[44px] ${
                       isActive
                         ? "text-text-brand border-brand"
                         : "text-text-secondary border-transparent hover:text-text-brand"
@@ -297,7 +297,7 @@ export default function DeveloperExperience() {
               <button
                 aria-label={copied ? "Copied" : "Copy code"}
                 onClick={handleCopy}
-                className="absolute top-4 right-4 p-2 rounded-lg bg-bg-base/5 hover:bg-bg-base/10 text-text-brand transition-all duration-300 focus:outline-none z-20"
+                className="absolute top-4 right-4 p-2 rounded-lg bg-bg-base/5 hover:bg-bg-base/10 text-text-brand transition-all duration-300 focus:outline-none z-20 min-w-[44px] min-h-[44px] inline-flex items-center justify-center"
               >
                 {copied ? <Check className="w-4 h-4 text-status-success" /> : <Clipboard className="w-4 h-4" />}
               </button>

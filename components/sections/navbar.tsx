@@ -80,7 +80,7 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="relative py-2 text-sm text-text-secondary hover:text-text-primary transition-colors duration-300 flex items-center gap-1"
+                className="relative py-2 text-sm text-text-secondary hover:text-text-primary transition-colors duration-300 flex items-center gap-1 min-h-[44px]"
                 onMouseEnter={() => setHoveredIndex(idx)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
@@ -100,20 +100,20 @@ export default function Navbar() {
             {/* Admin Portal Button */}
             <Link
               href="/admin"
-              className="flex items-center gap-2 bg-primary text-text-on-primary px-5 py-2 rounded-lg"
+              className="flex items-center gap-2 bg-primary text-text-on-primary px-5 py-2 rounded-lg min-h-[44px]"
             >
               <LayoutDashboard size={16} />
               Admin Portal
             </Link>
             <Link
               href="/admin"
-              className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-300"
+              className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-300 inline-flex items-center min-h-[44px]"
             >
               Log in
             </Link>
             <Link
               href="#book-demo"
-              className="group relative inline-flex items-center justify-center px-7 py-2 text-sm font-medium text-text-on-primary rounded-lg bg-gradient-to-r from-primary to-tertiary transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
+              className="group relative inline-flex items-center justify-center px-7 py-2 text-sm font-medium text-text-on-primary rounded-lg bg-gradient-to-r from-primary to-tertiary transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98] overflow-hidden min-h-[44px]"
               style={{
                 boxShadow: "var(--shadow-glow-primary)",
               }}
@@ -128,7 +128,7 @@ export default function Navbar() {
           <button
   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
   aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-  className="flex md:hidden p-2 text-text-secondary hover:text-text-primary focus:outline-none"
+  className="flex items-center justify-center min-w-[44px] min-h-[44px] md:hidden p-2 text-text-secondary hover:text-text-primary focus:outline-none"
 >
   {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
 </button>
@@ -150,7 +150,7 @@ export default function Navbar() {
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-base font-medium text-text-secondary hover:text-text-primary transition-colors flex items-center gap-1"
+                className="text-base font-medium text-text-secondary hover:text-text-primary transition-colors flex items-center gap-1 min-h-[44px]"
               >
                 <span>{item.name}</span>
               </Link>
@@ -161,7 +161,7 @@ export default function Navbar() {
               <Link
                 href="/admin"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center gap-2 bg-primary text-text-on-primary px-5 py-2 rounded-lg"
+                className="flex items-center gap-2 bg-primary text-text-on-primary px-5 py-2 rounded-lg min-h-[44px]"
               >
                 <LayoutDashboard size={16} />
                 Admin Portal
@@ -169,14 +169,14 @@ export default function Navbar() {
               <Link
                 href="/admin"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="text-center text-sm font-medium text-text-secondary hover:text-text-primary py-2 transition-colors"
+                className="text-center text-sm font-medium text-text-secondary hover:text-text-primary py-2 transition-colors inline-flex justify-center items-center min-h-[44px] w-full"
               >
                 Log in
               </Link>
               <Link
                 href="#book-demo"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-medium text-text-on-primary rounded-lg bg-gradient-to-r from-primary to-tertiary"
+                className="flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-medium text-text-on-primary rounded-lg bg-gradient-to-r from-primary to-tertiary min-h-[44px]"
               >
                 Book a Demo
               </Link>
