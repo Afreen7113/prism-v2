@@ -15,20 +15,36 @@ const faqData: FAQItem[] = [
     answer: "Install our React SDK with 'npm install @prism/react', wrap your app in <PrismProvider />, and drop in components like <Dashboard /> wherever you need analytics. We handle data fetching, caching, rendering, multi-tenant isolation, and real-time updates. Most teams ship their first dashboard in under an hour.",
   },
   {
+    question: "Can Prism be embedded into an existing SaaS platform?",
+    answer: "Yes, this is exactly what Prism was built for. Unlike standalone BI tools, Prism is an API-first embedding engine. You drop our React components directly into your existing SaaS application, maintaining your authentication, routing, and user experience. To your customers, it looks like you built a world-class analytics suite from scratch.",
+  },
+  {
     question: "Can I really match my exact brand identity?",
     answer: "Yes. Our theming engine exposes CSS custom properties at three abstraction layers: primitive tokens (raw colors, fonts, spacing), semantic tokens (purpose-mapped like 'primary' or 'success'), and component tokens (scoped to specific components). Designers can match any visual identity — from clinical medical software to vibrant consumer apps — without writing custom CSS.",
   },
   {
-    question: "What about data security and tenant isolation?",
-    answer: "Every customer (tenant) gets fully isolated data with row-level security enforced at the database layer. We're SOC 2 Type II certified, HIPAA-ready, and GDPR compliant. All data is encrypted at rest (AES-256) and in transit (TLS 1.3). We've never had a security breach since founding.",
+    question: "How do token overrides work across multiple brands?",
+    answer: "Prism manages theming via configuration rather than code. When rendering a dashboard, Prism injects a tenant's runtime theme JSON containing primitive, semantic, and component token overrides. This instantly reskins the UI at runtime, allowing massive multi-brand scale with absolutely zero component duplication.",
   },
   {
-    question: "How fast are the queries actually?",
-    answer: "Our column-store database with intelligent multi-layer caching delivers sub-100ms queries for 95% of requests. We've benchmarked at 47ms average latency globally across all p95 measurements. Queries that would take seconds in Postgres complete in milliseconds with us.",
+    question: "Can different tenants use different themes simultaneously?",
+    answer: "Yes. Theming in Prism is tenant-scoped and resolved dynamically at runtime. When an end-user loads a dashboard, Prism fetches their organization's specific design tokens and applies them independently. This allows you to support completely distinct brand experiences concurrently using a single shared component system.",
   },
   {
-    question: "Do you support real-time data updates?",
-    answer: "Yes. Connect data via webhooks, Kafka streams, or our streaming API. Dashboard updates push to clients via WebSocket connections — typical freshness is sub-second. Perfect for monitoring dashboards, live ops, and any use case where stale data is unacceptable.",
+    question: "Do I need to fork components to customize them?",
+    answer: "No. Our configuration-driven architecture and comprehensive token system completely eliminate the need for component forks. You maintain a single, clean codebase while providing infinite visual variations. If a tenant requires structural changes beyond CSS, our slot-based composition model allows you to inject custom React nodes seamlessly.",
+  },
+  {
+    question: "What happens when we launch a new brand?",
+    answer: "Launching a new brand requires zero engineering changes. You simply create a new theme configuration via our Admin UI or REST API, mapping your design tokens to the new brand identity. The moment it's saved, the new theme automatically propagates globally, and existing components adapt instantly for users of that brand.",
+  },
+  {
+    question: "How do theme tokens propagate across the platform?",
+    answer: "Prism manages design semantics through a strict token hierarchy. Changing a primitive or semantic token automatically propagates to all dependent component tokens globally. This ensures perfectly consistent branding across every chart, table, and modal in the UI without ever requiring manual component updates.",
+  },
+  {
+    question: "How is customer data isolated between tenants?",
+    answer: "Beyond standard security, Prism enforces strict logical and physical tenant boundaries through its application-level isolation architecture. Every API request is cryptographically scoped to a specific tenant ID, and data access is structurally confined. This is engineered specifically for the strict compliance requirements of B2B white-label SaaS.",
   },
   {
     question: "Which frameworks and platforms do you support?",
@@ -39,8 +55,8 @@ const faqData: FAQItem[] = [
     answer: "Yes. Our self-serve chart builder lets your end-users drag-and-drop metrics, apply filters, change visualizations, and save custom dashboards — all within your product's UI. You control which metrics are exposed. This typically reduces analytics-related support tickets by 60%+.",
   },
   {
-    question: "What's included in the 14-day free trial?",
-    answer: "Full access to all Growth plan features for 14 days. No credit card required. Up to 10,000 API calls during trial period. You can theme components, build dashboards, test exports — everything. Convert to paid when you're ready to ship to real customers.",
+    question: "Do you support self-hosted deployments?",
+    answer: "Yes. While our cloud deployment is SOC 2 Type II certified and fully managed, we offer robust self-hosted deployment options for enterprise environments. You can deploy Prism entirely within your own VPC to meet strict data sovereignty, air-gapped security, or internal compliance requirements.",
   },
 ];
 

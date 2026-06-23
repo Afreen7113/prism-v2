@@ -83,8 +83,8 @@
   --semantic-glass-bg: rgba(255, 255, 255, 0.75);
   --semantic-glass-border: rgba(15, 23, 42, 0.08);
   --semantic-grid-color: rgba(15, 23, 42, 0.03);
-  --semantic-primary-glow: rgba(79, 70, 229, 0.08);
-  --semantic-border-glow: rgba(79, 70, 229, 0.05);
+  --semantic-primary-glow: color-mix(in srgb, var(--color-primary) 8%, transparent);
+  --semantic-border-glow: color-mix(in srgb, var(--color-primary) 5%, transparent);
 
   --semantic-radius: var(--radius-lg);
   --semantic-font: var(--font-inter);
@@ -136,21 +136,31 @@
   --color-text-muted: var(--semantic-text-muted);
   --color-border-subtle: var(--semantic-border);
   --color-text-primary: var(--semantic-text-primary);
---color-text-secondary: var(--semantic-text-secondary);
---color-chart-axis: #CBD5E1;
+  --color-text-secondary: var(--semantic-text-secondary);
+  --color-chart-axis: #CBD5E1;
 
---color-border-subtle: var(--semantic-border);
-  --color-border-default: var(--color-slate-300);  --color-primary: var(--semantic-primary);
-  --color-primary-hover: var(--color-indigo-600);
+  --color-border-subtle: var(--semantic-border);
+  --color-border-default: var(--color-slate-300);
+  --color-primary: var(--semantic-primary);
+  --color-primary-hover: color-mix(in srgb, var(--color-primary) 85%, black);
   --color-accent: var(--semantic-accent);
-  --color-info: var(--color-sky-700);
+  
+  /* System State Tokens - Intentionally Fixed */
+  --color-info: var(--color-sky-500);
   --color-success: var(--semantic-success);
   --color-warning: var(--color-amber-500);
-  --shadow-glow-primary: 0 0 40px rgba(99, 102, 241, 0.3);
+  --color-red-500: #EF4444;
+  --color-error: var(--color-red-500);
+
+  /* Permission Badge Tokens */
+  --permission-read-text: var(--color-sky-500);
+  --permission-read-bg: color-mix(in srgb, var(--color-sky-500) 15%, transparent);
+  --permission-read-border: color-mix(in srgb, var(--color-sky-500) 25%, transparent);
+
+  --shadow-glow-primary: 0 0 40px color-mix(in srgb, var(--color-primary) 30%, transparent);
   --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-  --color-red-500: #EF4444;
---color-error: var(--color-red-500);
+  --semantic-text-on-primary: var(--color-white);
 }
 
 /* DARK MODE OVERRIDES AT SEMANTIC LAYER */
@@ -171,8 +181,8 @@
     --semantic-glass-bg: rgba(15, 23, 42, 0.7);
     --semantic-glass-border: rgba(255, 255, 255, 0.08);
     --semantic-grid-color: rgba(255, 255, 255, 0.03);
-    --semantic-primary-glow: rgba(79, 70, 229, 0.35);
-    --semantic-border-glow: rgba(79, 70, 229, 0.25);
+    --semantic-primary-glow: color-mix(in srgb, var(--color-primary) 35%, transparent);
+    --semantic-border-glow: color-mix(in srgb, var(--color-primary) 25%, transparent);
   }
 }
 
@@ -193,8 +203,8 @@
   --semantic-glass-bg: rgba(15, 23, 42, 0.7);
   --semantic-glass-border: rgba(255, 255, 255, 0.08);
   --semantic-grid-color: rgba(255, 255, 255, 0.03);
-  --semantic-primary-glow: rgba(79, 70, 229, 0.35);
-  --semantic-border-glow: rgba(79, 70, 229, 0.25);
+  --semantic-primary-glow: color-mix(in srgb, var(--color-primary) 35%, transparent);
+  --semantic-border-glow: color-mix(in srgb, var(--color-primary) 25%, transparent);
 }
 
 @layer base {
@@ -241,10 +251,6 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-  }
-
-  .glow-indigo {
-    box-shadow: 0 0 80px var(--prism-primary-glow);
   }
 
   .noise {

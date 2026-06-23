@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Key, Plus, Search, Filter, Copy, CheckCircle2, 
-  MoreVertical, Shield, Globe 
+  MoreVertical, Shield, Globe, Terminal 
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
@@ -41,7 +41,7 @@ export default function ApiKeysPage() {
   const filteredKeys = keys.filter(k => k.name.toLowerCase().includes(search.toLowerCase()) || k.key.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="p-6 lg:p-10 max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500">
+    <div className="space-y-8 pb-12 animate-in fade-in duration-500">
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -86,7 +86,18 @@ export default function ApiKeysPage() {
             <thead>
               <tr className="border-b border-border-subtle bg-bg-elevated text-text-muted font-semibold text-xs tracking-wider uppercase">
                 <th className="px-6 py-4">Key Name</th>
-                <th className="px-6 py-4">Environment</th>
+                <th className="px-6 py-4">
+                  <div className="flex flex-col">
+                    <span>Environment</span>
+                    <div className="flex items-center gap-1.5 mt-1.5 text-[10px] text-text-muted/80 normal-case tracking-normal font-medium">
+                      <span className="flex items-center gap-0.5"><Globe className="w-2.5 h-2.5" /> Prod</span>
+                      <span className="opacity-50">•</span>
+                      <span className="flex items-center gap-0.5"><Shield className="w-2.5 h-2.5" /> Test</span>
+                      <span className="opacity-50">•</span>
+                      <span className="flex items-center gap-0.5"><Terminal className="w-2.5 h-2.5" /> Dev</span>
+                    </div>
+                  </div>
+                </th>
                 <th className="px-6 py-4">Secret Key</th>
                 <th className="px-6 py-4">Created / Last Used</th>
                 <th className="px-6 py-4">Status</th>
@@ -134,9 +145,9 @@ export default function ApiKeysPage() {
                     <div className="flex flex-wrap gap-1 mt-1">
                       {item.scopes.map(s => {
                         const scopeColors: Record<string, string> = {
-                          "Full Access": "bg-status-warning/10 text-status-warning border-status-warning/20",
-                          "Read Only": "bg-info/10 text-info border-info/20",
-                          "Write": "bg-status-success/10 text-status-success border-status-success/20",
+                          "Full Access": "bg-[color-mix(in_srgb,var(--color-warning)_15%,transparent)] text-status-warning border-[color-mix(in_srgb,var(--color-warning)_25%,transparent)]",
+                          "Read Only": "bg-[var(--permission-read-bg)] text-[var(--permission-read-text)] border-[var(--permission-read-border)]",
+                          "Write": "bg-[color-mix(in_srgb,var(--color-success)_15%,transparent)] text-status-success border-[color-mix(in_srgb,var(--color-success)_25%,transparent)]",
                         };
                         const colorClass = scopeColors[s] || "bg-bg-base text-text-secondary border-border-subtle";
                         return (
@@ -148,12 +159,12 @@ export default function ApiKeysPage() {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase border ${
                       item.environment === "Production" 
-                        ? "bg-status-warning/10 text-status-warning border-status-warning/20"
+                        ? "bg-[color-mix(in_srgb,var(--color-warning)_15%,transparent)] text-status-warning border-[color-mix(in_srgb,var(--color-warning)_25%,transparent)]"
                         : item.environment === "Testing"
-                        ? "bg-info/10 text-info border-info/20"
+                        ? "bg-[color-mix(in_srgb,var(--color-info)_15%,transparent)] text-info border-[color-mix(in_srgb,var(--color-info)_25%,transparent)]"
                         : "bg-text-muted/10 text-text-secondary border-border-subtle"
                     }`}>
-                      {item.environment === "Production" ? <Globe className="w-3 h-3" /> : <Shield className="w-3 h-3" />}
+                      {item.environment === "Production" ? <Globe className="w-3 h-3" /> : item.environment === "Testing" ? <Shield className="w-3 h-3" /> : <Terminal className="w-3 h-3" />}
                       {item.environment}
                     </span>
                   </td>
@@ -178,8 +189,8 @@ export default function ApiKeysPage() {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wide uppercase border ${
                       item.status === "Active" 
-                        ? "bg-status-success/10 text-status-success border-status-success/20" 
-                        : "bg-status-error/10 text-status-error border-status-error/20"
+                        ? "bg-[color-mix(in_srgb,var(--color-success)_15%,transparent)] text-status-success border-[color-mix(in_srgb,var(--color-success)_25%,transparent)]" 
+                        : "bg-[color-mix(in_srgb,var(--color-error)_15%,transparent)] text-status-error border-[color-mix(in_srgb,var(--color-error)_25%,transparent)]"
                     }`}>
                       {item.status}
                     </span>

@@ -365,9 +365,9 @@ function Card4ExportPipeline() {
         <motion.div
           animate={{
             boxShadow: [
-              "0 0 15px rgba(99, 102, 241, 0.3)",
-              "0 0 25px rgba(99, 102, 241, 0.6)",
-              "0 0 15px rgba(99, 102, 241, 0.3)",
+              "0 0 15px var(--semantic-primary-glow)",
+              "0 0 25px var(--semantic-primary-glow)",
+              "0 0 15px var(--semantic-primary-glow)",
             ],
           }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -541,9 +541,9 @@ function Card5NetworkNodes() {
       <motion.div
         animate={{
           boxShadow: [
-            "0 0 15px rgba(99, 102, 241, 0.4)",
-            "0 0 25px rgba(99, 102, 241, 0.8)",
-            "0 0 15px rgba(99, 102, 241, 0.4)",
+            "0 0 15px var(--semantic-primary-glow)",
+            "0 0 25px var(--semantic-primary-glow)",
+            "0 0 15px var(--semantic-primary-glow)",
           ],
         }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -572,9 +572,9 @@ function Card6LatencyDisplay() {
         <motion.div
           animate={{
             textShadow: [
-              "0 0 15px rgba(99, 102, 241, 0.2)",
-              "0 0 25px rgba(99, 102, 241, 0.4)",
-              "0 0 15px rgba(99, 102, 241, 0.2)",
+              "0 0 15px var(--semantic-primary-glow)",
+              "0 0 25px var(--semantic-primary-glow)",
+              "0 0 15px var(--semantic-primary-glow)",
             ],
           }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}

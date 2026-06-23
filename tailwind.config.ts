@@ -11,10 +11,10 @@ const config: Config = {
     extend: {
       colors: {
         // Legacy support mappings
-        "primary-glow": "var(--prism-primary-glow, rgba(99, 102, 241, 0.4))",
-        "secondary": "var(--prism-semantic-accent, #22D3EE)",
+        "primary-glow": "var(--prism-primary-glow)",
+        "secondary": "var(--prism-semantic-accent)",
         "tertiary": "var(--color-accent)",
-        "border-glow": "var(--prism-border-glow, rgba(99, 102, 241, 0.3))",
+        "border-glow": "var(--prism-border-glow)",
         
         // Requested specific mappings
         'bg-base': 'var(--color-bg-base)',

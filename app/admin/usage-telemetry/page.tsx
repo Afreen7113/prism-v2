@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShieldCheck, Download, Activity, Server, Clock, AlertTriangle } from "lucide-react";
+import { ShieldCheck, Download, Activity, Server, Clock, AlertTriangle, ArrowRight } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { Button } from "@/components/ui/Button";
 
@@ -30,7 +30,7 @@ export default function UsageTelemetry() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -10 }}
-        className="flex flex-col gap-8 text-left pb-12 animate-in fade-in duration-500"
+        className="space-y-8 pb-12 animate-in fade-in duration-500"
       >
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
@@ -113,16 +113,39 @@ export default function UsageTelemetry() {
                     style={{ width: `${billingConfig[selectedTier].capPct}%` }}
                   />
                 </div>
-                {billingConfig[selectedTier].capPct >= 80 && (
-                  <span className="text-[10px] text-status-warning font-bold flex items-center gap-1 mt-2">
-                    <AlertTriangle className="w-3 h-3" /> Approaching caps. Requests will be throttled.
-                  </span>
-                )}
               </div>
 
-              <Button className="w-full">
-                Apply Subscription Upgrade
-              </Button>
+              {billingConfig[selectedTier].capPct >= 80 ? (
+                <div className="mt-4 p-3 bg-[color-mix(in_srgb,var(--color-warning)_5%,transparent)] border border-[color-mix(in_srgb,var(--color-warning)_15%,transparent)] rounded-xl flex flex-col gap-2.5">
+                  <div className="flex gap-2">
+                    <AlertTriangle className="w-4 h-4 text-status-warning shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-xs font-bold text-status-warning">
+                        Approaching your plan limit. API requests may be throttled if usage continues to increase.
+                      </p>
+                      <p className="text-[10px] text-status-warning/80 mt-1 font-medium">
+                        <span className="uppercase tracking-wider font-bold mr-1">Recommended Action</span> 
+                        Upgrade your plan to avoid throttling during peak traffic.
+                      </p>
+                    </div>
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    className="w-fit bg-[color-mix(in_srgb,var(--color-warning)_10%,transparent)] text-status-warning border-[color-mix(in_srgb,var(--color-warning)_25%,transparent)] hover:bg-[color-mix(in_srgb,var(--color-warning)_20%,transparent)] hover:text-status-warning hover:border-[color-mix(in_srgb,var(--color-warning)_40%,transparent)] transition-colors shadow-none h-8 text-xs px-3 ml-6"
+                  >
+                    Upgrade Plan <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                  </Button>
+                </div>
+              ) : (
+                <div className="mt-4">
+                  <Button 
+                    variant="outline" 
+                    className="w-full text-text-primary border-border-subtle hover:bg-bg-elevated transition-colors shadow-sm"
+                  >
+                    Upgrade Plan <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
 
@@ -207,35 +230,41 @@ export default function UsageTelemetry() {
                   <Clock className="w-4 h-4 text-brand" /> Status Codes
                 </h3>
                 
-                <div className="flex flex-wrap gap-x-3 gap-y-2 mb-4 pb-4 border-b border-border-subtle">
+                <div className="flex flex-wrap gap-x-4 gap-y-2 mb-5 pb-5 border-b border-border-subtle">
                   <div className="flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-status-success"></span>
-                    <span className="text-[10px] font-bold text-text-secondary tracking-wide uppercase">2xx Success</span>
+                    <span className="text-[10px] font-bold text-status-success tracking-wide uppercase">2xx Success</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-info"></span>
-                    <span className="text-[10px] font-bold text-text-secondary tracking-wide uppercase">3xx Redirect</span>
+                    <span className="text-[10px] font-bold text-info tracking-wide uppercase">3xx Redirect</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-status-warning"></span>
-                    <span className="text-[10px] font-bold text-text-secondary tracking-wide uppercase">4xx Client Error</span>
+                    <span className="text-[10px] font-bold text-status-warning tracking-wide uppercase">4xx Client Error</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-status-error"></span>
-                    <span className="text-[10px] font-bold text-text-secondary tracking-wide uppercase">5xx Server Error</span>
+                    <span className="text-[10px] font-bold text-status-error tracking-wide uppercase">5xx Server Error</span>
                   </div>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {[
-                    { code: "200 OK", count: "2.4M", color: "text-status-success" },
-                    { code: "201 Created", count: "120k", color: "text-status-success" },
-                    { code: "400 Bad Request", count: "8.4k", color: "text-status-warning" },
-                    { code: "429 Too Many Req", count: "2.1k", color: "text-status-warning" },
-                    { code: "500 Server Error", count: "342", color: "text-status-error" },
+                    { code: "200 OK", label: "Success", count: "2.4M", color: "text-status-success", bg: "bg-[color-mix(in_srgb,var(--color-success)_15%,transparent)]" },
+                    { code: "201 Created", label: "Success", count: "120k", color: "text-status-success", bg: "bg-[color-mix(in_srgb,var(--color-success)_15%,transparent)]" },
+                    { code: "304 Not Modified", label: "Redirect", count: "12k", color: "text-info", bg: "bg-[color-mix(in_srgb,var(--color-info)_15%,transparent)]" },
+                    { code: "400 Bad Request", label: "Client Error", count: "8.4k", color: "text-status-warning", bg: "bg-[color-mix(in_srgb,var(--color-warning)_15%,transparent)]" },
+                    { code: "429 Too Many Req", label: "Client Error", count: "2.1k", color: "text-status-warning", bg: "bg-[color-mix(in_srgb,var(--color-warning)_15%,transparent)]" },
+                    { code: "500 Server Error", label: "Server Error", count: "342", color: "text-status-error", bg: "bg-[color-mix(in_srgb,var(--color-error)_15%,transparent)]" },
                   ].map((sc, i) => (
                     <div key={i} className="flex items-center justify-between">
-                      <span className={`font-mono text-xs font-bold ${sc.color}`}>{sc.code}</span>
+                      <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2.5">
+                        <span className={`font-mono text-xs font-bold ${sc.color}`}>{sc.code}</span>
+                        <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold tracking-wide uppercase border border-current opacity-80 ${sc.color} ${sc.bg}`}>
+                          {sc.label}
+                        </span>
+                      </div>
                       <span className="text-xs font-bold text-text-primary">{sc.count}</span>
                     </div>
                   ))}

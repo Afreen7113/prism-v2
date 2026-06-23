@@ -75,7 +75,7 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="p-6 lg:p-10 max-w-5xl mx-auto space-y-8 animate-in fade-in duration-500 pb-24">
+    <div className="space-y-8 pb-12 animate-in fade-in duration-500">
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-6 border-b border-border-subtle">

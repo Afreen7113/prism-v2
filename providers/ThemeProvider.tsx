@@ -53,7 +53,7 @@ const defaultTheme: ThemeState = {
   primaryGlow: "rgba(79, 70, 229, 0.15)",
 };
 
-const presets: Record<string, Partial<ThemeState>> = {
+export const presets: Record<string, Partial<ThemeState>> = {
   "default": {
     themeMode: "dark",
     primaryColor: "var(--color-indigo-500)",
@@ -136,21 +136,29 @@ const presets: Record<string, Partial<ThemeState>> = {
   },
   "developer": {
     themeMode: "dark",
-    primaryColor: "var(--color-success)",
-    accentColor: "#06B6D4",
-    surfaceColor: "#0A0A0A",
-    bgColor: "#050505",
-    textPrimary: "var(--color-slate-50)",
-    textSecondary: "var(--color-slate-300)",
-    textMuted: "var(--color-slate-400)",
-    borderColor: "var(--color-slate-800)",
-    elevatedColor: "#121212",
-    glassBg: "rgba(10, 10, 10, 0.8)",
-    primaryGlow: "rgba(16, 185, 129, 0.3)",
+    primaryColor: "#C86F4A",
+    accentColor: "#A38372",
+    surfaceColor: "#161B22",
+    bgColor: "#0D1117",
+    textPrimary: "#E6EDF3",
+    textSecondary: "#8B949E",
+    textMuted: "#6E7681",
+    borderColor: "#30363D",
+    elevatedColor: "#21262D",
+    glassBg: "rgba(22, 27, 34, 0.8)",
+    primaryGlow: "rgba(200, 111, 74, 0.2)",
     font: "JetBrains Mono",
-    radius: 0,
+    radius: 6,
   }
 };
+
+export const AVAILABLE_PRESETS = [
+  { id: "default", label: "Default", color: "bg-[var(--color-primary)]" },
+  { id: "healthcare", label: "Medical", color: "bg-info" },
+  { id: "fintech", label: "Fintech", color: "bg-status-success" },
+  { id: "consumer", label: "Retail", color: "bg-[var(--color-accent)]" },
+  { id: "developer", label: "Console", color: "bg-[#C86F4A]" },
+];
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 

@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import PrismDashboard from "@/components/PrismDashboard";
-import { useTheme } from "@/providers/ThemeProvider";
+import { useTheme, AVAILABLE_PRESETS } from "@/providers/ThemeProvider";
 
 export default function ThemePlayground() {
   const {
@@ -147,13 +147,7 @@ export default function ThemePlayground() {
               1. Visual Presets (White-Label Demos)
             </span>
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
-              {[
-                { id: "default", label: "Default" },
-                { id: "healthcare", label: "Medical" },
-                { id: "fintech", label: "Fintech" },
-                { id: "consumer", label: "Retail" },
-                { id: "developer", label: "Console" },
-              ].map((p) => (
+              {AVAILABLE_PRESETS.map((p) => (
                 <button
                   key={p.id}
                   onClick={() => applyPreset(p.id)}

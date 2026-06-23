@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, LayoutDashboard, Users, CreditCard, Settings, ChevronRight, Activity, Bell, Search, Check } from "lucide-react";
+import { ArrowRight, Sparkles, LayoutDashboard, Users, CreditCard, Settings, ChevronRight, Activity, Bell, Search } from "lucide-react";
+import { AVAILABLE_PRESETS } from "@/providers/ThemeProvider";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import RevealText from "@/components/ui/RevealText";
@@ -29,6 +30,7 @@ const showcaseThemes: ShowcaseTheme[] = [
       "--color-border-default": "#CBD5E1",
       "--color-success": "#10B981",
       "--color-warning": "#F59E0B",
+      "--semantic-text-on-primary": "#FFFFFF",
     } as React.CSSProperties,
   },
   {
@@ -47,6 +49,7 @@ const showcaseThemes: ShowcaseTheme[] = [
       "--color-border-default": "#334155",
       "--color-success": "#10B981",
       "--color-warning": "#EAB308",
+      "--semantic-text-on-primary": "#FFFFFF",
     } as React.CSSProperties,
   },
   {
@@ -65,6 +68,7 @@ const showcaseThemes: ShowcaseTheme[] = [
       "--color-border-default": "#D1D5DB",
       "--color-success": "#10B981",
       "--color-warning": "#F59E0B",
+      "--semantic-text-on-primary": "#FFFFFF",
     } as React.CSSProperties,
   }
 ];
@@ -73,12 +77,15 @@ export default function Hero() {
   const [activeThemeIndex, setActiveThemeIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
 
+  // Calculate dynamic additional presets count
+  const hiddenPresetsCount = Math.max(0, AVAILABLE_PRESETS.length - showcaseThemes.length);
+
   // Auto-cycle themes
   useEffect(() => {
     if (isHovering) return;
     const interval = setInterval(() => {
       setActiveThemeIndex((prev) => (prev + 1) % showcaseThemes.length);
-    }, 4000);
+    }, 2800);
     return () => clearInterval(interval);
   }, [isHovering]);
 
@@ -156,7 +163,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.3, ease: [0.32, 0.72, 0, 1] as const }}
             className="text-text-secondary text-base md:text-lg max-w-xl leading-relaxed mb-6"
           >
-            Drop a React component. Pass a theme token file. Prism renders inside your product with your branding.
+            Drop a React component. Pass a token file. Done. Prism renders inside your product, adapting to every customer brand without component rewrites.
           </motion.p>
 
           <motion.div
@@ -175,11 +182,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4, ease: [0.32, 0.72, 0, 1] as const }}
-            className="flex flex-wrap gap-4 items-center mb-8 w-full"
+            className="flex flex-wrap gap-4 items-center mb-4 w-full"
           >
             <Link
               href="#api"
-              className="group relative inline-flex items-center gap-2 px-6 py-3 font-semibold text-white rounded-lg bg-brand shadow-md hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 overflow-hidden min-h-[44px]"
+              className="group relative inline-flex items-center gap-2 px-8 py-3.5 font-bold text-text-on-primary rounded-lg bg-brand shadow-xl shadow-brand/20 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand/30 active:scale-[0.98] transition-all duration-300 overflow-hidden min-h-[52px]"
             >
               <motion.span
                 initial={{ x: "-150%" }}
@@ -193,31 +200,26 @@ export default function Hero() {
                 }}
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 pointer-events-none"
               />
-              View API
+              View the API
               <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
 
             <Link
               href="#demo"
-              className="glass group inline-flex items-center justify-center px-6 py-3 font-medium text-text-brand rounded-lg border border-border-subtle hover:border-brand/30 hover:bg-brand/5 transition-all duration-300"
+              className="glass group inline-flex items-center justify-center px-6 py-3.5 font-medium text-text-brand rounded-lg border border-border-subtle/50 hover:border-brand/30 hover:bg-brand/5 transition-all duration-300 min-h-[52px]"
             >
               See it in your brand
             </Link>
           </motion.div>
 
-          {/* Developer Trust Indicators */}
+          {/* Supporting Microcopy */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5, ease: [0.32, 0.72, 0, 1] as const }}
-            className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-medium text-text-secondary mt-2"
+            className="text-xs font-medium text-text-secondary mt-1"
           >
-            {["React SDK", "Multi-Tenant", "Theme Tokens", "Export Ready"].map((item) => (
-              <div key={item} className="flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-success" />
-                <span>{item}</span>
-              </div>
-            ))}
+            Drop a React component. Pass a token file. Done.
           </motion.div>
         </div>
 
@@ -261,13 +263,13 @@ export default function Hero() {
             transition={{ delay: 0.7 }}
             className="text-[10px] text-text-secondary mb-6 block"
           >
-            + 2 additional presets available in Theme Playground
+            + {hiddenPresetsCount} additional preset{hiddenPresetsCount !== 1 ? 's' : ''} available in Theme Playground
           </motion.span>
 
           {/* Scaled Dashboard Container wrapped in motion.div with inline tokens */}
           <motion.div
             animate={activeTheme.tokens as unknown as Record<string, string>}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
             onMouseEnter={() => setIsHovering(true)}
             onMouseLeave={() => setIsHovering(false)}
             className="w-full max-w-[580px] h-[420px] sm:h-[480px] rounded-lg border border-border-subtle shadow-sm flex overflow-hidden bg-bg-base font-sans transform-gpu hover:scale-[1.01] transition-transform duration-500"

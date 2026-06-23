@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Users, CreditCard, ShieldCheck, Palette, 
-  Activity, ArrowUpRight, ArrowDownRight, Server, Clock, AlertTriangle, Zap
+  Users, DollarSign, ShieldCheck, Palette, 
+  Activity, ArrowUpRight, ArrowDownRight, Server, Clock, AlertCircle, Zap
 } from "lucide-react";
 import { ResponsiveContainer, YAxis, Tooltip, Area, AreaChart } from "recharts";
 import { Button } from "@/components/ui/Button";
@@ -38,8 +38,8 @@ export default function AdminOverview() {
               <option>Last 30 days</option>
               <option>Last 90 days</option>
             </select>
-            <Button>
-              Generate Report
+            <Button variant="outline">
+              Export Report
             </Button>
           </div>
         </div>
@@ -48,7 +48,7 @@ export default function AdminOverview() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           <div className="bg-bg-surface p-5 rounded-2xl border border-border-subtle shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center gap-2 mb-2">
-              <CreditCard className="w-4 h-4 text-brand" />
+              <DollarSign className="w-4 h-4 text-brand" />
               <span className="text-[10px] font-bold text-text-secondary uppercase tracking-wider">Revenue</span>
             </div>
             <div className="text-2xl font-bold text-text-primary">$48,291</div>
@@ -75,7 +75,7 @@ export default function AdminOverview() {
 
           <div className="bg-bg-surface p-5 rounded-2xl border border-border-subtle shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center gap-2 mb-2">
-              <AlertTriangle className="w-4 h-4 text-status-warning" />
+              <AlertCircle className="w-4 h-4 text-status-warning" />
               <span className="text-[10px] font-bold text-text-secondary uppercase tracking-wider">Error Rate</span>
             </div>
             <div className="text-2xl font-bold text-text-primary">0.12%</div>
@@ -95,7 +95,7 @@ export default function AdminOverview() {
         {/* Charts Row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Revenue Trend */}
-          <div className="bg-bg-surface p-6 rounded-2xl border border-border-subtle shadow-sm">
+          <div className="bg-bg-surface p-6 rounded-2xl border border-border-subtle shadow-sm min-w-0">
             <h3 className="text-sm font-bold text-text-primary mb-6">Revenue Trend</h3>
             <div className="h-64 w-full min-w-0">
               {mounted && (
@@ -121,7 +121,7 @@ export default function AdminOverview() {
           </div>
 
           {/* Usage Trend */}
-          <div className="bg-bg-surface p-6 rounded-2xl border border-border-subtle shadow-sm">
+          <div className="bg-bg-surface p-6 rounded-2xl border border-border-subtle shadow-sm min-w-0">
             <h3 className="text-sm font-bold text-text-primary mb-6">API Usage Trend</h3>
             <div className="h-64 w-full min-w-0">
               {mounted && (
@@ -180,38 +180,65 @@ export default function AdminOverview() {
           </div>
 
           {/* Quick Actions */}
-          <div className="space-y-4">
+          <div className="space-y-4 flex flex-col h-full">
             <h3 className="text-sm font-bold text-text-primary mb-2 px-1">Quick Actions</h3>
             
-            <Link href="/admin/theme-playground" className="block bg-bg-surface p-4 rounded-2xl border border-border-subtle hover:border-brand/50 hover:bg-bg-elevated transition-colors group">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-brand/10 text-brand rounded-lg"><Palette className="w-5 h-5" /></div>
+            <div className="relative overflow-hidden flex flex-col bg-bg-surface p-5 rounded-2xl border border-border-subtle shadow-sm flex-1">
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-brand/60" />
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2.5 bg-brand/10 text-brand rounded-xl shrink-0"><Palette className="w-5 h-5" /></div>
                 <div>
-                  <h4 className="font-bold text-sm text-text-primary group-hover:text-brand transition-colors">Customize Theme</h4>
+                  <h4 className="font-bold text-sm text-text-primary">Customize Theme</h4>
                   <p className="text-xs text-text-secondary mt-0.5">White-label your dashboards</p>
                 </div>
               </div>
-            </Link>
+              <div className="mt-auto">
+                <Link 
+                  href="/admin/theme-playground" 
+                  className="inline-flex w-full items-center justify-center rounded-xl font-bold transition-all duration-300 bg-bg-elevated text-text-primary border border-border-subtle hover:bg-brand/5 hover:border-brand/30 hover:shadow-sm hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 h-9 px-4 text-xs"
+                >
+                  Customize Theme
+                </Link>
+              </div>
+            </div>
 
-            <Link href="/admin/api-keys" className="block bg-bg-surface p-4 rounded-2xl border border-border-subtle hover:border-brand/50 hover:bg-bg-elevated transition-colors group">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-brand/10 text-brand rounded-lg"><Zap className="w-5 h-5" /></div>
+            <div className="relative overflow-hidden flex flex-col bg-bg-surface p-5 rounded-2xl border border-border-subtle shadow-sm flex-1">
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-status-warning/60" />
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2.5 bg-status-warning/10 text-status-warning rounded-xl shrink-0"><Zap className="w-5 h-5" /></div>
                 <div>
-                  <h4 className="font-bold text-sm text-text-primary group-hover:text-brand transition-colors">Generate API Key</h4>
+                  <h4 className="font-bold text-sm text-text-primary">Generate API Key</h4>
                   <p className="text-xs text-text-secondary mt-0.5">Create keys for new integrations</p>
                 </div>
               </div>
-            </Link>
+              <div className="mt-auto">
+                <Link 
+                  href="/admin/api-keys" 
+                  className="inline-flex w-full items-center justify-center rounded-xl font-bold transition-all duration-300 bg-bg-elevated text-text-primary border border-border-subtle hover:bg-status-warning/5 hover:border-status-warning/30 hover:shadow-sm hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-status-warning focus-visible:ring-offset-2 h-9 px-4 text-xs"
+                >
+                  Generate Key
+                </Link>
+              </div>
+            </div>
 
-            <Link href="/admin/tenant-manager" className="block bg-bg-surface p-4 rounded-2xl border border-border-subtle hover:border-brand/50 hover:bg-bg-elevated transition-colors group">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-brand/10 text-brand rounded-lg"><Users className="w-5 h-5" /></div>
+            <div className="relative overflow-hidden flex flex-col bg-bg-surface p-5 rounded-2xl border border-border-subtle shadow-sm flex-1">
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-status-success/60" />
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2.5 bg-status-success/10 text-status-success rounded-xl shrink-0"><Users className="w-5 h-5" /></div>
                 <div>
-                  <h4 className="font-bold text-sm text-text-primary group-hover:text-brand transition-colors">Manage Tenants</h4>
+                  <h4 className="font-bold text-sm text-text-primary">Manage Tenants</h4>
                   <p className="text-xs text-text-secondary mt-0.5">Add or review customer accounts</p>
                 </div>
               </div>
-            </Link>
+              <div className="mt-auto">
+                <Link 
+                  href="/admin/tenant-manager" 
+                  className="inline-flex w-full items-center justify-center rounded-xl font-bold transition-all duration-300 bg-bg-elevated text-text-primary border border-border-subtle hover:bg-status-success/5 hover:border-status-success/30 hover:shadow-sm hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-status-success focus-visible:ring-offset-2 h-9 px-4 text-xs"
+                >
+                  Manage Tenants
+                </Link>
+              </div>
+            </div>
           </div>
 
         </div>

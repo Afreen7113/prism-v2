@@ -29,7 +29,7 @@ export default function FinalCTA() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.25)_0%,transparent_70%)] pointer-events-none blur-[100px] z-0"
+        className="absolute -top-40 -left-40 w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,var(--semantic-primary-glow)_0%,transparent_70%)] pointer-events-none blur-[100px] z-0"
       />
 
       <motion.div

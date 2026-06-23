@@ -216,7 +216,7 @@ export default function DeveloperExperience() {
             viewport={{ once: true, margin: "-100px" }}
             className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-[-0.04em] leading-[1.05] text-text-brand mb-6"
           >
-            {"Built by developers,".split(" ").map((word, i) => (
+            {"Embed analytics in minutes,".split(" ").map((word, i) => (
               <span key={i} className="inline-block overflow-hidden mr-[0.25em] pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
                 <motion.span variants={wordVariants} className="inline-block">
                   {word}
@@ -229,7 +229,7 @@ export default function DeveloperExperience() {
                 backgroundImage: "var(--gradient-primary)",
               }}
             >
-              {"for developers.".split(" ").map((word, i) => (
+              {"not months.".split(" ").map((word, i) => (
                 <span key={i} className="inline-block overflow-hidden mr-[0.25em] last:mr-0 pb-[0.4em] -mb-[0.4em] pt-[0.1em] -mt-[0.1em]">
                   <motion.span variants={wordVariants} className="inline-block">
                     {word}

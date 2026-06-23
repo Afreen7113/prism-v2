@@ -38,7 +38,7 @@ export default function Navbar() {
         transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
         className={`fixed top-0 left-0 right-0 h-16 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-bg-surface/80 backdrop-blur-20px border-b border-border-subtle shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
+            ? "bg-bg-surface border-b border-border-subtle shadow-sm backdrop-blur-md"
             : "bg-transparent border-b border-transparent"
         }`}
       >
@@ -50,7 +50,7 @@ export default function Navbar() {
               transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
               className="w-8 h-8 flex items-center justify-center cursor-pointer"
             >
-              <svg viewBox="0 0 100 100" className="w-7 h-7 drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]">
+              <svg viewBox="0 0 100 100" className="w-7 h-7 drop-shadow-[0_0_8px_var(--semantic-primary-glow)]">
                 <defs>
                   <linearGradient id="prism-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="var(--color-primary)" />
@@ -115,7 +115,7 @@ export default function Navbar() {
               href="#book-demo"
               className="group relative inline-flex items-center justify-center px-7 py-2 text-sm font-medium text-text-on-primary rounded-lg bg-gradient-to-r from-primary to-tertiary transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
               style={{
-                boxShadow: "0 0 15px rgba(99, 102, 241, 0.3)",
+                boxShadow: "var(--shadow-glow-primary)",
               }}
             >
               {/* Soft Pulsing Ambient Glow Background */}

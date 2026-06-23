@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased font-sans text-text-primary bg-bg-base min-h-screen relative selection:bg-primary/30 selection:text-white">
+      <body className="antialiased font-sans text-text-primary bg-bg-base min-h-screen relative selection:bg-brand selection:text-text-on-primary">
         {/* Noise overlay across entire site */}
         <div className="noise" aria-hidden="true" />
 

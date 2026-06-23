@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Sliders, Check, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTheme } from "@/providers/ThemeProvider";
+import { useTheme, AVAILABLE_PRESETS } from "@/providers/ThemeProvider";
 
 export default function GlobalThemeSelector() {
   const [open, setOpen] = useState(false);
@@ -26,14 +26,7 @@ export default function GlobalThemeSelector() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              {[
-                { id: "default", label: "Default Dark", color: "bg-[var(--color-primary)]" },
-                { id: "default-light", label: "Default Light", color: "bg-bg-base border border-border-default" },
-                { id: "healthcare", label: "Clinical Light", color: "bg-info" },
-                { id: "fintech", label: "Fintech Green", color: "bg-status-success" },
-                { id: "consumer", label: "Retail Pink", color: "bg-[var(--color-accent)]" },
-                { id: "developer", label: "Console Mono", color: "bg-[var(--color-success)]" },
-              ].map((t) => {
+              {AVAILABLE_PRESETS.map((t) => {
                 const isSelected = activePreset === t.id;
                 return (
                   <button

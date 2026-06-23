@@ -141,7 +141,7 @@ export default function ProblemSection() {
                   delay: index * 0.15,
                   ease: [0.32, 0.72, 0, 1],
                 }}
-                whileHover={{ y: -5, scale: 1.02, borderColor: "rgba(99, 102, 241, 0.2)", boxShadow: "0 12px 30px rgba(0,0,0,0.4)" }}
+                whileHover={{ y: -5, scale: 1.02, borderColor: "var(--semantic-primary)", boxShadow: "var(--shadow-glow-primary)" }}
                 className="relative max-w-[420px] w-full bg-bg-elevated/40 glass rounded-[16px] p-5 md:p-6 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300"
               >
                 {/* Top Right Corner Icon */}
@@ -150,11 +150,7 @@ export default function ProblemSection() {
                 </div>
                 
                 {/* Massive Number */}
-                <div className="text-3xl sm:text-4xl font-bold tracking-[-0.04em] leading-none mb-2.5 gradient-text"
-                  style={{
-                    backgroundImage: "linear-gradient(120deg, var(--color-primary), var(--color-accent), var(--color-accent))",
-                  }}
-                >
+                <div className="text-3xl sm:text-4xl font-bold tracking-[-0.04em] leading-none mb-2.5 text-brand">
                   <CardCounter target={card.target} prefix={card.prefix} suffix={card.suffix} />
                 </div>
 

@@ -131,8 +131,8 @@ export default function Testimonials() {
               }}
               whileHover={{
                 y: -6,
-                borderColor: "var(--prism-semantic-primary, rgba(99, 102, 241, 0.3))",
-                boxShadow: "0 0 40px var(--prism-primary-glow, rgba(99, 102, 241, 0.15))",
+                borderColor: "var(--semantic-primary)",
+                boxShadow: "var(--shadow-glow-primary)",
                 scale: 1.02,
               }}
               className="group bg-bg-elevated/60 backdrop-blur-xl border border-border-subtle rounded-[24px] p-8 relative overflow-hidden flex flex-col justify-between min-h-[240px] transition-colors duration-300 text-left"

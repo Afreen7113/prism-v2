@@ -19,11 +19,11 @@ interface Log {
 }
 
 const MOCK_LOGS: Log[] = [
-  { id: "log-1", timestamp: "Oct 12, 14:23:01", user: "sarah.connor@acme.inc", action: "Theme Updated", resource: "Global Config", ip: "192.168.1.104", status: "Success" },
+  { id: "log-1", timestamp: "Oct 12, 14:23:01", user: "sarah.connor@acme.inc", action: "Theme Configuration Updated", resource: "Global Config", ip: "192.168.1.104", status: "Success" },
   { id: "log-2", timestamp: "Oct 12, 14:15:33", user: "system@prism.io", action: "API Key Created", resource: "Auth Service", ip: "10.0.0.1", status: "Success" },
-  { id: "log-3", timestamp: "Oct 12, 12:45:11", user: "john.doe@company.com", action: "Tenant Added", resource: "Tenant Manager", ip: "203.0.113.42", status: "Success" },
-  { id: "log-4", timestamp: "Oct 12, 11:30:05", user: "unknown", action: "Login Attempt", resource: "Authentication", ip: "198.51.100.2", status: "Failed" },
-  { id: "log-5", timestamp: "Oct 11, 09:12:44", user: "admin@prism.io", action: "Settings Updated", resource: "System Prefs", ip: "192.168.1.5", status: "Success" },
+  { id: "log-3", timestamp: "Oct 12, 12:45:11", user: "john.doe@company.com", action: "Multi-Tenant Settings Modified", resource: "Tenant Manager", ip: "203.0.113.42", status: "Success" },
+  { id: "log-4", timestamp: "Oct 12, 11:30:05", user: "unknown", action: "Usage Limit Changed", resource: "Billing", ip: "198.51.100.2", status: "Failed" },
+  { id: "log-5", timestamp: "Oct 11, 09:12:44", user: "admin@prism.io", action: "Subscription Upgraded", resource: "Billing", ip: "192.168.1.5", status: "Success" },
   { id: "log-6", timestamp: "Oct 11, 08:45:21", user: "sarah.connor@acme.inc", action: "User Invited", resource: "Team Roles", ip: "192.168.1.104", status: "Success" },
 ];
 
@@ -38,7 +38,7 @@ export default function AuditLogsPage() {
   );
 
   return (
-    <div className="p-6 lg:p-10 max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500">
+    <div className="space-y-8 pb-12 animate-in fade-in duration-500">
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -142,8 +142,11 @@ export default function AuditLogsPage() {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="max-w-[120px] sm:max-w-[160px]">
-                      <span className="flex items-center justify-center px-2.5 py-1 rounded-md bg-bg-base border border-border-subtle text-xs font-medium text-text-primary whitespace-nowrap truncate" title={log.action}>
+                    <div className="max-w-[160px] sm:max-w-[240px]">
+                      <span 
+                        className="inline-block w-full text-center px-2.5 py-1 rounded-md bg-bg-base border border-border-subtle text-xs font-medium text-text-primary truncate align-middle" 
+                        title={log.action}
+                      >
                         {log.action}
                       </span>
                     </div>

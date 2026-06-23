@@ -3,7 +3,10 @@
 import React, { useState } from "react";
 import { LayoutDashboard, Users, CreditCard, Settings, Sparkles, X, Download, FileText, Loader2, CheckCircle2 } from "lucide-react";
 
+import { presets } from "@/providers/ThemeProvider";
+
 interface PrismDashboardProps {
+  theme?: string;
   themeClass?: string;
   style?: React.CSSProperties;
   hideSidebar?: boolean;
@@ -14,6 +17,7 @@ interface PrismDashboardProps {
 }
 
 export default function PrismDashboard({
+  theme,
   themeClass = "",
   style = {},
   hideSidebar = false,
@@ -31,6 +35,38 @@ export default function PrismDashboard({
     { label: "Active Users", value: "1,847", trend: "+8.2% ↑", isUp: true },
     { label: "Conversion", value: "3.4%", trend: "-0.5% ↓", isUp: false },
   ];
+
+  const presetKey = theme === "medical" ? "healthcare" : theme === "fintech" ? "fintech" : theme;
+  const p = presetKey ? presets[presetKey] : null;
+
+  const resolvedTokens = p ? {
+    "--prism-dashboard-bg": p.surfaceColor,
+    "--prism-dashboard-text": p.textPrimary,
+    "--prism-dashboard-text-secondary": p.textSecondary,
+    "--prism-card-bg": p.elevatedColor,
+    "--prism-card-border": p.borderColor,
+    "--prism-card-radius": p.radius !== undefined ? `${p.radius}px` : "8px",
+    "--prism-chart-primary": p.primaryColor,
+    "--prism-chart-accent": p.accentColor,
+    "--prism-sidebar-bg": p.bgColor,
+    "--prism-sidebar-border": p.borderColor,
+    "--prism-semantic-primary": p.primaryColor,
+    "--prism-semantic-accent": p.accentColor,
+    "--prism-button-bg": p.primaryColor,
+    "--prism-button-text": "#ffffff",
+    "--prism-button-radius": p.radius !== undefined ? `${p.radius}px` : "8px",
+    
+    // Base global overrides to force child Tailwind classes to inherit locally
+    "--color-primary": p.primaryColor,
+    "--color-accent": p.accentColor,
+    "--color-bg-base": p.bgColor,
+    "--color-bg-surface": p.surfaceColor,
+    "--color-bg-elevated": p.elevatedColor,
+    "--color-text-primary": p.textPrimary,
+    "--color-text-secondary": p.textSecondary,
+    "--color-border-subtle": p.borderColor,
+    "--color-success": p.successColor || "var(--color-emerald-500)",
+  } as React.CSSProperties : {};
 
   const handleExport = (type: "csv" | "pdf") => {
     setIsExporting(type);
@@ -53,6 +89,7 @@ export default function PrismDashboard({
     <div
       className={`text-left flex flex-col md:flex-row flex-1 h-auto min-h-[720px] md:min-h-[520px] bg-[var(--prism-dashboard-bg)] text-[var(--prism-dashboard-text)] transition-all duration-300 relative ${themeClass}`}
       style={{
+        ...resolvedTokens,
         fontFamily: "var(--prism-semantic-font), var(--font-inter), sans-serif",
         borderRadius: "var(--prism-card-radius)",
         ...style,
